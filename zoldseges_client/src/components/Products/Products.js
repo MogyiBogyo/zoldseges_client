@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Product from './Product/Product';
 import axios from '../../axios-products';
+import classes from './Products.module.css';
+
 
 class Products extends Component {
     state = {
@@ -26,29 +28,34 @@ class Products extends Component {
             console.log(response);
             const fetchedProducts = [];
             for (let key in response.data) {
-                fetchedCategories.push({
+                fetchedProducts.push({
                     ...response.data[key],
-                    id: key
+                    //id: key
                 });
             }
-            this.setState({ categories: fetchedProducts, loading: false })
+            this.setState({ products: fetchedProducts, loading: false })
         }).catch(function (error) {
             console.log('Error products');
         });
 
     }
 
+
+
     render() {
+        /* let products = this.state.products.map((item, key) =>
+            <li key={item.id}>{item.name}</li>); */
+
         return (
-            <div>
+            <div className={classes.ProductSummary}>
                  {this.state.products.map(product => (
                     <Product
                         key={product.id}
                         id={product.id}
                         name={product.name}
                         category={product.category}
-                        ár={product.price}
-                        isSale={product.sale}
+                        price={product.price}
+                        isSale={product.isSale}
                         salePrice={product.salePrice}
                     />
                 ))}

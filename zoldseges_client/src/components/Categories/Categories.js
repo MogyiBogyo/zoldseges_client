@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../axios-products';
 import Category from './Category/Category';
+import classes from './Categories.module.css';
 
 
 class Categories extends Component {
@@ -36,7 +37,7 @@ class Categories extends Component {
             for (let key in response.data) {
                 fetchedCategories.push({
                     ...response.data[key],
-                    id: key
+                    //id: key
                 });
             }
             this.setState({ categories: fetchedCategories, loading: false })
@@ -46,11 +47,11 @@ class Categories extends Component {
     }
 
     render() {
-        let categories = this.state.categories.map((item, key) =>
-            <li key={item.id}>{item.name}</li>);
+        /* let categories = this.state.categories.map((item, key) =>
+            <li key={item.id}>{item.name}</li>); */
 
         return (
-            <div>
+            <div className={classes.CategorySummary}> 
                 {this.state.categories.map(category => (
                     <Category
                         key={category.id}
