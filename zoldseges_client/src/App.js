@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
-import Plannedorders from './components/PlannedOrders/Plannedorders';
+import Categories from './components/Categories/Categories';
+
 
 function App() {
   return (
     <div className="App">
       <div>Wellcome little grocer</div>
-      <Plannedorders />
+      <Categories />
     </div>
   );
 }

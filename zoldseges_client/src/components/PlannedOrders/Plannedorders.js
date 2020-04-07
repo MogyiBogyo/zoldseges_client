@@ -27,7 +27,7 @@ class Plannedorders extends Component {
             }
             this.setState({ plannedorders: fetchedPlans, loading: false })
         }).catch(function (error) {
-            console.log('Error on stocks');
+            console.log('Error on planned orders');
         });
     }
 

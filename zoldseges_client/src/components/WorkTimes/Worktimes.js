@@ -27,7 +27,7 @@ class Worktimes extends Component {
             }
             this.setState({ worktimes: fetchedWorktimes, loading: false })
         }).catch(function (error) {
-            console.log('Error on stocks');
+            console.log('Error on worktimes');
         });
     }
 
