@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import axios from '../../axios-products';
-import Income from './Income/Income';
+import Plannedorder from './PlannedOrder/Plannedorder';
 
-class Incomes extends Component {
+class Plannedorders extends Component {
     state = {
-        incomes: [],
+        plannedorders: [],
         loading: true
     }
 
     componentDidMount() {
-        axios.get("incomes/", {
+        axios.get("plans/", {
             withCredentials: true,
             headers: {
                 "Accept": "application/json",
@@ -19,13 +19,13 @@ class Incomes extends Component {
 
         }).then(response => {
             console.log(response);
-            const fetchedIncomes = [];
+            const fetchedPlans = [];
             for (let key in response.data) {
-                fetchedIncomes.push({
+                fetchedPlans.push({
                     ...response.data[key]
                 });
             }
-            this.setState({ incomes: fetchedIncomes, loading: false })
+            this.setState({ plannedorders: fetchedPlans, loading: false })
         }).catch(function (error) {
             console.log('Error on stocks');
         });
@@ -34,15 +34,12 @@ class Incomes extends Component {
     render() {
         return (
             <div>
-                {this.state.incomes.map(income => (
-                    <Income
-                        key={income.id}
-                        id={income.id}
-                        seller={income.seller}
-                        date={income.date}
-                        price={income.price}
-                        quantity={income.quantity}
-                        product={income.product}
+                {this.state.plannedorders.map(plan => (
+                    <Plannedorder
+                        key={plan.id}
+                        id={plan.id}
+                        product={plan.product}
+                        quantity={plan.quantity}                        
                     />
                 ))}
             </div>
@@ -51,4 +48,4 @@ class Incomes extends Component {
 
 }
 
-export default Incomes;
+export default Plannedorders;

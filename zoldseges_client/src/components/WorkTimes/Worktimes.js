@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import axios from '../../axios-products';
-import Income from './Income/Income';
+import Worktime from './WorkTime/Worktime';
 
-class Incomes extends Component {
+class Worktimes extends Component {
     state = {
-        incomes: [],
+        worktimes: [],
         loading: true
     }
 
     componentDidMount() {
-        axios.get("incomes/", {
+        axios.get("worktimes/", {
             withCredentials: true,
             headers: {
                 "Accept": "application/json",
@@ -19,13 +19,13 @@ class Incomes extends Component {
 
         }).then(response => {
             console.log(response);
-            const fetchedIncomes = [];
+            const fetchedWorktimes = [];
             for (let key in response.data) {
-                fetchedIncomes.push({
+                fetchedWorktimes.push({
                     ...response.data[key]
                 });
             }
-            this.setState({ incomes: fetchedIncomes, loading: false })
+            this.setState({ worktimes: fetchedWorktimes, loading: false })
         }).catch(function (error) {
             console.log('Error on stocks');
         });
@@ -34,15 +34,14 @@ class Incomes extends Component {
     render() {
         return (
             <div>
-                {this.state.incomes.map(income => (
-                    <Income
-                        key={income.id}
-                        id={income.id}
-                        seller={income.seller}
-                        date={income.date}
-                        price={income.price}
-                        quantity={income.quantity}
-                        product={income.product}
+                {this.state.worktimes.map(worktime => (
+                    <Worktime
+                        key={worktime.id}
+                        id={worktime.id}
+                        date={worktime.date}
+                        user={worktime.user}
+                        startHour={worktime.startHour}
+                        endHour={worktime.endHour}
                     />
                 ))}
             </div>
@@ -51,4 +50,4 @@ class Incomes extends Component {
 
 }
 
-export default Incomes;
+export default Worktimes;

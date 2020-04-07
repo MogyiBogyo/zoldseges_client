@@ -1,16 +1,12 @@
 import React from 'react';
 import './App.css';
-import Categories from './components/Categories/Categories';
-import Products from './components/Products/Products';
-import Stocks from './components/Stocks/Stocks';
-
-
+import Plannedorders from './components/PlannedOrders/Plannedorders';
 
 function App() {
   return (
     <div className="App">
       <div>Wellcome little grocer</div>
-      <Stocks />
+      <Plannedorders />
     </div>
   );
 }

@@ -23,8 +23,7 @@ class Stocks extends Component {
             const fetchedStocks = [];
             for (let key in response.data) {
                 fetchedStocks.push({
-                    ...response.data[key],
-                    //id: key
+                    ...response.data[key]
                 });
             }
             this.setState({ stocks: fetchedStocks, loading: false })

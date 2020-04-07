@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import axios from '../../axios-products';
-import Income from './Income/Income';
+import User from './User/User';
 
-class Incomes extends Component {
+class Users extends Component {
     state = {
-        incomes: [],
+        users: [],
         loading: true
     }
 
     componentDidMount() {
-        axios.get("incomes/", {
+        axios.get("users/", {
             withCredentials: true,
             headers: {
                 "Accept": "application/json",
@@ -19,13 +19,13 @@ class Incomes extends Component {
 
         }).then(response => {
             console.log(response);
-            const fetchedIncomes = [];
+            const fetchedUsers = [];
             for (let key in response.data) {
-                fetchedIncomes.push({
+                fetchedUsers.push({
                     ...response.data[key]
                 });
             }
-            this.setState({ incomes: fetchedIncomes, loading: false })
+            this.setState({ users: fetchedUsers, loading: false })
         }).catch(function (error) {
             console.log('Error on stocks');
         });
@@ -34,15 +34,14 @@ class Incomes extends Component {
     render() {
         return (
             <div>
-                {this.state.incomes.map(income => (
-                    <Income
-                        key={income.id}
-                        id={income.id}
-                        seller={income.seller}
-                        date={income.date}
-                        price={income.price}
-                        quantity={income.quantity}
-                        product={income.product}
+                {this.state.users.map(user => (
+                    <User
+                        key={user.id}
+                        id={user.id}
+                        userName={user.username}
+                        email={user.email}
+                        familyName={user.familyname}
+                        givenName={user.givenname}
                     />
                 ))}
             </div>
@@ -51,4 +50,5 @@ class Incomes extends Component {
 
 }
 
-export default Incomes;
+
+export default Users;
