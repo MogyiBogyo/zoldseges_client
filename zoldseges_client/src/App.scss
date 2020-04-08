@@ -1,0 +1,17 @@
+// Import Bootstrap and its default variables
+body{
+  display: flex;
+  min-height: 100vh;
+}
+#root{
+  display: flex;
+  flex-direction:column;
+  flex-grow: 1;
+}
+@import '~bootstrap/scss/bootstrap.scss';
+
+.form-control{
+  &.invalid{
+    border: 1px solid $danger;
+  }
+}
