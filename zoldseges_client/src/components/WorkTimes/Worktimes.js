@@ -18,7 +18,7 @@ class Worktimes extends Component {
             }
 
         }).then(response => {
-            console.log(response);
+            //console.log(response);
             const fetchedWorktimes = [];
             for (let key in response.data) {
                 fetchedWorktimes.push({

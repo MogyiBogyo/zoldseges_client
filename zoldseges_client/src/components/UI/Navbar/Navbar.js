@@ -23,10 +23,10 @@ class Navbar extends Component {
                             <NavLink to="/products" activeClassName={"active"} >Termékek</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/order" activeClassName={"active"} >Rendelés</NavLink>
+                            <NavLink to="/orders" activeClassName={"active"} >Rendelés</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/sell" activeClassName={"active"} >Eladás</NavLink>
+                            <NavLink to="/sales" activeClassName={"active"} >Eladás</NavLink>
                         </li>
                         <li className="nav-item ">
                             <NavLink to="/users" activeClassName={"active"} >Felhasználók</NavLink>

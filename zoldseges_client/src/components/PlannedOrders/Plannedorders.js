@@ -18,7 +18,7 @@ class Plannedorders extends Component {
             }
 
         }).then(response => {
-            console.log(response);
+            //console.log(response);
             const fetchedPlans = [];
             for (let key in response.data) {
                 fetchedPlans.push({

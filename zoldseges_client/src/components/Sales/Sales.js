@@ -20,7 +20,7 @@ class Sales extends Component {
             }
 
         }).then(response => {
-            console.log(response);
+            //console.log(response);
             const fetchedSales = [];
             for (let key in response.data) {
                 fetchedSales.push({

@@ -18,13 +18,9 @@ class Categories extends Component {
 
     componentDidMount() {
 
-        axios.get("categories/", {
-            auth: {
-                username: "Pistike",
-                password: "password"
-            }
-        }, {
-            withCredentials: true,
+        axios.get("categories/", 
+            {
+            
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -32,7 +28,7 @@ class Categories extends Component {
             }
 
         }).then(response => {
-            console.log(response);
+            //console.log(response);
             const fetchedCategories = [];
             for (let key in response.data) {
                 fetchedCategories.push({

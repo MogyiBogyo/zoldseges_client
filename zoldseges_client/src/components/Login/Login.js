@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from '../../axios-products';
+import axios from 'axios';
 import { navigateToCustomPath } from "../../App";
 
 class Login extends Component {
@@ -9,6 +9,9 @@ class Login extends Component {
         userNameError: false,
         passwordError: false
     };
+
+
+
 
     handleLogin = (event) => {
         event.preventDefault();
@@ -32,9 +35,12 @@ class Login extends Component {
                 passwordError: false
             })
         }
+
+        const token = Buffer.from(`${this.state.username}:${this.state.password}`, 'utf8').toString('base64')
+
         /* Send to backend the credentials */
-        console.log(this.state.username + 'dsafafa' + this.state.password);
-        axios.post("users/login", {
+        console.log(this.state.username + '    ' + this.state.password);
+        axios.post(process.env.REACT_APP_BACKEND_URL + "/users/login", {
             auth: {
                 username: this.state.username,
                 password: this.state.password
@@ -42,12 +48,14 @@ class Login extends Component {
         }, {
             withCredentials: true,
             headers: {
-                "Accept": "application/json",
+                'Authorization': `Basic ${token}`,
+                "Accept": "application/json", 
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             }
         }
         ).then(value => {
+            console.log(value);
             /* if get token save */
             localStorage.setItem("token", "");
             /* Redirect to  first page */
@@ -58,6 +66,7 @@ class Login extends Component {
         //
     };
     render() {
+        console.log("url ", process.env.REACT_APP_BACKEND_URL);
         return (
             <div className={"d-flex flex-grow-1 align-items-center justify-content-center h-100 flex-column"}>
                 <h3 className={"text-center py-3"}>

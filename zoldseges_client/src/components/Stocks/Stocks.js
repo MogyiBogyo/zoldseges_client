@@ -19,7 +19,7 @@ class Stocks extends Component {
             }
 
         }).then(response => {
-            console.log(response);
+            //console.log(response);
             const fetchedStocks = [];
             for (let key in response.data) {
                 fetchedStocks.push({

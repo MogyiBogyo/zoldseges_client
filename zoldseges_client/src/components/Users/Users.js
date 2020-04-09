@@ -18,7 +18,7 @@ class Users extends Component {
             }
 
         }).then(response => {
-            console.log(response);
+            //console.log(response);
             const fetchedUsers = [];
             for (let key in response.data) {
                 fetchedUsers.push({
