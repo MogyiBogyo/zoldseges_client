@@ -17,19 +17,22 @@ class Navbar extends Component {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item ">
-                            <NavLink to="/stocks" activeClassName={"active"} >Készlet</NavLink>
+                            <NavLink to="/stocks" className={"nav-link"} activeClassName={"active"} >Készlet</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/products" activeClassName={"active"} >Termékek</NavLink>
+                            <NavLink to="/products" className={"nav-link"} activeClassName={"active"} >Termékek</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/orders" activeClassName={"active"} >Rendelés</NavLink>
+                            <NavLink to="/categories" className={"nav-link"} activeClassName={"active"} >Kategóriák</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/sales" activeClassName={"active"} >Eladás</NavLink>
+                            <NavLink to="/orders" className={"nav-link"} activeClassName={"active"} >Rendelés</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/users" activeClassName={"active"} >Felhasználók</NavLink>
+                            <NavLink to="/sales" className={"nav-link"} activeClassName={"active"} >Eladás</NavLink>
+                        </li>
+                        <li className="nav-item ">
+                            <NavLink to="/users" className={"nav-link"} activeClassName={"active"} >Felhasználók</NavLink>
                         </li>
                     </ul>
                 </div>
