@@ -33,7 +33,7 @@ class CreateCategory extends Component {
     handleSave = (event) => {
         event.preventDefault();
         if(true){
-            axios.post("categories/",{git 
+            axios.post("categories/",{
                  isSale: this.state.is_sale,
                   name: this.state.name,                 
                   salePrice: this.state.sale_price 
