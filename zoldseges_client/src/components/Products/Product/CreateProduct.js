@@ -5,6 +5,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { navigateToCustomPath } from "../../../App";
+import ProductForm from './ProductForm';
 
 
 class CreateProduct extends Component {
@@ -21,34 +22,33 @@ class CreateProduct extends Component {
 
     }
 
-    componentDidMount() {
-        //axios, be
-        axios.get("/categories")
 
-    }
-
-    handleSave = (event) => {
-        event.preventDefault();
+    handleSave = (data) => {
         if (true) {
-            axios.post("products/", {
-                isSale: this.state.is_sale,
-                name: this.state.name,
-                salePrice: this.state.sale_price,
-                category: this.state.category,
-                price: this.state.price
-            })
+            axios.post("products/", {...data})
                 .then(() => {
                     this.setState({
                         successSave: true,
                     })
-                }).catch(() => this.setState({
-                    serverError: true
-                }));
+                }).catch((error) => {
+                    console.log("error",error)
+                    if(error.response.status === 400){ 
+                        this.setState({
+                            serverError: true,
+                            serverErrorText: "Ilyen névvel már van termék"
+                        })
+                    }else{
+                        this.setState({
+                            serverError: true,
+                            serverErrorText: "Ismeretlen szerver hiva"
+                        })
+                    }
+                });
         }
     }
 
 
-    handleRedirectToCategoriesPage = () => {
+    handleRedirectToProductsPage = () => {
         navigateToCustomPath("/products");
     }
 
@@ -68,43 +68,39 @@ class CreateProduct extends Component {
                             <div className="card">
                                 <div className="card-header">
                                     Új termék felvétele
-                            </div>
+                                </div>
                                 <div className="card-body">
-                                    <form onSubmit={(event) => this.handleSave(event)}>
-                                        <div className="form-group">
-                                            <label for="name">Név</label>
-                                            <input type="text" className="form-control" id="name" onChange={(e) => this.setState({
-                                                name: e.target.value
-                                            })} />
-                                            <small className="form-text text-muted">A név nem lehet azonos a rendszerben megtalálhatókkal</small>
-                                        </div>
-                                        <div className="form-check">
-                                            <input type="checkbox" className="form-check-input" id="is_sale" onChange={() => this.setState({
-                                                is_sale: !this.state.is_sale
-                                            })} />
-                                            <label className="form-check-label" for="is_sale">Akciós</label>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="sale_price">Akció mértéke</label>
-                                            <input type="text" className="form-control" id="sale_price" disabled={!this.state.is_sale} onChange={(e) => this.setState({
-                                                sale_price: e.target.value
-                                            })} />
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="price">Ár</label>
-                                            <input type="text" className="form-control" id="price" disabled={!this.state.price} onChange={(e) => this.setState({
-                                                price: e.target.value
-                                            })} />
-                                        </div>
-
-                                        <button type="submit" className="btn btn-primary">Mentés</button>
-                                    </form>
+                                    <ProductForm save={(data) => this.handleSave(data)} />
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+                <SweetAlert
+                        danger
+                        show={this.state.serverError}
+                        title="Hiba"
+                        onConfirm={() => this.setState({
+                            serverError: false
+                        })}
+                        onCancel={() => this.setState({
+                            serverError: false
+                        })}
+                        btnSize="sm"
+                    >
+                        {this.state.serverErrorText}                                     
+                </SweetAlert>
+                <SweetAlert
+                        success
+                        show={this.state.successSave}
+                        title="Sikeres"
+                        onConfirm={() => this.handleRedirectToProductsPage()}
+                        onCancel={() => this.handleRedirectToProductsPage()}
+                        btnSize="sm"
+                    >
+                        Mentés!              
+                </SweetAlert>
+
 
 
             </div>

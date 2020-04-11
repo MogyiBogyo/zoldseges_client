@@ -51,6 +51,10 @@ function App() {
         <LoggedInRoute exact path="/orders" component={PlannedOrders} />
         <LoggedInRoute exact path="/sales" component={Sales} />
         <LoggedInRoute exact path="/users" component={Users} />
+
+        {/* TODO add worktime pages -> beosztás */}
+
+
       </Switch>
     </Router>
   );

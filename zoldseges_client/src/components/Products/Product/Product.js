@@ -20,7 +20,7 @@ const product = (props) => {
     return (
         <li className="list-group-item">
             <div className="row">
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
+                <div className="col-12 col-md-1 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         ID:
                 </span>
@@ -38,17 +38,23 @@ const product = (props) => {
                 </span>
                     {salePrice} / Kg
                 </div>
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between justify-content-md-center">
+                <div className="col-12 col-md-1 d-flex align-items-center justify-content-between justify-content-md-center">
                     <span className="d-inline-block d-md-none">
                         Akciós
                 </span>
                     {isSale}
                 </div>
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
+                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between justify-content-md-center">
                     <span className="d-inline-block d-md-none">
                         Akciós ár
                 </span>
                     {salePrice} / Kg
+                </div>
+                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
+                    <span className="d-inline-block d-md-none">
+                        Kategória
+                </span>
+                    {props.category.name}
                 </div>
                 <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">

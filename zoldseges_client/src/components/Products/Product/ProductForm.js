@@ -25,6 +25,7 @@ class ProductForm extends Component {
                 category: this.props.product.category
             })
         }
+        this.getCategories();
     }
 
     getCategories = () => {
@@ -50,13 +51,15 @@ class ProductForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         // TODO: check required field is correct
+        
         const sendParams = {
             sale: this.state.sale,
             name: this.state.name,
             price: this.state.price,
-            category: this.state.category,
+            categoryId: this.state.category,
             salePrice: this.state.sale_price === "" ? 0 : this.state.sale_price
         };
+        console.log(sendParams);
         this.props.save(sendParams)
     }
 
@@ -66,7 +69,7 @@ class ProductForm extends Component {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <div className="form-group">
-                    <label for="name">Név</label>
+                    <label htmlFor="name">Név</label>
                     <input type="text" className="form-control" id="name" onChange={(e) => this.setState({
                         name: e.target.value
                     })}
@@ -75,43 +78,41 @@ class ProductForm extends Component {
                     <small className="form-text text-muted">A név nem lehet azonos a rendszerben megtalálhatókkal</small>
                 </div>
                 <div className="form-group">
-                    <label for="price">Ár</label>
+                    <label htmlFor="price">Ár</label>
                     <input type="text" className="form-control" id="price" onChange={(e) => this.setState({
                         price: e.target.value
                     })}
-                        value={this.state.name}
+                        value={this.state.price}
                     />
-                    <small className="form-text text-muted">A név nem lehet azonos a rendszerben megtalálhatókkal</small>
                 </div>
                 <div className="form-check">
                     <input type="checkbox" className="form-check-input" id="sale" onChange={() => this.setState({
                         sale: !this.state.sale
-                    })} sale
+                    })} 
                         checked={this.state.sale}
                     />
-                    <label className="form-check-label" for="sale">Akciós</label>
+                    <label className="form-check-label" htmlFor="sale">Akciós</label>
                 </div>
                 <div className="form-group">
-                    <label for="sale_price">Akció mértéke</label>
+                    <label htmlFor="sale_price">Akció mértéke</label>
                     <input
                         type="text"
                         className="form-control"
                         id="sale_price"
-                        disabled={!this.state.sale}
                         onChange={(e) => this.setState({
                             sale_price: e.target.value
                         })}
                         value={this.state.sale_price}
                     />
                 </div>
-                <select class="form-control">
-
-                    {/* TODO: map a categoriákon*/}
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Barbecue</option>
+                <select className="form-control mb-3" onChange={(e) => this.setState({
+                           category: e.target.value
+                        })}>
+                    {console.log(this.state.categories)}
+                    {this.state.categories.map(category => (
+                        <option value={category.id} key={category.id}>{category.name}</option>
+                    ))}
                 </select>
-
 
                 <button type="submit" className="btn btn-primary">Mentés</button>
             </form>

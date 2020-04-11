@@ -30,7 +30,7 @@ class CreateCategory extends Component {
                     })
                 }).catch((error) => {
                     console.log("error",error)
-                    if(error.response.status === 400){ // TODO: check code in error vairable
+                    if(error.response.status === 400){ 
                         this.setState({
                             serverError: true,
                             serverErrorText: "Ilyen névvel már van kategória"

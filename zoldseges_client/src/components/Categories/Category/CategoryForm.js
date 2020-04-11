@@ -35,7 +35,7 @@ class CategoryForm extends Component {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <div className="form-group">
-                    <label for="name">Név</label>
+                    <label htmlFor="name">Név</label>
                     <input type="text" className="form-control" id="name" onChange={(e) => this.setState({
                         name: e.target.value
                     })} 
@@ -46,18 +46,18 @@ class CategoryForm extends Component {
                 <div className="form-check">
                     <input type="checkbox" className="form-check-input" id="sale" onChange={() => this.setState({
                         sale: !this.state.sale
-                    })}sale
+                    })}
                     checked={this.state.sale}
                     />
-                    <label className="form-check-label" for="sale">Akciós</label>
+                    <label className="form-check-label" htmlFor="sale">Akciós</label>
                 </div>
                 <div className="form-group">
-                    <label for="sale_price">Akció mértéke</label>
+                    <label htmlFor="sale_price">Akció mértéke</label>
                     <input 
                         type="text" 
                         className="form-control" 
                         id="sale_price" 
-                        disabled={!this.state.sale} 
+                        
                         onChange={(e) => this.setState({
                             sale_price: e.target.value
                         })} 

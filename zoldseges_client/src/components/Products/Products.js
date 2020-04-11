@@ -91,7 +91,7 @@ class Products extends Component {
                     <ul className="list-group">
                         <li className="list-group-item d-none d-md-block">
                             <div className="row">
-                                <div className="col-12 col-md-2">
+                                <div className="col-12 col-md-1">
                                     <b>
                                         ID:
                                 </b>
@@ -109,16 +109,22 @@ class Products extends Component {
                                 </b>
 
                                 </div>
-                                <div className="col-12 col-md-2 d-flex justify-content-center">
+                                <div className="col-12 col-md-1 d-flex justify-content-center">
                                     <b>
                                         Akciós
                                 </b>
 
                                 </div>
-                                <div className="col-12 col-md-2">
+                                <div className="col-12 col-md-2 d-flex justify-content-center">
                                     <b>
                                         Akciós ár
                                 </b>
+                                </div>
+                                <div className="col-12 col-md-2">
+                                    <b>
+                                       Kategória
+                                </b>
+
 
                                 </div>
                                 <div className="col-12 col-md-2 d-flex justify-content-center">
@@ -139,59 +145,59 @@ class Products extends Component {
                                 salePrice={product.salePrice}
                                 showDeleteQuestion={() => this.setState({
                                     showDeleteQuestion: true,
-                                    selectedProduct: Product
+                                    selectedProduct: product
                                 })}
                             />
                         ))}
                     </ul>
                 </div>
                 <SweetAlert
-                        danger
-                        show={this.state.serverError}
-                        title="Hiba"
-                        onConfirm={() => this.setState({
-                            serverError: false
-                        })}
-                        onCancel={() => this.setState({
-                            serverError: false
-                        })}
-                        btnSize="sm" >
-                        {this.state.deleteErrorText}
-                     </SweetAlert>
-                    <SweetAlert
-                            success
-                            show={this.state.successDelete}
-                            title="Sikeres"
-                            onConfirm={() => this.setState({
-                                successDelete: false
-                            })}
-                            onCancel={() => this.setState({
-                                successDelete: false
-                            })}
-                            btnSize="sm" >
-                            Törlés!
+                    danger
+                    show={this.state.serverError}
+                    title="Hiba"
+                    onConfirm={() => this.setState({
+                        serverError: false
+                    })}
+                    onCancel={() => this.setState({
+                        serverError: false
+                    })}
+                    btnSize="sm" >
+                    {this.state.deleteErrorText}
+                </SweetAlert>
+                <SweetAlert
+                    success
+                    show={this.state.successDelete}
+                    title="Sikeres"
+                    onConfirm={() => this.setState({
+                        successDelete: false
+                    })}
+                    onCancel={() => this.setState({
+                        successDelete: false
+                    })}
+                    btnSize="sm" >
+                    Törlés!
                             </SweetAlert>
-                    <SweetAlert
-                            danger
-                            show={this.state.showDeleteQuestion}
-                            showCancel
-                            title="Törlés megerősítés"
-                            confirmBtnText="Igen"
-                            cancelBtnText="Mégse"
-                            onConfirm={() => this.handleDelete()}
-                            onCancel={() => this.setState({
-                                showDeleteQuestion: false,
-                                selectedProduct: null
-                            })}
-                            btnSize="sm" >
-                            {
-                                !!this.state.selectedProduct ? <div>
-                                    Biztos törli a <b>
-                                        {this.state.selectedProduct.name}
-                                    </b> terméket?
+                <SweetAlert
+                    danger
+                    show={this.state.showDeleteQuestion}
+                    showCancel
+                    title="Törlés megerősítés"
+                    confirmBtnText="Igen"
+                    cancelBtnText="Mégse"
+                    onConfirm={() => this.handleDelete()}
+                    onCancel={() => this.setState({
+                        showDeleteQuestion: false,
+                        selectedProduct: null
+                    })}
+                    btnSize="sm" >
+                    {
+                        !!this.state.selectedProduct ? <div>
+                            Biztos törli a <b>
+                                {this.state.selectedProduct.name}
+                            </b> terméket?
                                 </div> : null
-                            }                                           
-                    </SweetAlert>
+                    }
+                </SweetAlert>
             </>
         );
     }

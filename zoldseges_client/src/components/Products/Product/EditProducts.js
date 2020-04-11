@@ -87,8 +87,8 @@ class EditProduct extends Component {
             });
     }
 
-    handleRedirectToCategoriesPage = () => {
-        navigateToCustomPath("/categories");
+    handleRedirectToProductsPage = () => {
+        navigateToCustomPath("/products");
     }
 
 
@@ -99,7 +99,7 @@ class EditProduct extends Component {
                 <div className={"container"}>
                     <div className="row my-3">
                         <div className="col-12 col-md-8 offset-md-2">
-                            <Link to={"/categories"} className={"btn btn-warning"} >
+                            <Link to={"/products"} className={"btn btn-warning"} >
                                 <FontAwesomeIcon icon={faChevronLeft} className="mr-2" /> Vissza
                             </Link>
                         </div>
@@ -128,7 +128,6 @@ class EditProduct extends Component {
                                             <ProductForm
                                                 save={(sendParams) => this.handleSave(sendParams)}
                                                 product={this.state.product}
-
                                             />
                                         </div>
                                     </div>
@@ -162,8 +161,8 @@ class EditProduct extends Component {
                     success
                     show={this.state.successSave}
                     title="Sikeres"
-                    onConfirm={() => this.handleRedirectToCategoriesPage()}
-                    onCancel={() => this.handleRedirectToCategoriesPage()}
+                    onConfirm={() => this.handleRedirectToProductsPage()}
+                    onCancel={() => this.handleRedirectToProductsPage()}
                     btnSize="sm" >
                     Mentés!
                 </SweetAlert>
