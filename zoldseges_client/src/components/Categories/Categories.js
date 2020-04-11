@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../axios-products';
 import Category from './Category/Category';
-import classes from './Categories.module.css';
+
 import { Link } from 'react-router-dom';
 import SweetAlert from 'react-bootstrap-sweetalert';
 
@@ -21,6 +21,7 @@ class Categories extends Component {
         showDeleteQuestion: false,
         selectedCategory: null,
         successDelete: false,
+        deleteErrorText: ""
     }
 
     componentDidMount() {
@@ -29,22 +30,12 @@ class Categories extends Component {
 
 
     getCategories = () => {
-        axios.get("/categories/",
-        {
-            withCredentials: true,
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
-            }
-
-        }).then(response => {
-            //console.log(response);
+        axios.get("/categories")
+        .then(response => {
             const fetchedCategories = [];
             for (let key in response.data) {
                 fetchedCategories.push({
-                    ...response.data[key],
-                    //id: key
+                    ...response.data[key]
                 });
             }
             this.setState({
@@ -60,17 +51,8 @@ class Categories extends Component {
 
     handleDelete = () => {
         if(this.state.selectedCategory){
-            axios.delete("categories/"+this.state.selectedCategory.id,
-            {
-                withCredentials: true,
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
-    
-            })
-                .then(() => {
+            axios.delete("categories/"+this.state.selectedCategory.id)
+            .then(() => {
                     this.getCategories();
                     this.setState({
                         showDeleteQuestion: false,
@@ -78,17 +60,27 @@ class Categories extends Component {
                         successDelete: true,
 
                     })
-                }).catch(() => this.setState({
-                    showDeleteQuestion: false,
-                    selectedCategory: null,
-                    serverError: true
-                }));
+                }).catch((error) => {
+                    if(error.response.status === 400){
+                        this.setState({
+                            showDeleteQuestion: false,
+                            selectedCategory: null,
+                            serverError: true,
+                            deleteErrorText: "Nem lehet törölni a kategóiát mert tartozik hozzá termék!"
+                        })
+                    } else {
+                        this.setState({
+                            showDeleteQuestion: false,
+                            selectedCategory: null,
+                            serverError: true,
+                            deleteErrorText: "Ismeretlen szerverhiba!"
+                        })
+                    }
+                } );
         }
     }
 
     render() {
-        /* let categories = this.state.categories.map((item, key) =>
-            <li key={item.id}>{item.name}</li>); */
 
         return (
             <>
@@ -129,7 +121,7 @@ class Categories extends Component {
                                 </div>
                                 <div className="col-12 col-md-2">
                                     <b>
-                                        Müvelet
+                                        Művelet
                                 </b>
                                 </div>
                             </div>
@@ -159,52 +151,43 @@ class Categories extends Component {
                         onCancel={() => this.setState({
                             serverError: false
                         })}
-                        btnSize="sm"
-                    >
-                        Probléma a szerver kommunikációval!
-                         
-              
-                </SweetAlert>
-                <SweetAlert
-                        success
-                        show={this.state.successDelete}
-                        title="Sikeres"
-                        onConfirm={() => this.setState({
-                            successDelete: false
-                        })}
-                        onCancel={() => this.setState({
-                            successDelete: false
-                        })}
-                        btnSize="sm"
-                    >
-                        Törlés!
-                         
-              
-                </SweetAlert>
-                <SweetAlert
-                        danger
-                        show={this.state.showDeleteQuestion}
-                        showCancel
-                        title="Törlés megerősítés"
-                        confirmBtnText="Igen"
-                        cancelBtnText="Mégse"
-                        onConfirm={() => this.handleDelete()}
-                        onCancel={() => this.setState({
-                            showDeleteQuestion: false,
-                            selectedCategory: null
-                        })}
-                        btnSize="sm"
-                    >
-                        {
-                            !!this.state.selectedCategory ? <div>
-                                Biztos törli a <b>
-                                    {this.state.selectedCategory.name}
-                                </b> kategóriát?
-                            </div> : null
-                        }
-                         
-              
-                </SweetAlert>
+                        btnSize="sm" >
+                        {this.state.deleteErrorText}
+                     </SweetAlert>
+                    <SweetAlert
+                            success
+                            show={this.state.successDelete}
+                            title="Sikeres"
+                            onConfirm={() => this.setState({
+                                successDelete: false
+                            })}
+                            onCancel={() => this.setState({
+                                successDelete: false
+                            })}
+                            btnSize="sm" >
+                            Törlés!
+                            </SweetAlert>
+                    <SweetAlert
+                            danger
+                            show={this.state.showDeleteQuestion}
+                            showCancel
+                            title="Törlés megerősítés"
+                            confirmBtnText="Igen"
+                            cancelBtnText="Mégse"
+                            onConfirm={() => this.handleDelete()}
+                            onCancel={() => this.setState({
+                                showDeleteQuestion: false,
+                                selectedCategory: null
+                            })}
+                            btnSize="sm" >
+                            {
+                                !!this.state.selectedCategory ? <div>
+                                    Biztos törli a <b>
+                                        {this.state.selectedCategory.name}
+                                    </b> kategóriát?
+                                </div> : null
+                            }                                           
+                    </SweetAlert>
             </>
         );
 

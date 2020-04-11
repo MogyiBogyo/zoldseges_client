@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { Route, Switch, Router} from 'react-router-dom';
-import Categories from './components/Categories/Categories';
-import Products from './components/Products/Products';
+import { Switch, Router } from 'react-router-dom';
 import Stocks from './components/Stocks/Stocks';
 import LoggedOutRoute from './routers/LoggedOut';
 import LoggedInRoute from './routers/LoggedIn';
@@ -10,7 +8,18 @@ import Login from './components/Login/Login';
 import PlannedOrders from './components/PlannedOrders/Plannedorders';
 import Sales from './components/Sales/Sales';
 import Users from './components/Users/Users';
-import CreateCategory from './components/Categories/CreateCategory';
+
+import Products from './components/Products/Products';
+import EditProduct from './components/Products/Product/EditProducts';
+import CreateProduct from './components/Products/Product/CreateProduct';
+
+import Categories from './components/Categories/Categories';
+import CreateCategory from './components/Categories/Category/CreateCategory';
+import EditCategory from './components/Categories/Category/EditCategory';
+
+
+
+
 
 const createBrowserHistory = require("history").createBrowserHistory;
 export const history = createBrowserHistory();
@@ -27,13 +36,18 @@ function App() {
     <Router history={history}>
       <Switch>
         <LoggedOutRoute exact path="/" component={Login} />
-        <LoggedInRoute exact path="/stocks" component={Stocks} />
+
+        {/* Product management pages */}
         <LoggedInRoute exact path="/products" component={Products} />
-        {/* Category management pages */ }
+        <LoggedInRoute exact path="/products/new" component={CreateProduct} />
+        <LoggedInRoute exact path="/products/edit/:id" component={EditProduct} />
+
+        {/* Category management pages */}
         <LoggedInRoute exact path="/categories" component={Categories} />
         <LoggedInRoute exact path="/categories/new" component={CreateCategory} />
-        <LoggedInRoute exact path="/categories/edit/:id" component={CreateCategory} />
-        
+        <LoggedInRoute exact path="/categories/edit/:id" component={EditCategory} />
+
+        <LoggedInRoute exact path="/stocks" component={Stocks} />
         <LoggedInRoute exact path="/orders" component={PlannedOrders} />
         <LoggedInRoute exact path="/sales" component={Sales} />
         <LoggedInRoute exact path="/users" component={Users} />

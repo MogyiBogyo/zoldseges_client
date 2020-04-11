@@ -4,8 +4,12 @@ const instance = axios.create({
     
     baseURL: process.env.REACT_APP_BACKEND_URL,
     responseType: 'json',
-    'Content-Type': 'application/json',
-    
+    withCredentials: true,
+    headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+    }
 });
 
 export default instance;
