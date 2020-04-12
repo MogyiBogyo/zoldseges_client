@@ -101,7 +101,7 @@ class Login extends Component {
                         />
                         {
                             this.state.passwordError ? <div className="invalid-feedback  d-block">
-                                A password nem megfelelő formátumú
+                                A jelszó nem megfelelő formátumú
                             </div> : null
                         }
                     </div>

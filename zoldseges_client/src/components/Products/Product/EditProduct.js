@@ -15,9 +15,7 @@ class EditProduct extends Component {
         successSave: false,
         serverError: false,
         serverErrorText: "",
-        product: null,
-        selectedCategory: null,
-        categories: []
+        product: null
     }
 
     componentDidMount() {
@@ -40,26 +38,6 @@ class EditProduct extends Component {
                 });
         }
 
-    }
-
-    getCategories = () => {
-        axios.get("/categories")
-            .then(response => {
-                const fetchedCategories = [];
-                for (let key in response.data) {
-                    fetchedCategories.push({
-                        ...response.data[key]
-                    });
-                }
-                this.setState({
-                    categories: fetchedCategories,
-                    loading: false
-                });
-            }).catch(function (error) {
-                this.setState({
-                    serverError: true
-                })
-            });
     }
 
 

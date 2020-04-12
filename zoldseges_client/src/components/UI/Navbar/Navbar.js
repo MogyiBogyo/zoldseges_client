@@ -34,6 +34,19 @@ class Navbar extends Component {
                         <li className="nav-item ">
                             <NavLink to="/users" className={"nav-link"} activeClassName={"active"} >Felhasználók</NavLink>
                         </li>
+                        <li className="nav-item ">
+                            <NavLink to="/incomes" className={"nav-link"} activeClassName={"active"} >Árubevétel</NavLink>
+                        </li>
+                        <li className="nav-item ">
+                            <NavLink to="/worktimes" className={"nav-link"} activeClassName={"active"} >Beosztás</NavLink>
+                        </li>
+
+
+                    </ul>
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item ">
+                            <NavLink to="/" className={"nav-link"} activeClassName={"active"} >Kijelentkezés</NavLink>
+                        </li>
                     </ul>
                 </div>
             </nav>

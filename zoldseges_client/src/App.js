@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { Switch, Router } from 'react-router-dom';
-import Stocks from './components/Stocks/Stocks';
+
 import LoggedOutRoute from './routers/LoggedOut';
 import LoggedInRoute from './routers/LoggedIn';
 import Login from './components/Login/Login';
@@ -17,8 +17,16 @@ import Categories from './components/Categories/Categories';
 import CreateCategory from './components/Categories/Category/CreateCategory';
 import EditCategory from './components/Categories/Category/EditCategory';
 
+import Stocks from './components/Stocks/Stocks';
+import EditStock from './components/Stocks/Stock/EditStock';
+import CreateStock from './components/Stocks/Stock/CreateStock';
+
+import Incomes from './components/Incomes/Incomes';
+import EditIncome from './components/Incomes/Income/EditIncome';
+import CreateIncome from './components/Incomes/Income/CreateIncome';
 
 
+import Worktimes from './components/WorkTimes/Worktimes';
 
 
 const createBrowserHistory = require("history").createBrowserHistory;
@@ -47,10 +55,22 @@ function App() {
         <LoggedInRoute exact path="/categories/new" component={CreateCategory} />
         <LoggedInRoute exact path="/categories/edit/:id" component={EditCategory} />
 
+        {/* Stock management pages */}
         <LoggedInRoute exact path="/stocks" component={Stocks} />
+        <LoggedInRoute exact path="/stocks/new" component={CreateStock} />
+        <LoggedInRoute exact path="/stocks/edit/:id" component={EditStock} />
+
+        {/* Income management pages */}
+        <LoggedInRoute exact path="/incomes" component={Incomes} />
+        <LoggedInRoute exact path="/incomes/new" component={CreateIncome} />
+        <LoggedInRoute exact path="/incomes/edit/:id" component={EditIncome} />
+
+
         <LoggedInRoute exact path="/orders" component={PlannedOrders} />
         <LoggedInRoute exact path="/sales" component={Sales} />
         <LoggedInRoute exact path="/users" component={Users} />
+        <LoggedInRoute exact path="/worktimes" component={Worktimes} />
+
 
         {/* TODO add worktime pages -> beosztás */}
 

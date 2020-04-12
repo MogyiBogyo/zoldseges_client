@@ -55,6 +55,18 @@ class ProductForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         // TODO: check required field is correct
+        if (this.state.name === "") {
+            this.setState({
+                nameError: true,
+            });
+            return
+        } else {
+            this.setState({
+                nameError: false,
+            })
+        }
+
+
 
         const sendParams = {
             sale: this.state.sale,
@@ -70,21 +82,28 @@ class ProductForm extends Component {
 
 
     render() {
-        console.log(this.state);
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <div className="form-group">
                     <label htmlFor="name">Név</label>
-                    <input type="text" className="form-control" id="name" onChange={(e) => this.setState({
-                        name: e.target.value
-                    })}
+                    <input type="text"
+                        className={`form-control ${this.state.nameError ? "invalid" : ""}`}
+                        id="name"
+                        onChange={(e) => this.setState({
+                            name: e.target.value
+                        })}
                         value={this.state.name}
                     />
+                    {
+                        this.state.nameError ? <div className="invalid-feedback  d-block">
+                            Terméknév megadása kötelező!
+                            </div> : null
+                    }
                     <small className="form-text text-muted">A név nem lehet azonos a rendszerben megtalálhatókkal</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="price">Ár</label>
-                    <input type="text" className="form-control" id="price" onChange={(e) => this.setState({
+                    <input type="number" className="form-control" id="price" onChange={(e) => this.setState({
                         price: e.target.value
                     })}
                         value={this.state.price}
@@ -101,7 +120,7 @@ class ProductForm extends Component {
                 <div className="form-group">
                     <label htmlFor="sale_price">Akció mértéke</label>
                     <input
-                        type="text"
+                        type="number"
                         className="form-control"
                         id="sale_price"
                         onChange={(e) => this.setState({
@@ -115,19 +134,19 @@ class ProductForm extends Component {
                 {/* TODO: ha nincs akciós ár ne mutassa hogy KG */}
                 <div className="form-group">
                     <label>Kategória</label>
-                    <select                 
-                        className="form-control mb-3" 
+                    <select
+                        className="form-control mb-3"
                         onChange={(e) => this.setState({
                             category: e.target.value
                         })}
                     >
-                        <option value= "" >Válasszon kategóriát</option>
+                        <option value="" >Válasszon kategóriát</option>
 
                         {this.state.categories.map(category => (
-                            <option 
-                            value={category.id} 
-                            key={category.id}  
-                            selected={!!this.state.category && this.state.category === category.id ? "selected" : ""}
+                            <option
+                                value={category.id}
+                                key={category.id}
+                                selected={!!this.state.category && this.state.category === category.id ? "selected" : ""}
                             >{category.name}</option>
                         ))}
                     </select>

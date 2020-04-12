@@ -34,7 +34,7 @@ const product = (props) => {
                 </div>
                 <div className="col-12 col-md-2 d-flex align-items-center justify-content-between justify-content-md-center">
                     <span className="d-inline-block d-md-none">
-                        Ár 
+                        Ár
                 </span>
                     {props.price} / Kg
                 </div>

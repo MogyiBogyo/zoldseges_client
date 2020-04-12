@@ -17,9 +17,7 @@ class CreateProduct extends Component {
         category: null,
         sale_price: "",
         serverError: false,
-        successSave: false,
-        categories: null,
-
+        successSave: false
     }
 
 
