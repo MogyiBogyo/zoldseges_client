@@ -11,7 +11,11 @@ class ProductForm extends Component {
         sale: false,
         price: "",
         category: null,
-        categories: []
+        categories: [],
+        //validation
+        nameError: false,
+        priceError: false,
+        categoryError: false
     };
 
     componentDidMount() {
@@ -22,7 +26,7 @@ class ProductForm extends Component {
                 sale_price: this.props.product.salePrice,
                 sale: this.props.product.sale,
                 price: this.props.product.price,
-                category: this.props.product.category
+                category: this.props.product.category.id
             })
         }
         this.getCategories();
@@ -51,7 +55,7 @@ class ProductForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         // TODO: check required field is correct
-        
+
         const sendParams = {
             sale: this.state.sale,
             name: this.state.name,
@@ -66,6 +70,7 @@ class ProductForm extends Component {
 
 
     render() {
+        console.log(this.state);
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <div className="form-group">
@@ -88,7 +93,7 @@ class ProductForm extends Component {
                 <div className="form-check">
                     <input type="checkbox" className="form-check-input" id="sale" onChange={() => this.setState({
                         sale: !this.state.sale
-                    })} 
+                    })}
                         checked={this.state.sale}
                     />
                     <label className="form-check-label" htmlFor="sale">Akciós</label>
@@ -105,15 +110,28 @@ class ProductForm extends Component {
                         value={this.state.sale_price}
                     />
                 </div>
-                <select className="form-control mb-3" onChange={(e) => this.setState({
-                           category: e.target.value
-                        })}>
-                    {console.log(this.state.categories)}
-                    {this.state.categories.map(category => (
-                        <option value={category.id} key={category.id}>{category.name}</option>
-                    ))}
-                </select>
 
+                {/* TODO: név, categória, ár kötelező! */}
+                {/* TODO: ha nincs akciós ár ne mutassa hogy KG */}
+                <div className="form-group">
+                    <label>Kategória</label>
+                    <select                 
+                        className="form-control mb-3" 
+                        onChange={(e) => this.setState({
+                            category: e.target.value
+                        })}
+                    >
+                        <option value= "" >Válasszon kategóriát</option>
+
+                        {this.state.categories.map(category => (
+                            <option 
+                            value={category.id} 
+                            key={category.id}  
+                            selected={!!this.state.category && this.state.category === category.id ? "selected" : ""}
+                            >{category.name}</option>
+                        ))}
+                    </select>
+                </div>
                 <button type="submit" className="btn btn-primary">Mentés</button>
             </form>
         )

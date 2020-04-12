@@ -7,7 +7,7 @@ import { faPen, faTrash, faCheck, faBan } from '@fortawesome/free-solid-svg-icon
 const category = (props) => {
 
     let isSale = props.isSale ? <FontAwesomeIcon icon={faCheck} className={"text-success"} /> : <FontAwesomeIcon icon={faBan} className={"text-danger"} />;
-    let salePrice = isSale && props.salePrice!== 0 ? props.salePrice + " FT" : null;
+    let salePrice = props.isSale ? ( isSale && props.salePrice!== 0 ? props.salePrice + " FT" : null) : null;
 
     return (
         <li className="list-group-item">

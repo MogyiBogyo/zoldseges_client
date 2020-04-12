@@ -7,7 +7,7 @@ const product = (props) => {
 
 
     let isSale = props.isSale ? <FontAwesomeIcon icon={faCheck} className={"text-success"} /> : <FontAwesomeIcon icon={faBan} className={"text-danger"} />;
-    let salePrice = isSale && props.salePrice !== 0 ? props.salePrice + " FT" : null;
+    let salePrice = props.isSale ? (isSale && props.salePrice !== 0 ? props.salePrice + " FT / Kg" : null) : null;
 
     /*if(props.category.sale && props.isSale){
         sale = props.salePrice;
@@ -36,7 +36,7 @@ const product = (props) => {
                     <span className="d-inline-block d-md-none">
                         Ár 
                 </span>
-                    {salePrice} / Kg
+                    {props.price} / Kg
                 </div>
                 <div className="col-12 col-md-1 d-flex align-items-center justify-content-between justify-content-md-center">
                     <span className="d-inline-block d-md-none">
@@ -48,7 +48,7 @@ const product = (props) => {
                     <span className="d-inline-block d-md-none">
                         Akciós ár
                 </span>
-                    {salePrice} / Kg
+                    {salePrice}
                 </div>
                 <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">

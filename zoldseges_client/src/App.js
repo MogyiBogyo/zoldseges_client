@@ -10,7 +10,7 @@ import Sales from './components/Sales/Sales';
 import Users from './components/Users/Users';
 
 import Products from './components/Products/Products';
-import EditProduct from './components/Products/Product/EditProducts';
+import EditProduct from './components/Products/Product/EditProduct';
 import CreateProduct from './components/Products/Product/CreateProduct';
 
 import Categories from './components/Categories/Categories';

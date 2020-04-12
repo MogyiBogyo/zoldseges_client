@@ -30,8 +30,8 @@ class EditProduct extends Component {
                     })
                 })
                 .catch((error) => {
-                    console.log(error.response.status);
-                    if (error.response.status === 404) {
+                    console.log("error ",error);
+                    if (!!error.response && error.response.status === 404) {
                         this.setState({
                             product: false,
                             serverErrorText: "Nem létezik ilyen termék"
@@ -65,6 +65,8 @@ class EditProduct extends Component {
 
 
     handleSave = (data) => {
+        console.log(data);
+        console.log(this.state.product);
         axios.put("products/" + this.state.product.id, { ...data })
             .then(() => {
                 this.setState({
@@ -126,7 +128,8 @@ class EditProduct extends Component {
                                     </div>
                                         <div className="card-body">
                                             <ProductForm
-                                                save={(sendParams) => this.handleSave(sendParams)}
+                                                
+                                                save={(sendParams) => this.handleSave(sendParams)}                                            
                                                 product={this.state.product}
                                             />
                                         </div>
