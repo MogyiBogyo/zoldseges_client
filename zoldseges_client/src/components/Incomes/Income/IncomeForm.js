@@ -22,15 +22,15 @@ class IncomeForm extends Component {
         quantityerror: false,
         //dateError: false,
     };
- 
+
     componentDidMount() {
-        console.log(this.state.date);
+        //console.log(this.state.date);
         if (!!this.props.income) {
             this.setState({
                 quantity: this.props.income.quantity,
                 product: this.props.income.product.id,
                 seller: this.props.income.seller,
-                date: moment(this.props.income.date).format("YYYY-MM-DD").toString(),
+                date: moment(this.props.income.date).toString(),
                 price: this.props.income.price
             })
         }
@@ -121,7 +121,7 @@ class IncomeForm extends Component {
             seller: this.state.seller,
             price: this.state.price
         };
-        console.log(sendParams);
+        //console.log(sendParams);
         this.props.save(sendParams)
     }
 
@@ -148,7 +148,8 @@ class IncomeForm extends Component {
                 </div>
                 {
                     this.state.productError ?
-                        <div className="invalid-feedback d-block"> Termék választása kötelező!</div>
+                        <div className="invalid-feedback d-block">
+                            Termék választása kötelező!</div>
                         : null
                 }
 
@@ -179,7 +180,7 @@ class IncomeForm extends Component {
                             price: e.target.value
                         })}
                         value={this.state.price}
-                        
+
                     />
                 </div>
                 {
@@ -205,7 +206,7 @@ class IncomeForm extends Component {
                     <div><label htmlFor="date">Dátum</label></div>
                     <DatePicker
                         showPopperArrow={false}
-                        selected={this.state.date ? this.state.date: "" }
+                        //selected={this.state.date ? this.state.date : ""}
                         onChange={(date) => this.setStartDate(date)}
                         value={this.state.date}
                         dateFormat={"yyyy-MMM-dd"}

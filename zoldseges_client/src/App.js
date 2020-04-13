@@ -5,7 +5,7 @@ import { Switch, Router } from 'react-router-dom';
 import LoggedOutRoute from './routers/LoggedOut';
 import LoggedInRoute from './routers/LoggedIn';
 import Login from './components/Login/Login';
-import PlannedOrders from './components/PlannedOrders/Plannedorders';
+
 import Sales from './components/Sales/Sales';
 import Users from './components/Users/Users';
 
@@ -24,6 +24,10 @@ import CreateStock from './components/Stocks/Stock/CreateStock';
 import Incomes from './components/Incomes/Incomes';
 import EditIncome from './components/Incomes/Income/EditIncome';
 import CreateIncome from './components/Incomes/Income/CreateIncome';
+
+import PlannedOrders from './components/PlannedOrders/Plannedorders';
+import EditPlannedOrders from './components/PlannedOrders/PlannedOrder/EditPlannedOrder';
+import CreatePlannedOrder from './components/PlannedOrders/PlannedOrder/CreatePlannedOrder';
 
 
 import Worktimes from './components/WorkTimes/Worktimes';

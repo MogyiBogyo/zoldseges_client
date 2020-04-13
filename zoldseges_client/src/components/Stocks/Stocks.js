@@ -78,51 +78,51 @@ class Stocks extends Component {
                 <div className={"container"}>
                     <div className="row">
                         <div className="col-12 col-md-8 offset-md-2">
-                        <div className="row my-3">
-                        <div className="col-12 ">
-                            <Link to={"/stocks/new"} className={"btn btn-primary"} >
-                                + Új készlet felvétele
+                            <div className="row my-3">
+                                <div className="col-12 ">
+                                    <Link to={"/stocks/new"} className={"btn btn-primary"} >
+                                        + Új készlet felvétele
                             </Link>
-                        </div>
-                    </div>
-                    <ul className="list-group">
-                        <li className="list-group-item d-none d-md-block">
-                            <div className="row">
-                                <div className="col-12 col-md-2">
-                                    <b>
-                                        ID:
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-4">
-                                    <b>
-                                        Termék
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-4 ">
-                                    <b>
-                                        Mennyiség
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-2 d-flex justify-content-center ">
-                                    <b>
-                                        Művelet
-                                    </b>
                                 </div>
                             </div>
-                        </li>
-                        {this.state.stocks.map(stock => (
-                            <Stock
-                                key={stock.id}
-                                id={stock.id}
-                                product={stock.product}
-                                quantity={stock.quantity}
-                                showDeleteQuestion={() => this.setState({
-                                    showDeleteQuestion: true,
-                                    selectedStock: stock
-                                })}
-                            />
-                        ))}
-                    </ul>
+                            <ul className="list-group">
+                                <li className="list-group-item d-none d-md-block">
+                                    <div className="row">
+                                        <div className="col-12 col-md-2">
+                                            <b>
+                                                ID:
+                                    </b>
+                                        </div>
+                                        <div className="col-12 col-md-4">
+                                            <b>
+                                                Termék
+                                    </b>
+                                        </div>
+                                        <div className="col-12 col-md-4 ">
+                                            <b>
+                                                Mennyiség
+                                    </b>
+                                        </div>
+                                        <div className="col-12 col-md-2 d-flex justify-content-center ">
+                                            <b>
+                                                Művelet
+                                    </b>
+                                        </div>
+                                    </div>
+                                </li>
+                                {this.state.stocks.map(stock => (
+                                    <Stock
+                                        key={stock.id}
+                                        id={stock.id}
+                                        product={stock.product}
+                                        quantity={stock.quantity}
+                                        showDeleteQuestion={() => this.setState({
+                                            showDeleteQuestion: true,
+                                            selectedStock: stock
+                                        })}
+                                    />
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div >
