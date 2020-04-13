@@ -76,8 +76,10 @@ class Stocks extends Component {
         return (
             <>
                 <div className={"container"}>
-                    <div className="row my-3">
-                        <div className="col-12">
+                    <div className="row">
+                        <div className="col-12 col-md-8 offset-md-2">
+                        <div className="row my-3">
+                        <div className="col-12 ">
                             <Link to={"/stocks/new"} className={"btn btn-primary"} >
                                 + Új készlet felvétele
                             </Link>
@@ -91,12 +93,12 @@ class Stocks extends Component {
                                         ID:
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-5">
+                                <div className="col-12 col-md-4">
                                     <b>
                                         Termék
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-3 d-flex justify-content-center">
+                                <div className="col-12 col-md-4 ">
                                     <b>
                                         Mennyiség
                                     </b>
@@ -121,6 +123,8 @@ class Stocks extends Component {
                             />
                         ))}
                     </ul>
+                        </div>
+                    </div>
                 </div >
                 <SweetAlert
                     danger

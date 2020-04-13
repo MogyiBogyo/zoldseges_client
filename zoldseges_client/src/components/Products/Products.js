@@ -80,7 +80,7 @@ class Products extends Component {
 
         return (
             <>
-                <div className={"container"}>
+                <div className={"mx-3"}>
                     <div className="row my-3">
                         <div className="col-12">
                             <Link to={"/products/new"} className={"btn btn-primary"} >

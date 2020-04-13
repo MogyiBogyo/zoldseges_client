@@ -14,7 +14,7 @@ class StockForm extends Component {
 
     componentDidMount() {
         if (!!this.props.stock) {
-            console.log(this.props.stock);
+            //console.log(this.props.stock);
             this.setState({
                 quantity: this.props.stock.quantity,
                 product: this.props.stock.product.id
@@ -47,7 +47,7 @@ class StockForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        // TODO: check required field is correct
+        // validate
         if (this.state.quantity === "") {
             this.setState({
                 quantityerror: true,
@@ -70,7 +70,7 @@ class StockForm extends Component {
             })
         }
 
-
+        //save
         const sendParams = {
             quantity: this.state.quantity,
             productId: this.state.product
@@ -86,7 +86,7 @@ class StockForm extends Component {
                 <div className="form-group">
                     <label>Termék</label>
                     <select
-                        className={`form-control ${this.state.nameError ? "invalid" : ""} `}
+                        className={`form-control ${this.state.productError ? "invalid" : ""} `}
                         onChange={(e) => this.setState({
                             product: e.target.value
                         })} >
@@ -101,15 +101,18 @@ class StockForm extends Component {
                     </select>
                 </div>
                 {
-                        this.state.productError ? <div className="invalid-feedback  d-block">
-                            Termék választása kötelező!
+                    this.state.productError ? <div className="invalid-feedback  d-block">
+                        Termék választása kötelező!
                             </div> : null
-                    }
+                }
                 <div className="form-group">
                     <label htmlFor="quantity">Mennyiség</label>
-                    <input type="number" className="form-control" id="quantity" onChange={(e) => this.setState({
-                        quantity: e.target.value
-                    })}
+                    <input type="number"
+                        className={`form-control ${this.state.quantityerror? "invalid" : ""}`}
+                        id="quantity"
+                        onChange={(e) => this.setState({
+                            quantity: e.target.value
+                        })}
                         value={this.state.quantity}
                     />
                 </div>

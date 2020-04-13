@@ -39,7 +39,7 @@ class Login extends Component {
         const token = Buffer.from(`${this.state.username}:${this.state.password}`, 'utf8').toString('base64')
 
         /* Send to backend the credentials */
-        console.log(this.state.username + '    ' + this.state.password);
+        //console.log(this.state.username + '    ' + this.state.password);
         axios.post(process.env.REACT_APP_BACKEND_URL + "/users/login", {
             auth: {
                 username: this.state.username,

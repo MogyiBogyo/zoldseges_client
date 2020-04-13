@@ -37,11 +37,11 @@ class EditStock extends Component {
                     }
                 });
         }
-
     }
+
     handleSave = (data) => {
-        console.log(data);
-        console.log(this.state.stock);
+        //console.log(data);
+        //console.log(this.state.stock);
         axios.put("stocks/" + this.state.stock.id, { ...data })
             .then(() => {
                 this.setState({
@@ -101,7 +101,6 @@ class EditStock extends Component {
                                     </div>
                                         <div className="card-body">
                                             <StockForm
-
                                                 save={(sendParams) => this.handleSave(sendParams)}
                                                 stock={this.state.stock}
                                             />

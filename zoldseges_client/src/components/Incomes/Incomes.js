@@ -75,7 +75,7 @@ class Incomes extends Component {
     render() {
         return (
             <>
-                <div className={"container"}>
+                <div className={"mx-3"}>
                     <div className="row my-3">
                         <div className="col-12">
                             <Link to={"/incomes/new"} className={"btn btn-primary"} >
@@ -101,7 +101,12 @@ class Incomes extends Component {
                                         Mennyiség
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-3">
+                                <div className="col-12 col-md-2 ">
+                                    <b>
+                                        Ár
+                                    </b>
+                                </div>
+                                <div className="col-12 col-md-2">
                                     <b>
                                         Eladó
                                     </b>
@@ -111,7 +116,7 @@ class Incomes extends Component {
                                         Dátum
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-2  ">
+                                <div className="col-12 col-md-1  ">
                                     <b>
                                         Művelet
                                     </b>

@@ -66,6 +66,26 @@ class ProductForm extends Component {
             })
         }
 
+        if (this.state.price === "") {
+            this.setState({
+                priceError: true,
+            });
+            return
+        } else {
+            this.setState({
+                priceError: false,
+            })
+        }
+        if (this.state.category === null) {
+            this.setState({
+                categoryError: true,
+            });
+            return
+        } else {
+            this.setState({
+                categoryError: false,
+            })
+        }
 
 
         const sendParams = {
@@ -97,9 +117,9 @@ class ProductForm extends Component {
                     {
                         this.state.nameError ? <div className="invalid-feedback  d-block">
                             Terméknév megadása kötelező!
-                            </div> : null
+                            </div> : <small className="form-text text-muted">A név nem lehet azonos a rendszerben megtalálhatókkal</small>
                     }
-                    <small className="form-text text-muted">A név nem lehet azonos a rendszerben megtalálhatókkal</small>
+
                 </div>
                 <div className="form-group">
                     <label htmlFor="price">Ár</label>
@@ -109,6 +129,12 @@ class ProductForm extends Component {
                         value={this.state.price}
                     />
                 </div>
+                {
+                    this.state.priceError ? <div className="invalid-feedback d-block mb-3">
+                        Ár megadása kötelező!</div> : null
+                }
+
+
                 <div className="form-check">
                     <input type="checkbox" className="form-check-input" id="sale" onChange={() => this.setState({
                         sale: !this.state.sale
@@ -135,13 +161,11 @@ class ProductForm extends Component {
                 <div className="form-group">
                     <label>Kategória</label>
                     <select
-                        className="form-control mb-3"
+                        className={`form-control ${this.state.categoryError ? "invalid" : ""} `}
                         onChange={(e) => this.setState({
                             category: e.target.value
-                        })}
-                    >
+                        })}>
                         <option value="" >Válasszon kategóriát</option>
-
                         {this.state.categories.map(category => (
                             <option
                                 value={category.id}
@@ -151,7 +175,12 @@ class ProductForm extends Component {
                         ))}
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary">Mentés</button>
+                {
+                    this.state.categoryError ? <div className="invalid-feedback  d-block">
+                        Kategória választása kötelező!
+                            </div> : null
+                }
+                <button type="submit" className="btn btn-primary mt-3">Mentés</button>
             </form>
         )
     }

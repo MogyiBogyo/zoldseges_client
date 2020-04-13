@@ -14,13 +14,13 @@ const stock = (props) => {
                     </span>
                     {props.id}
                 </div>
-                <div className="col-12 col-md-5 d-flex align-items-center justify-content-between">
+                <div className="col-12 col-md-4 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         Termék:
                     </span>
                     {props.product.name}
                 </div>
-                <div className="col-12 col-md-3 d-flex align-items-center justify-content-between justify-content-md-center">
+                <div className="col-12 col-md-4 d-flex align-items-center justify-content-between ">
                     <span className="d-inline-block d-md-none">
                         Mennyiség
                     </span>
@@ -31,10 +31,10 @@ const stock = (props) => {
                     <span className="d-inline-block d-md-none">
                         Müvelet
                     </span>
-                    <Link to={"/stocks/edit/" + props.id} className="btn btn-info">
+                    <Link to={"/stocks/edit/" + props.id} className="btn btn-info btn-sm">
                         <FontAwesomeIcon icon={faPen} />
                     </Link>
-                    <button className="btn btn-danger" onClick={() => props.showDeleteQuestion()}>
+                    <button className="btn btn-danger btn-sm" onClick={() => props.showDeleteQuestion()}>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>
