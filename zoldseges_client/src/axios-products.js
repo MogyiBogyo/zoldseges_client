@@ -6,6 +6,7 @@ const instance = axios.create({
     responseType: 'json',
     withCredentials: true,
     headers: {
+        'Authorization': `Basic ${ localStorage.getItem("loggedUser")}`,
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"

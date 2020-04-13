@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { navigateToCustomPath } from '../../../App';
 
 class Navbar extends Component {
+
+    handleLogOut = (event) => {
+        event.preventDefault();
+        localStorage.removeItem("loggedUser");
+        navigateToCustomPath("/");
+    }
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,7 +52,7 @@ class Navbar extends Component {
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item ">
-                            <NavLink to="/" className={"nav-link"} activeClassName={"active"} >Kijelentkezés</NavLink>
+                            <NavLink to="/" className={"nav-link"} activeClassName={"active"} onClick={(event) => this.handleLogOut(event)} >Kijelentkezés</NavLink>
                         </li>
                     </ul>
                 </div>

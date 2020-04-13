@@ -6,7 +6,7 @@ const loggedInRoute = ({
     component: Component,
     ...otherProps
 }) => (
-    !!localStorage.getItem("token") ? <Redirect to="/" /> : <>
+    !localStorage.getItem("loggedUser") ? <Redirect to="/" /> : <>
         <Navbar />
         <Route render= { () => <Component {...otherProps} /> } />
     </>

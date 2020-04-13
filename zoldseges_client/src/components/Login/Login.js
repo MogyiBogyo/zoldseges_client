@@ -57,7 +57,7 @@ class Login extends Component {
         ).then(value => {
             console.log(value);
             /* if get token save */
-            localStorage.setItem("token", "");
+            localStorage.setItem("loggedUser", token);
             /* Redirect to  first page */
             navigateToCustomPath("/stocks")
         })

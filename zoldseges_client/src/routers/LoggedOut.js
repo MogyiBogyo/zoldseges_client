@@ -5,7 +5,7 @@ const loggedOutRoute = ({
     component: Component,
     ...otherProps
 }) => (
-    !!localStorage.getItem("token") ? <Redirect to="/stocks" /> : <Route render={()=>
+    !!localStorage.getItem("loggedUser") ? <Redirect to="/stocks" /> : <Route render={()=>
     <Component {...otherProps}/>
     } />
 );
