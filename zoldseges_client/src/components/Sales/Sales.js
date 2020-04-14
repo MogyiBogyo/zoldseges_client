@@ -11,7 +11,7 @@ class Sales extends Component {
     }
 
     componentDidMount() {
-        axios.get("sales/", {
+        axios().get("sales/", {
             withCredentials: true,
             headers: {
                 "Accept": "application/json",

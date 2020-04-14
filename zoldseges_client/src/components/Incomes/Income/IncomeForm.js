@@ -38,7 +38,7 @@ class IncomeForm extends Component {
     }
 
     getProducts = () => {
-        axios.get("products/")
+        axios().get("products/")
             .then(response => {
                 //console.log(response);
                 const fetchedProducts = [];

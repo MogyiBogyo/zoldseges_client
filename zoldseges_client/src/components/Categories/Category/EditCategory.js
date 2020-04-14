@@ -21,7 +21,7 @@ class EditCategory extends Component {
     componentDidMount(){
         const id = this.props.computedMatch.params.id
         if(!!id){        
-            axios.get("categories/"+id)
+            axios().get("categories/"+id)
                 .then((response) => {
                     this.setState({
                         category: response.data
@@ -41,7 +41,7 @@ class EditCategory extends Component {
 
 
     handleSave = (data) => {
-        axios.put("categories/"+this.state.category.id,{...data})
+        axios().put("categories/"+this.state.category.id,{...data})
                 .then(() => {            
                     this.setState({                        
                         successSave: true,

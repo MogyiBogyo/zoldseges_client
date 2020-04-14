@@ -30,7 +30,7 @@ const plannedorder = (props) => {
                     <span className="d-inline-block d-md-none">
                         Müvelet
                     </span>
-                    <Link to={"/orders/edit/" + props.id} className="btn btn-info btn-sm">
+                    <Link to={"/plans/edit/" + props.id} className="btn btn-info btn-sm">
                         <FontAwesomeIcon icon={faPen} />
                     </Link>
                     <button className="btn btn-danger btn-sm" onClick={() => props.showDeleteQuestion()}>

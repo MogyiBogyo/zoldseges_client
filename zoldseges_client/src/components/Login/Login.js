@@ -6,6 +6,7 @@ class Login extends Component {
     state = {
         username: "",
         password: "",
+        userRole:"",
         userNameError: false,
         passwordError: false
     };
@@ -39,7 +40,7 @@ class Login extends Component {
         const token = Buffer.from(`${this.state.username}:${this.state.password}`, 'utf8').toString('base64')
 
         /* Send to backend the credentials */
-        //console.log(this.state.username + '    ' + this.state.password);
+        console.log(this.state.username + '    ' + this.state.password);
         axios.post(process.env.REACT_APP_BACKEND_URL + "/users/login", {
             auth: {
                 username: this.state.username,
@@ -55,18 +56,24 @@ class Login extends Component {
             }
         }
         ).then(value => {
-            console.log(value);
-            /* if get token save */
+            console.log(value)
+            /* if get token save data for handle role */
             localStorage.setItem("loggedUser", token);
+        
+            localStorage.setItem("loggedUserRole", value.data.role);
+            localStorage.setItem("loggedUserName", value.data.username);
+            localStorage.setItem("loggedUserFamilyName" ,value.data.familyname);
+            localStorage.setItem("loggedUserGivenName", value.data.givenname);        
             /* Redirect to  first page */
-            navigateToCustomPath("/stocks")
+            navigateToCustomPath("/stocks");
         })
             .catch(reason => console.log("axios error", reason));
-
-        //
     };
+
+
+
     render() {
-        console.log("url ", process.env.REACT_APP_BACKEND_URL);
+        //console.log("url ", process.env.REACT_APP_BACKEND_URL);
         return (
             <div className={"d-flex flex-grow-1 align-items-center justify-content-center h-100 flex-column"}>
                 <h3 className={"text-center py-3"}>

@@ -20,7 +20,7 @@ class CreateIncome extends Component {
 
     handleSave = (data) => {
         if (true) {
-            axios.post("incomes/", { ...data })
+            axios().post("incomes/", { ...data })
                 .then(() => {
                     this.setState({
                         successSave: true,

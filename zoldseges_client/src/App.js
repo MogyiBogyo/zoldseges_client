@@ -7,7 +7,10 @@ import LoggedInRoute from './routers/LoggedIn';
 import Login from './components/Login/Login';
 
 import Sales from './components/Sales/Sales';
+
 import Users from './components/Users/Users';
+import EditUser from './components/Users/User/EditUser';
+import CreateUser from './components/Users/User/CreateUser';
 
 import Products from './components/Products/Products';
 import EditProduct from './components/Products/Product/EditProduct';
@@ -70,9 +73,17 @@ function App() {
         <LoggedInRoute exact path="/incomes/edit/:id" component={EditIncome} />
 
 
-        <LoggedInRoute exact path="/orders" component={PlannedOrders} />
-        <LoggedInRoute exact path="/sales" component={Sales} />
+        <LoggedInRoute exact path="/plans" component={PlannedOrders} />
+        <LoggedInRoute exact path="/plans/new" component={CreatePlannedOrder} />
+        <LoggedInRoute exact path="/plans/edit/:id" component={EditPlannedOrders} />
+
+
         <LoggedInRoute exact path="/users" component={Users} />
+        <LoggedInRoute exact path="/users/new" component={CreateUser} />
+        <LoggedInRoute exact path="/users/edit/:id" component={EditUser} />
+
+
+        <LoggedInRoute exact path="/sales" component={Sales} />
         <LoggedInRoute exact path="/worktimes" component={Worktimes} />
 
 

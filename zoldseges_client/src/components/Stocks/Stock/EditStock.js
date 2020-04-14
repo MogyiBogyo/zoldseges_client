@@ -21,7 +21,7 @@ class EditStock extends Component {
     componentDidMount() {
         const id = this.props.computedMatch.params.id
         if (!!id) {
-            axios.get("stocks/" + id)
+            axios().get("stocks/" + id)
                 .then((response) => {
                     this.setState({
                         stock: response.data
@@ -40,9 +40,7 @@ class EditStock extends Component {
     }
 
     handleSave = (data) => {
-        //console.log(data);
-        //console.log(this.state.stock);
-        axios.put("stocks/" + this.state.stock.id, { ...data })
+        axios().put("stocks/" + this.state.stock.id, { ...data })
             .then(() => {
                 this.setState({
                     successSave: true,

@@ -22,7 +22,7 @@ class Incomes extends Component {
     }
 
     getIncomes = () => {
-        axios.get("incomes/").then(response => {
+        axios().get("incomes/").then(response => {
             console.log(response);
             const fetchedIncomes = [];
             for (let key in response.data) {
@@ -42,7 +42,7 @@ class Incomes extends Component {
 
     handleDelete = () => {
         if (this.state.selectedIncome) {
-            axios.delete("incomes/" + this.state.selectedIncome.id)
+            axios().delete("incomes/" + this.state.selectedIncome.id)
                 .then(() => {
                     this.getIncomes();
                     this.setState({

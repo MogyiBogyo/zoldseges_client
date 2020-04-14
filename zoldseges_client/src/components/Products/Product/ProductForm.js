@@ -33,7 +33,7 @@ class ProductForm extends Component {
     }
 
     getCategories = () => {
-        axios.get("/categories")
+        axios().get("/categories")
             .then(response => {
                 const fetchedCategories = [];
                 for (let key in response.data) {
@@ -155,9 +155,6 @@ class ProductForm extends Component {
                         value={this.state.sale_price}
                     />
                 </div>
-
-                {/* TODO: név, categória, ár kötelező! */}
-                {/* TODO: ha nincs akciós ár ne mutassa hogy KG */}
                 <div className="form-group">
                     <label>Kategória</label>
                     <select

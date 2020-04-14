@@ -18,7 +18,7 @@ class CreateStock extends Component {
 
     handleSave = (data) => {
         if (true) {
-            axios.post("stocks/", { ...data })
+            axios().post("stocks/", { ...data })
                 .then(() => {
                     this.setState({
                         successSave: true,

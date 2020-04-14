@@ -21,7 +21,7 @@ class EditProduct extends Component {
     componentDidMount() {
         const id = this.props.computedMatch.params.id
         if (!!id) {
-            axios.get("products/" + id)
+            axios().get("products/" + id)
                 .then((response) => {
                     this.setState({
                         product: response.data
@@ -45,7 +45,7 @@ class EditProduct extends Component {
     handleSave = (data) => {
         console.log(data);
         console.log(this.state.product);
-        axios.put("products/" + this.state.product.id, { ...data })
+        axios().put("products/" + this.state.product.id, { ...data })
             .then(() => {
                 this.setState({
                     successSave: true,

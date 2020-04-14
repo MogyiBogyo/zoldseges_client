@@ -23,7 +23,7 @@ class CreateCategory extends Component {
     }
 
     handleSave = (data) => {
-        axios.post("categories/",{...data})
+        axios().post("categories/",{...data})
                 .then(() => {            
                     this.setState({                        
                         successSave: true,

@@ -23,7 +23,7 @@ class CreateProduct extends Component {
 
     handleSave = (data) => {
         if (true) {
-            axios.post("products/", {...data})
+            axios().post("products/", {...data})
                 .then(() => {
                     this.setState({
                         successSave: true,

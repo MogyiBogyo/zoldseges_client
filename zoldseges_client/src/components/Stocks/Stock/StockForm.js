@@ -25,7 +25,7 @@ class StockForm extends Component {
 
 
     getProducts = () => {
-        axios.get("products/")
+        axios().get("products/")
             .then(response => {
                 //console.log(response);
                 const fetchedProducts = [];
@@ -75,7 +75,7 @@ class StockForm extends Component {
             quantity: this.state.quantity,
             productId: this.state.product
         };
-        console.log(sendParams);
+        //console.log(sendParams);
         this.props.save(sendParams)
     }
 

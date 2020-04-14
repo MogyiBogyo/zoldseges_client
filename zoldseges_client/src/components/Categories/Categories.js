@@ -30,7 +30,7 @@ class Categories extends Component {
 
 
     getCategories = () => {
-        axios.get("/categories")
+        axios().get("/categories")
         .then(response => {
             const fetchedCategories = [];
             for (let key in response.data) {
@@ -51,7 +51,7 @@ class Categories extends Component {
 
     handleDelete = () => {
         if(this.state.selectedCategory){
-            axios.delete("categories/"+this.state.selectedCategory.id)
+            axios().delete("categories/"+this.state.selectedCategory.id)
             .then(() => {
                     this.getCategories();
                     this.setState({
@@ -121,7 +121,7 @@ class Categories extends Component {
                                 </div>
                                 <div className="col-12 col-md-2">
                                     <b>
-                                        Művelet
+                                        Műveletek
                                 </b>
                                 </div>
                             </div>

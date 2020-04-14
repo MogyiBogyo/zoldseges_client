@@ -22,7 +22,7 @@ class Plannedorders extends Component {
 
 
     getPlannerOrders = () => {
-        axios.get("plans/")
+        axios().get("plans/")
             .then(response => {
                 const fetchedPlans = [];
                 for (let key in response.data) {
@@ -41,7 +41,7 @@ class Plannedorders extends Component {
 
     handleDelete = () => {
         if (this.state.selectedPlan) {
-            axios.delete("plans/" + this.state.selectedPlan.id)
+            axios().delete("plans/" + this.state.selectedPlan.id)
                 .then(() => {
                     this.getPlannerOrders();
                     this.setState({
@@ -55,7 +55,7 @@ class Plannedorders extends Component {
                             showDeleteQuestion: false,
                             selectedPlan: null,
                             serverError: true,
-                            deleteErrorText: "Nem lehet törölni készletet mert hivatkoznak rá!"
+                            deleteErrorText: "SIkertelen törlés!"
                         })
                     } else {
                         this.setState({
@@ -79,7 +79,7 @@ class Plannedorders extends Component {
                         <div className="col-12 col-md-8 offset-md-2">
                             <div className="row my-3">
                                 <div className="col-12 ">
-                                    <Link to={"/orders/new"} className={"btn btn-primary"} >
+                                    <Link to={"/plans/new"} className={"btn btn-primary"} >
                                         + Új tervezett rendelés felvétele
                             </Link>
                                 </div>

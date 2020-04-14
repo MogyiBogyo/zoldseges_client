@@ -23,7 +23,11 @@ class Stocks extends Component {
     }
 
     getStocks = () => {
-        axios.get("stocks/").then(response => {
+        console.log("RUN ",localStorage.getItem("loggedUser"))
+        
+        
+        axios().get("stocks/").then(response => {
+            
             const fetchedStocks = [];
             for (let key in response.data) {
                 fetchedStocks.push({
@@ -31,7 +35,7 @@ class Stocks extends Component {
                 });
             }
             this.setState({ stocks: fetchedStocks, loading: false })
-        }).catch(function (error) {
+        }).catch((error) =>  {
             this.setState({
                 serverError: true
             })
@@ -41,7 +45,7 @@ class Stocks extends Component {
 
     handleDelete = () => {
         if (this.state.selectedStock) {
-            axios.delete("stocks/" + this.state.selectedStock.id)
+            axios().delete("stocks/" + this.state.selectedStock.id)
                 .then(() => {
                     this.getStocks();
                     this.setState({

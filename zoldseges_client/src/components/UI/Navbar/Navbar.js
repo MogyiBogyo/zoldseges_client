@@ -4,12 +4,21 @@ import { navigateToCustomPath } from '../../../App';
 
 class Navbar extends Component {
 
+
     handleLogOut = (event) => {
         event.preventDefault();
         localStorage.removeItem("loggedUser");
+        localStorage.removeItem("loggedUserRole");
+        localStorage.removeItem("loggedUserName");
+        localStorage.removeItem("loggedUserFamilyName");
+        localStorage.removeItem("loggedUserGivenName");
+        //localStorage.clear();
         navigateToCustomPath("/");
     }
     render() {
+
+        let loggedUserRole = localStorage.getItem("loggedUserRole");
+        console.log(loggedUserRole);
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <a className="navbar-brand" href="#">Zöldséges</a>
@@ -33,22 +42,21 @@ class Navbar extends Component {
                             <NavLink to="/categories" className={"nav-link"} activeClassName={"active"} >Kategóriák</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/orders" className={"nav-link"} activeClassName={"active"} >Rendelés</NavLink>
+                            <NavLink to="/incomes" className={"nav-link"} activeClassName={"active"} >Árubevétel</NavLink>
+                        </li>
+                        <li className="nav-item ">
+                            <NavLink to="/plans" className={"nav-link"} activeClassName={"active"} >Tervezett rendelések</NavLink>
                         </li>
                         <li className="nav-item ">
                             <NavLink to="/sales" className={"nav-link"} activeClassName={"active"} >Eladás</NavLink>
                         </li>
+
                         <li className="nav-item ">
                             <NavLink to="/users" className={"nav-link"} activeClassName={"active"} >Felhasználók</NavLink>
                         </li>
                         <li className="nav-item ">
-                            <NavLink to="/incomes" className={"nav-link"} activeClassName={"active"} >Árubevétel</NavLink>
-                        </li>
-                        <li className="nav-item ">
                             <NavLink to="/worktimes" className={"nav-link"} activeClassName={"active"} >Beosztás</NavLink>
                         </li>
-
-
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item ">

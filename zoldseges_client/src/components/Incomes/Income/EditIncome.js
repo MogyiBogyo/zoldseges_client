@@ -23,7 +23,7 @@ class EditIncome extends Component {
     componentDidMount() {
         const id = this.props.computedMatch.params.id
         if (!!id) {
-            axios.get("incomes/" + id)
+            axios().get("incomes/" + id)
                 .then((response) => {
                     console.log(response.data);
                     this.setState({
@@ -46,7 +46,7 @@ class EditIncome extends Component {
     handleSave = (data) => {
         //console.log(this.state.stock);
         
-        axios.put("incomes/" + this.state.income.id, { ...data })
+        axios().put("incomes/" + this.state.income.id, { ...data })
             .then(() => {
                 this.setState({
                     successSave: true,

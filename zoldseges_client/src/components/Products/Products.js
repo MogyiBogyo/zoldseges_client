@@ -23,7 +23,7 @@ class Products extends Component {
 
 
     getProducts = () => {
-        axios.get("products/")
+        axios().get("products/")
             .then(response => {
                 //console.log(response);
                 const fetchedProducts = [];
@@ -45,7 +45,7 @@ class Products extends Component {
 
     handleDelete = () => {
         if (this.state.selectedProduct) {
-            axios.delete("products/" + this.state.selectedProduct.id)
+            axios().delete("products/" + this.state.selectedProduct.id)
                 .then(() => {
                     this.getProducts();
                     this.setState({
@@ -129,7 +129,7 @@ class Products extends Component {
                                 </div>
                                 <div className="col-12 col-md-2 d-flex justify-content-center">
                                     <b>
-                                        Művelet
+                                        Műveletek
                                 </b>
                                 </div>
                             </div>
