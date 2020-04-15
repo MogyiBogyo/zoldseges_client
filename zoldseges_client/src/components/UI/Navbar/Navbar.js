@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { navigateToCustomPath } from '../../../App';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 class Navbar extends Component {
 
-
+    state = {
+        showUserInfo: false
+    }
     handleLogOut = (event) => {
         event.preventDefault();
         localStorage.removeItem("loggedUser");
-        localStorage.removeItem("loggedUserRole");
+        //localStorage.removeItem("loggedUserRole");
         localStorage.removeItem("loggedUserName");
         localStorage.removeItem("loggedUserFamilyName");
         localStorage.removeItem("loggedUserGivenName");
@@ -16,9 +20,17 @@ class Navbar extends Component {
         navigateToCustomPath("/");
     }
     render() {
+        const dropdownStyle = {
+            color: "black",
+            backgroundColor: "white",
+            padding: "0 10px 0 10px",
+            fontFamily: "Arial",
+            marginRight: "5"
 
+        }
         let loggedUserRole = localStorage.getItem("loggedUserRole");
-        console.log(loggedUserRole);
+        let loggedUserFamilyname = localStorage.getItem("loggedUserFamilyName");
+        let loggedUserGivenName = localStorage.getItem("loggedUserGivenName");
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <a className="navbar-brand" href="#">Zöldséges</a>
@@ -50,17 +62,29 @@ class Navbar extends Component {
                         <li className="nav-item ">
                             <NavLink to="/sales" className={"nav-link"} activeClassName={"active"} >Eladás</NavLink>
                         </li>
-
-                        <li className="nav-item ">
+                        {loggedUserRole === "ROLE_ADMIN" ? <li className="nav-item ">
                             <NavLink to="/users" className={"nav-link"} activeClassName={"active"} >Felhasználók</NavLink>
-                        </li>
+                        </li> : null}
+
                         <li className="nav-item ">
                             <NavLink to="/worktimes" className={"nav-link"} activeClassName={"active"} >Beosztás</NavLink>
                         </li>
                     </ul>
                     <ul className="navbar-nav ml-auto">
-                        <li className="nav-item ">
-                            <NavLink to="/" className={"nav-link"} activeClassName={"active"} onClick={(event) => this.handleLogOut(event)} >Kijelentkezés</NavLink>
+
+                        <li className={`nav-item dropdown  ${this.state.showUserInfo ? "show" : ""}`}>
+                            <a className="nav-link dropdown-toggle " href="#"
+                                id="navbarDropdown"
+                                onClick={() => this.setState({
+                                    showUserInfo: !this.state.showUserInfo
+                                })}
+                            >
+                                {loggedUserFamilyname} {loggedUserGivenName}
+                            </a>
+                            <div className={`dropdown-menu  ${this.state.showUserInfo ? "show" : ""}`} aria-labelledby="navbarDropdown">
+                                <NavLink to="/" className={"dropdown-item "} style={dropdownStyle} activeClassName={"active"} onClick={(event) => this.handleLogOut(event)} >Kijelentkezés</NavLink>
+                            </div>
+
                         </li>
                     </ul>
                 </div>

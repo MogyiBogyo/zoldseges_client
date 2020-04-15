@@ -6,7 +6,7 @@ class Login extends Component {
     state = {
         username: "",
         password: "",
-        userRole:"",
+        userRole: "",
         userNameError: false,
         passwordError: false
     };
@@ -50,7 +50,7 @@ class Login extends Component {
             withCredentials: true,
             headers: {
                 'Authorization': `Basic ${token}`,
-                "Accept": "application/json", 
+                "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             }
@@ -59,12 +59,15 @@ class Login extends Component {
             console.log(value)
             /* if get token save data for handle role */
             localStorage.setItem("loggedUser", token);
-        
-            localStorage.setItem("loggedUserRole", value.data.role);
-            localStorage.setItem("loggedUserName", value.data.username);
-            localStorage.setItem("loggedUserFamilyName" ,value.data.familyname);
-            localStorage.setItem("loggedUserGivenName", value.data.givenname);        
+            if (!!localStorage.getItem("loggedUserRole")) {
+                localStorage.setItem("loggedUserRole", value.data.role);
+                localStorage.setItem("loggedUserName", value.data.username);
+                localStorage.setItem("loggedUserFamilyName", value.data.familyname);
+                localStorage.setItem("loggedUserGivenName", value.data.givenname);
+            }
+
             /* Redirect to  first page */
+            console.log(localStorage.getItem("loggedUserRole"));
             navigateToCustomPath("/stocks");
         })
             .catch(reason => console.log("axios error", reason));

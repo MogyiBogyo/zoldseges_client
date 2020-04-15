@@ -9,7 +9,7 @@ class Worktimes extends Component {
     }
 
     componentDidMount() {
-        axios.get("worktimes/", {
+        axios().get("worktimes/", {
             withCredentials: true,
             headers: {
                 "Accept": "application/json",

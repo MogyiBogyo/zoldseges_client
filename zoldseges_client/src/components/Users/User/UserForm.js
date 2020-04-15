@@ -88,6 +88,7 @@ class UserForm extends Component {
         }
         //save
         const sendParams = {
+            
             familyname: this.state.familyname,
             givenname: this.state.givenname,
             username: this.state.username,
@@ -96,6 +97,7 @@ class UserForm extends Component {
             password: this.state.password,
         };
         //console.log(sendParams);
+        console.log(sendParams.role);
         this.props.save(sendParams)
     }
 
@@ -113,7 +115,7 @@ class UserForm extends Component {
                         value={this.state.username}
                     />
                     {
-                        this.state.nameError ? <div className="invalid-feedback  d-block">
+                        this.state.usernameError ? <div className="invalid-feedback  d-block">
                             Felhasználónév megadása kötelező!
                             </div> : <small className="form-text text-muted">A felhasználónév nem lehet azonos a rendszerben megtalálhatókkal</small>
                     }
@@ -167,50 +169,34 @@ class UserForm extends Component {
                     }
                 </div>
                 <div className="form-group">
-                    <label htmlFor="username">Jelszó</label>
+                    <label htmlFor="password">Jelszó</label>
                     <input type="password"
-                        className={`form-control ${this.state.usernameError ? "invalid" : ""}`}
-                        id="username"
+                        className={`form-control ${this.state.passwordError ? "invalid" : ""}`}
+                        id="password"
                         onChange={(e) => this.setState({
-                            username: e.target.value
+                            password: e.target.value
                         })}
-                        value={this.state.username}
+                        value={this.state.password}
                     />
                     {
-                        this.state.nameError ? <div className="invalid-feedback  d-block">
+                        this.state.passwordError ? <div className="invalid-feedback  d-block">
                             Jelszó megadása kötelező!
                             </div> : null
                     }
                 </div>
                 <div className="form-group">
-                    <label htmlFor="username">Felhasználónév</label>
-                    <input type="text"
-                        className={`form-control ${this.state.usernameError ? "invalid" : ""}`}
-                        id="username"
-                        onChange={(e) => this.setState({
-                            username: e.target.value
-                        })}
-                        value={this.state.username}
-                    />
-                    {
-                        this.state.nameError ? <div className="invalid-feedback  d-block">
-                            Felhasználónév megadása kötelező!
-                            </div> : <small className="form-text text-muted">A felhasználónév nem lehet azonos a rendszerben megtalálhatókkal</small>
-                    }
-                </div>
-                <div className="form-group">
-                    <label>Jogosultság</label>
+                    <label >Jogosultság</label>
                     <select
-                        className={`form-control ${this.state.roleError ? "invalid" : ""} `} >
+                        className={`form-control ${this.state.roleError ? "invalid" : ""} `} 
                         onChange={(e) => this.setState({
                             role: e.target.value
                         })}>
-                        <option value="ROLE_ADMIN"
-                            key={0}
+                        <option value={"ROLE_ADMIN"}
+                            key={1}
                             selected={!!this.state.role && this.state.role === "ROLE_ADMIN" ? "selected:" : ""}
                         >Admin</option>
-                        <option value="ROLE_WORKER"
-                            key={1}
+                        <option value={"ROLE_WORKER"}
+                            key={2}
                             selected={!!this.state.role && this.state.role === "ROLE_WORKER" ? "selected:" : ""}
                         >Dolgozó</option>
 

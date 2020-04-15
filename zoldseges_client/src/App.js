@@ -47,6 +47,8 @@ export const navigateToCustomPath = (path) => {
 
 
 function App() {
+
+
   return (
     <Router history={history}>
       <Switch>
@@ -78,9 +80,10 @@ function App() {
         <LoggedInRoute exact path="/plans/edit/:id" component={EditPlannedOrders} />
 
 
-        <LoggedInRoute exact path="/users" component={Users} />
+        <LoggedInRoute exact path="/users" role="ROLE_ADMIN" component={Users} />
         <LoggedInRoute exact path="/users/new" component={CreateUser} />
         <LoggedInRoute exact path="/users/edit/:id" component={EditUser} />
+
 
 
         <LoggedInRoute exact path="/sales" component={Sales} />
