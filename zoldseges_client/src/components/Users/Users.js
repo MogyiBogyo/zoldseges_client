@@ -109,12 +109,6 @@ class Users extends Component {
                     <ul className="list-group">
                         <li className="list-group-item d-none d-md-block">
                             <div className="row">
-                                <div className="col-12 col-md-1">
-                                    <b>
-                                        ID:
-                                </b>
-
-                                </div>
                                 <div className="col-12 col-md-3">
                                     <b>
                                         Név:
@@ -125,7 +119,7 @@ class Users extends Component {
                                         Felhasználónév:
                                 </b>
                                 </div>
-                                <div className="col-12 col-md-2">
+                                <div className="col-12 col-md-3">
                                     <b>
                                         Email cím:
                                 </b>

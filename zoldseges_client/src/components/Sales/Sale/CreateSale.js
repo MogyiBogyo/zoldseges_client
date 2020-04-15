@@ -5,46 +5,24 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { navigateToCustomPath } from "../../../App";
-import StockForm from './StockForm';
 
+import SaleForm from './SaleForm';
 
-class CreateStock extends Component {
+class CreateSale extends Component {
     state = {
         quantity: "",
         product: null,
+        date: "",
+        buyer: "",
+        price: "",
         serverError: false,
         successSave: false,
-        stocks: []
-    }
-
-    componentDidMount() {
-        this.getStocks();
-        
-    }
-
-    getStocks = () => {
-        axios().get("stocks/").then(response => {
-            const fetchedStocks = [];
-            for (let key in response.data) {
-                fetchedStocks.push({
-                    ...response.data[key]
-                });
-            }
-            this.setState({ stocks: fetchedStocks })
-        }).catch((error) => {
-            this.setState({
-                serverError: true
-            })
-
-        });
     }
 
 
     handleSave = (data) => {
-        var found = this.state.stocks.find(stock => parseInt(data.productId) === parseInt(stock.product.id))
-
-        if (!!found) {
-            axios().put("stocks/product/" + data.productId, { ...data })
+        if (true) {
+            axios().post("sales/", { ...data })
                 .then(() => {
                     this.setState({
                         successSave: true,
@@ -54,28 +32,7 @@ class CreateStock extends Component {
                     if (error.response.status === 400) {
                         this.setState({
                             serverError: true,
-                            serverErrorText: "Hibás adatok"
-                        })
-                    } else {
-                        this.setState({
-                            serverError: true,
-                            serverErrorText: "Ismeretlen szerver hiva"
-                        })
-                    }
-
-                });
-        } else {
-            axios().post("stocks/", { ...data })
-                .then(() => {
-                    this.setState({
-                        successSave: true,
-                    })
-                }).catch((error) => {
-                    console.log("error", error)
-                    if (error.response.status === 400) {
-                        this.setState({
-                            serverError: true,
-                            serverErrorText: "Helytelen készlet adatok"
+                            serverErrorText: "Helytelen adatok"
                         })
                     } else {
                         this.setState({
@@ -85,12 +42,12 @@ class CreateStock extends Component {
                     }
                 });
         }
+
     }
 
-    handleRedirectToStocksPage = () => {
-        navigateToCustomPath("/stocks");
+    handleRedirectToSalesPage = () => {
+        navigateToCustomPath("/sales");
     }
-
 
     render() {
         return (
@@ -98,7 +55,7 @@ class CreateStock extends Component {
                 <div className={"container"}>
                     <div className="row my-3">
                         <div className="col-12 col-md-8 offset-md-2">
-                            <Link to={"/stocks"} className={"btn btn-warning"} >
+                            <Link to={"/sales"} className={"btn btn-warning"} >
                                 <FontAwesomeIcon icon={faChevronLeft} className="mr-2" /> Vissza
                             </Link>
                         </div>
@@ -107,10 +64,10 @@ class CreateStock extends Component {
                         <div className="col-12 col-md-8 offset-md-2">
                             <div className="card">
                                 <div className="card-header">
-                                    Új készlet felvétele
+                                    Új árubevétel felvétele
                                 </div>
                                 <div className="card-body">
-                                    <StockForm save={(data) => this.handleSave(data)} />
+                                    <SaleForm save={(data) => this.handleSave(data)} />
                                 </div>
                             </div>
                         </div>
@@ -134,20 +91,15 @@ class CreateStock extends Component {
                     success
                     show={this.state.successSave}
                     title="Sikeres"
-                    onConfirm={() => this.handleRedirectToStocksPage()}
-                    onCancel={() => this.handleRedirectToStocksPage()}
+                    onConfirm={() => this.handleRedirectToSalesPage()}
+                    onCancel={() => this.handleRedirectToSalesPage()}
                     btnSize="sm"
                 >
                     Mentés!
                 </SweetAlert>
-
-
-
             </div>
         );
     }
-
-
 }
 
-export default CreateStock;
+export default CreateSale;

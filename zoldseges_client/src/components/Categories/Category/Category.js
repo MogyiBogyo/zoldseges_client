@@ -12,13 +12,8 @@ const category = (props) => {
     return (
         <li className="list-group-item">
             <div className="row">
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                        ID:
-                    </span>
-                    {props.id}
-                </div>
-                <div className="col-12 col-md-3 d-flex align-items-center justify-content-between">
+               
+                <div className="col-12 col-md-4 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         Név:
                     </span>
@@ -30,13 +25,13 @@ const category = (props) => {
                     </span>
                     {isSale}
                 </div>
-                <div className="col-12 col-md-3 d-flex align-items-center justify-content-between">
+                <div className="col-12 col-md-3 d-flex align-items-center justify-content-between" >
                     <span className="d-inline-block d-md-none">
                         Akciós ár
                     </span>
                     {salePrice}
                 </div>
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
+                <div className="col-12 col-md-3 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         Müvelet
                     </span>

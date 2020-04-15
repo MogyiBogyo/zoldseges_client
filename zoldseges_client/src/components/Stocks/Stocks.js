@@ -23,11 +23,9 @@ class Stocks extends Component {
     }
 
     getStocks = () => {
-        console.log("RUN ",localStorage.getItem("loggedUser"))
-        
-        
+        //console.log("RUN ", localStorage.getItem("loggedUser"))
         axios().get("stocks/").then(response => {
-            
+
             const fetchedStocks = [];
             for (let key in response.data) {
                 fetchedStocks.push({
@@ -35,7 +33,7 @@ class Stocks extends Component {
                 });
             }
             this.setState({ stocks: fetchedStocks, loading: false })
-        }).catch((error) =>  {
+        }).catch((error) => {
             this.setState({
                 serverError: true
             })
@@ -92,11 +90,6 @@ class Stocks extends Component {
                             <ul className="list-group">
                                 <li className="list-group-item d-none d-md-block">
                                     <div className="row">
-                                        <div className="col-12 col-md-2">
-                                            <b>
-                                                ID:
-                                    </b>
-                                        </div>
                                         <div className="col-12 col-md-4">
                                             <b>
                                                 Termék

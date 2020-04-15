@@ -5,7 +5,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { navigateToCustomPath } from "../../../App";
-import IncomeForm from './IncomeForm';
+import IncomeForm from './IncomeForm'; 
 
 class CreateIncome extends Component {
     state = {

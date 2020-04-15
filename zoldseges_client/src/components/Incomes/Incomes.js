@@ -75,7 +75,7 @@ class Incomes extends Component {
     render() {
         return (
             <>
-                <div className={"mx-3"}>
+                <div className={"mx-5"}>
                     <div className="row my-3">
                         <div className="col-12">
                             <Link to={"/incomes/new"} className={"btn btn-primary"} >
@@ -86,11 +86,6 @@ class Incomes extends Component {
                     <ul className="list-group">
                         <li className="list-group-item d-none d-md-block">
                             <div className="row">
-                                <div className="col-12 col-md-1">
-                                    <b>
-                                        ID:
-                                    </b>
-                                </div>
                                 <div className="col-12 col-md-2">
                                     <b>
                                         Termék
@@ -106,7 +101,7 @@ class Incomes extends Component {
                                         Ár
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-2">
+                                <div className="col-12 col-md-3">
                                     <b>
                                         Eladó
                                     </b>
@@ -180,7 +175,7 @@ class Incomes extends Component {
                     })}
                     btnSize="sm" >
                     {
-                        !!this.state.selectedStock ? <div>
+                        !!this.state.selectedIncome ? <div>
                             Biztos törli az árubevételt?
                                 </div> : null
                     }

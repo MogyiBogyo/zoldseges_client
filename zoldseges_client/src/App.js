@@ -34,6 +34,8 @@ import CreatePlannedOrder from './components/PlannedOrders/PlannedOrder/CreatePl
 
 
 import Worktimes from './components/WorkTimes/Worktimes';
+import CreateSale from './components/Sales/Sale/CreateSale';
+import EditSale from './components/Sales/Sale/EditSale';
 
 
 const createBrowserHistory = require("history").createBrowserHistory;
@@ -84,9 +86,12 @@ function App() {
         <LoggedInRoute exact path="/users/new" component={CreateUser} />
         <LoggedInRoute exact path="/users/edit/:id" component={EditUser} />
 
-
-
         <LoggedInRoute exact path="/sales" component={Sales} />
+        <LoggedInRoute exact path="/sales/new" component={CreateSale} />
+        <LoggedInRoute exact path="/sales/edit/:id" component={EditSale} />
+
+
+
         <LoggedInRoute exact path="/worktimes" component={Worktimes} />
 
 

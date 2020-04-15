@@ -1,19 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen, faTrash} from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const stock = (props) => {
 
     return (
         <li className="list-group-item">
             <div className="row">
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                        ID:
-                    </span>
-                    {props.id}
-                </div>
                 <div className="col-12 col-md-4 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         Termék:
