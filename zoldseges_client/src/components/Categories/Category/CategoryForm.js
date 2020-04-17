@@ -27,7 +27,7 @@ class CategoryForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         // TODO: check required field is correct
-       if (this.state.name === "") {
+       if (this.state.name === "" || this.state.name.length < 3 || this.state.name.length > 20) {
             this.setState({
                 nameError: true,
             });
@@ -83,7 +83,7 @@ class CategoryForm extends Component {
                     />
                     {
                         this.state.nameError ? <div className="invalid-feedback  d-block">
-                            Kategórianév megadása kötelező!
+                            Kategórianév megadása kötelező, 3-20 karakter hosszúnak kell lennie!
                             </div> : null
                     }
                     <small className="form-text text-muted">A név nem lehet azonos a rendszerben megtalálhatókkal</small>

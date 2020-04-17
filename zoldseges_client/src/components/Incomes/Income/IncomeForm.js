@@ -20,6 +20,7 @@ class IncomeForm extends Component {
         productError: false,
         priceError: false,
         quantityerror: false,
+        sellerError: false
         //dateError: false,
     };
 
@@ -98,6 +99,17 @@ class IncomeForm extends Component {
         } else {
             this.setState({
                 priceError: false,
+            })
+        }
+
+        if (this.state.seller.length > 25 ) {
+            this.setState({
+                sellerError: true,
+            });
+            return
+        } else {
+            this.setState({
+                sellerError: false,
             })
         }
         /*if (this.state.date === "") {
@@ -193,7 +205,7 @@ class IncomeForm extends Component {
                 <div className="form-group">
                     <label htmlFor="seller">Eladó</label>
                     <input type="text"
-                        className="form-control"
+                        className={`form-control ${this.state.sellerError ? "invalid" : ""}`}
                         id="seller"
                         onChange={(e) => this.setState({
                             seller: e.target.value
@@ -201,12 +213,17 @@ class IncomeForm extends Component {
                         value={this.state.seller}
                     />
                 </div>
+                {
+                    this.state.sellerError ? <div className="invalid-feedback d-block mb-3">
+                        Az eladó neve nem lehet hosszabb 25 karakternél!
+                            </div> : null
+                }
                 {/** datepickert */}
                 <div className="form-group">
                     <div><label htmlFor="date">Dátum</label></div>
                     <DatePicker
                         showPopperArrow={false}
-                        //selected={this.state.date ? this.state.date : ""}
+                        selected=""
                         onChange={(date) => this.setStartDate(date)}
                         value={this.state.date}
                         dateFormat={"yyyy-MMM-dd"}

@@ -20,6 +20,7 @@ class SaleForm extends Component {
         productError: false,
         priceError: false,
         quantityerror: false,
+        buyerError: false
         //dateError: false,
     };
 
@@ -29,8 +30,8 @@ class SaleForm extends Component {
             this.setState({
                 quantity: this.props.sale.quantity,
                 product: this.props.sale.product.id,
-                buyer: !!this.props.sale.seller ? this.props.sale.seller : "",
-                date: moment(this.props.sale.date).format("YYYY-MMM-DD").toString(),
+                buyer: !!this.props.sale.buyer ? this.props.sale.buyer : "",
+                date: this.props.sale.date,
                 price: this.props.sale.price
             })
         }
@@ -113,6 +114,16 @@ class SaleForm extends Component {
                 dateError: false,
             })
         }
+        if (this.state.buyer.length > 25) {
+            this.setState({
+                buyerError: true,
+            });
+            return
+        } else {
+            this.setState({
+                buyerError: false,
+            })
+        }
 
 
         //console.log(this.state.date);
@@ -121,7 +132,7 @@ class SaleForm extends Component {
             quantity: this.state.quantity,
             productId: this.state.product,
             date: this.state.date,
-            buyer: !!this.props.sale.seller ? this.props.sale.seller : "",
+            buyer: !!this.state.buyer ? this.state.buyer : "",
             price: this.state.price
         };
 
@@ -192,22 +203,27 @@ class SaleForm extends Component {
 
 
                 <div className="form-group">
-                    <label htmlFor="seller">Eladó</label>
+                    <label htmlFor="buyer">Vevő</label>
                     <input type="text"
-                        className="form-control"
-                        id="seller"
+                        className={`form-control ${this.state.buyerError ? "invalid" : ""}`}
+                        id="buyer"
                         onChange={(e) => this.setState({
-                            seller: e.target.value
+                            buyer: e.target.value
                         })}
-                        value={this.state.seller}
+                        value={this.state.buyer}
                     />
                 </div>
+                {
+                    this.state.buyerError ? <div className="invalid-feedback d-block mb-3">
+                        A vevő neve nem lehet 25 karakternél hoszabb!
+                            </div> : null
+                }
 
                 <div className="form-group">
                     <div><label htmlFor="date">Dátum</label></div>
                     <DatePicker
                         showPopperArrow={false}
-                        //selected={this.state.date ? this.state.date : ""}
+                        selected=""
                         onChange={(date) => this.setStartDate(date)}
                         value={this.state.date}
                         dateFormat={"YYYY-MMM-dd"}
