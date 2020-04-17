@@ -87,12 +87,7 @@ class Plannedorders extends Component {
                             <ul className="list-group">
                                 <li className="list-group-item d-none d-md-block">
                                     <div className="row">
-                                        <div className="col-12 col-md-2">
-                                            <b>
-                                                ID:
-                                    </b>
-                                        </div>
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-5">
                                             <b>
                                                 Termék
                                     </b>
@@ -102,7 +97,7 @@ class Plannedorders extends Component {
                                                 Mennyiség
                                     </b>
                                         </div>
-                                        <div className="col-12 col-md-2 d-flex justify-content-center ">
+                                        <div className="col-12 col-md-3 d-flex justify-content-center ">
                                             <b>
                                                 Művelet
                                     </b>

@@ -20,12 +20,7 @@ const product = (props) => {
     return (
         <li className="list-group-item">
             <div className="row">
-                <div className="col-12 col-md-1 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                        ID:
-                </span>
-                    {props.id}
-                </div>
+            
                 <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         Név:
@@ -38,7 +33,7 @@ const product = (props) => {
                 </span>
                     {props.price} / Kg
                 </div>
-                <div className="col-12 col-md-1 d-flex align-items-center justify-content-between justify-content-md-center">
+                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between justify-content-md-center">
                     <span className="d-inline-block d-md-none">
                         Akciós
                 </span>

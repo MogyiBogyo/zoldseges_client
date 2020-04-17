@@ -91,12 +91,6 @@ class Products extends Component {
                     <ul className="list-group">
                         <li className="list-group-item d-none d-md-block">
                             <div className="row">
-                                <div className="col-12 col-md-1">
-                                    <b>
-                                        ID:
-                                </b>
-
-                                </div>
                                 <div className="col-12 col-md-2">
                                     <b>
                                         Név:
@@ -109,7 +103,7 @@ class Products extends Component {
                                 </b>
 
                                 </div>
-                                <div className="col-12 col-md-1 d-flex justify-content-center">
+                                <div className="col-12 col-md-2 d-flex justify-content-center">
                                     <b>
                                         Akciós
                                 </b>
