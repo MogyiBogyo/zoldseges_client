@@ -1,70 +1,82 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash, faEnvelope, faUserShield, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 const user = (props) => {
-    /*return (
-        <div>
-            <p>ID: {props.id}</p>
-            <p>Név: {props.familyName} {props.givenName}</p>
-            <p>Felhasználónév: {props.userName}</p>
-            <p>Email: {props.email}</p>
-        </div>
-    );*/
+
 
     let role = "";
-    if(props.role === "ROLE_ADMIN"){
-        role= "Admin";
-    }else if(props.role === "ROLE_WORKER"){
-        role= "Dolgozó";
+    if (props.role === "ROLE_ADMIN") {
+        role = "Admin";
+    } else if (props.role === "ROLE_WORKER") {
+        role = "Dolgozó";
     }
 
 
 
     return (
-        <li className="list-group-item">
-            <div className="row">
-                
-                <div className="col-12 col-md-3 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                        Név:
-                    </span>
-                    {props.familyName} {props.givenName}
+        <div className="col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+            <div className="card">
+                <div className="card-header">
+                    <div className="row">
+                    <div className="col-12 d-flex align-items-center justify-content-between my-2">
+                            <span className="d-inline-block">
+                                Név:
+                            </span>
+                            <b>
+                            {props.familyName} {props.givenName}
+                            </b>
+                        </div>
+                    </div>
                 </div>
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                       Felhasználónév:
+                <div className="card-body">
+                    <div className="row">                
+                        <div className="col-12 d-flex align-items-center justify-content-between my-2">
+                            <span className="d-inline-block">
+                            <FontAwesomeIcon icon={faUserAlt} className="mr-2" />
+                                Felhasználónév:
                     </span>
-                    {props.userName}
-                </div>
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                        Email cím:
+                            <b>
+                            {props.userName}
+                            </b>
+                        </div>
+                        <div className="col-12 d-flex align-items-center justify-content-between my-2">
+                            <span className="d-inline-block">
+                                <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
+                                Email cím:
                     </span>
-                    {props.email}
-                </div>
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                        Jogosultság:
+                            <b>
+                            {props.email}
+                            </b>
+                    
+                        </div>
+                        <div className="col-12 d-flex align-items-center justify-content-between my-2">
+                            <span className="d-inline-block">
+                            <FontAwesomeIcon icon={faUserShield} className="mr-2" />
+                                Jogosultság:
                     </span>
-                    {role}
-                </div>
-                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
-                    <span className="d-inline-block d-md-none">
-                        Müvelet
-                    </span>
-                    <Link to={"/users/edit/" + props.id} className="btn btn-info">
-                        <FontAwesomeIcon icon={faPen} />
-                    </Link>
-                    <button className="btn btn-danger" onClick={() => props.showDeleteQuestion()}>
-                        <FontAwesomeIcon icon={faTrash} />
-                    </button>
+                            <b>
+                            {role}
+                            </b>
+                        </div>
+                        <div className="col-6 d-flex align-items-center justify-content-between my-2">
+                            <Link to={"/users/edit/" + props.id} className="btn btn-block btn-info btn-sm">
+                                <FontAwesomeIcon icon={faPen} />
+                            </Link>
+
+                        </div>
+                        <div className="col-6 d-flex align-items-center justify-content-between my-2">
+                            <button className="btn btn-sm btn-block btn-danger" onClick={() => props.showDeleteQuestion()}>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </li>
+        </div>
     )
 
 }

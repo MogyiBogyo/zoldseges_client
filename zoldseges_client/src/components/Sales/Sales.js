@@ -126,6 +126,10 @@ class Sales extends Component {
                                 price={sale.price}
                                 quantity={sale.quantity}
                                 product={sale.product}
+                                showDeleteQuestion={() => this.setState({
+                                    showDeleteQuestion: true,
+                                    selectedSale: sale
+                                })}
 
                             />
                         ))}
@@ -172,7 +176,7 @@ class Sales extends Component {
                     btnSize="sm" >
                     {
                         !!this.state.selectedSale ? <div>
-                            Biztos törli az árubevételt?
+                            Biztos törli az eladást?
                                 </div> : null
                     }
                 </SweetAlert>

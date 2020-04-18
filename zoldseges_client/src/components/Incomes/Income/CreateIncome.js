@@ -5,7 +5,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { navigateToCustomPath } from "../../../App";
-import IncomeForm from './IncomeForm'; 
+import IncomeForm from './IncomeForm';
 
 class CreateIncome extends Component {
     state = {
@@ -14,17 +14,104 @@ class CreateIncome extends Component {
         date: "",
         seller: "",
         price: "",
+        stocks: [],
         serverError: false,
         successSave: false,
     }
 
+    componentDidMount() {
+        this.getStocks();
+    }
+
+    getStocks = () => {
+        axios().get("stocks/").then(response => {
+            const fetchedStocks = [];
+            for (let key in response.data) {
+                fetchedStocks.push({
+                    ...response.data[key]
+                });
+            }
+            this.setState({ stocks: fetchedStocks })
+        }).catch((error) => {
+            this.setState({
+                serverError: true
+            })
+
+        });
+    }
+
+
     handleSave = (data) => {
-        if (true) {
+        var found = this.state.stocks.find(stock => parseInt(data.productId) === parseInt(stock.product.id));
+        let productId = data.productId;
+        let quantity = data.quantity;
+        console.log(found);
+        if (!!found) {
             axios().post("incomes/", { ...data })
                 .then(() => {
-                    this.setState({
-                        successSave: true,
+                    axios().put("stocks/product/" + data.productId,
+                        {
+                            productId,
+                            quantity
+                        })
+                        .then(() => {
+                            this.setState({
+                                successSave: true,
+                            })
+                        }).catch((error) => {
+                            console.log("error", error)
+                            if (error.response.status === 400) {
+                                this.setState({
+                                    serverError: true,
+                                    serverErrorText: "Hibás adatok (products)"
+                                })
+                            } else {
+                                this.setState({
+                                    serverError: true,
+                                    serverErrorText: "Ismeretlen szerver hiba (products)"
+                                })
+                            }
+
+                        });
+                }).catch((error) => {
+                    console.log("error", error)
+                    if (error.response.status === 400) {
+                        this.setState({
+                            serverError: true,
+                            serverErrorText: "Helytelen adatok (incomes)"
+                        })
+                    } else {
+                        this.setState({
+                            serverError: true,
+                            serverErrorText: "Ismeretlen szerver hiba (incomes)"
+                        })
+                    }
+                });
+        } else {
+            axios().post("incomes/", { ...data })
+                .then(() => {
+                    axios().post("stocks/", {
+                        productId,
+                        quantity
                     })
+                    .then(() => {
+                        this.setState({
+                            successSave: true,
+                        })
+                    }).catch((error) => {
+                        console.log("error", error)
+                        if (error.response.status === 400) {
+                            this.setState({
+                                serverError: true,
+                                serverErrorText: "Helytelen készlet adatok"
+                            })
+                        } else {
+                            this.setState({
+                                serverError: true,
+                                serverErrorText: "Ismeretlen szerver hiva"
+                            })
+                        }
+                    });
                 }).catch((error) => {
                     console.log("error", error)
                     if (error.response.status === 400) {
@@ -35,7 +122,7 @@ class CreateIncome extends Component {
                     } else {
                         this.setState({
                             serverError: true,
-                            serverErrorText: "Ismeretlen szerver hiva"
+                            serverErrorText: "Ismeretlen szerver hiba (incomes)"
                         })
                     }
                 });

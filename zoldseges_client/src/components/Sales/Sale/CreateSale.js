@@ -17,16 +17,67 @@ class CreateSale extends Component {
         price: "",
         serverError: false,
         successSave: false,
+        stocks: []
     }
 
+    componentDidMount() {
+        this.getStocks();
+    }
+
+    getStocks = () => {
+        axios().get("stocks/").then(response => {
+            const fetchedStocks = [];
+            for (let key in response.data) {
+                fetchedStocks.push({
+                    ...response.data[key]
+                });
+            }
+            this.setState({ stocks: fetchedStocks })
+        }).catch((error) => {
+            this.setState({
+                serverError: true
+            })
+
+        });
+    }
+
+    //csak akkor lehet eladni a terméket a mennyiséggel ha van ilyen termékből annyi a készletben
+    // a sikeres eladás felkerül a tervezett rendelésekhez is
 
     handleSave = (data) => {
-        if (true) {
+        var found = this.state.stocks.find(stock => parseInt(data.productId) === parseInt(stock.product.id));
+        let productId = data.productId;
+        let quantity = data.quantity;
+
+        if(!!found){
             axios().post("sales/", { ...data })
                 .then(() => {
-                    this.setState({
-                        successSave: true,
-                    })
+                    axios().put("stocks/product/decrease/" + data.productId,
+                        {
+                            productId,
+                            quantity
+                        })
+                        .then(() => {
+                            this.setState({
+                                successSave: true,
+                            })
+                        }).catch((error) => {
+                            console.log("error", error)
+                            if (error.response.status === 409) {
+                                this.setState({
+                                    serverError: true,
+                                    serverErrorText: "Ebből a termékből nincs készleten a megadott mennyiség"
+                                })
+                            } else {
+                                this.setState({
+                                    serverError: true,
+                                    serverErrorText: "Ismeretlen szerver hiba "
+                                })
+                            }
+
+                        });
+                    
+
                 }).catch((error) => {
                     console.log("error", error)
                     if (error.response.status === 400) {
@@ -41,8 +92,14 @@ class CreateSale extends Component {
                         })
                     }
                 });
-        }
 
+        }else {
+            this.setState({
+                serverError: true,
+                serverErrorText: "Ez a termék nincs készleten!"
+            })
+        }
+            
     }
 
     handleRedirectToSalesPage = () => {

@@ -84,7 +84,7 @@ class SaleForm extends Component {
             })
         }
 
-        if (this.state.quantity === "") {
+        if (this.state.quantity === "" || this.state.quantity == 0) {
             this.setState({
                 quantityerror: true,
             });
@@ -124,9 +124,6 @@ class SaleForm extends Component {
                 buyerError: false,
             })
         }
-
-
-        //console.log(this.state.date);
 
         const sendParams = {
             quantity: this.state.quantity,
@@ -226,7 +223,7 @@ class SaleForm extends Component {
                         selected=""
                         onChange={(date) => this.setStartDate(date)}
                         value={this.state.date}
-                        dateFormat={"YYYY-MMM-dd"}
+                        dateFormat={"yy-mm-dd"}
                     />
                 </div>
                 {

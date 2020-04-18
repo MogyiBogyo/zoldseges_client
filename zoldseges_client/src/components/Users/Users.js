@@ -106,52 +106,24 @@ class Users extends Component {
                             </Link>
                         </div>
                     </div>
-                    <ul className="list-group">
-                        <li className="list-group-item d-none d-md-block">
-                            <div className="row">
-                                <div className="col-12 col-md-3">
-                                    <b>
-                                        Név:
-                                </b>
-                                </div>
-                                <div className="col-12 col-md-2">
-                                    <b>
-                                        Felhasználónév:
-                                </b>
-                                </div>
-                                <div className="col-12 col-md-3">
-                                    <b>
-                                        Email cím:
-                                </b>
-                                </div>
-                                <div className="col-12 col-md-2">
-                                    <b>
-                                        Jogosultság:
-                                </b>
-                                </div>
-                                <div className="col-12 col-md-2 d-flex justify-content-center">
-                                    <b>
-                                        Műveletek
-                                </b>
-                                </div>
-                            </div>
-                        </li>
+                    <div className={"row"}>                    
                         {this.state.users.map(user => (
-                            <User
-                                key={user.id}
-                                id={user.id}
-                                userName={user.username}
-                                email={user.email}
-                                familyName={user.familyname}
-                                givenName={user.givenname}
-                                role={user.role}
-                                showDeleteQuestion={() => this.setState({
-                                    showDeleteQuestion: true,
-                                    selectedUser: user
-                                })}
-                            />
-                        ))}
-                    </ul>
+                                <User
+                                    key={user.id}
+                                    id={user.id}
+                                    userName={user.username}
+                                    email={user.email}
+                                    familyName={user.familyname}
+                                    givenName={user.givenname}
+                                    role={user.role}
+                                    showDeleteQuestion={() => this.setState({
+                                        showDeleteQuestion: true,
+                                        selectedUser: user
+                                    })}
+                                />
+                            ))}
+                    </div>
+                  
                 </div>
                 <SweetAlert
                     danger

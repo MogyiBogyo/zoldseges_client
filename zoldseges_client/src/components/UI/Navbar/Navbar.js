@@ -13,9 +13,9 @@ class Navbar extends Component {
         event.preventDefault();
         localStorage.removeItem("loggedUser");
         //localStorage.removeItem("loggedUserRole");
-        localStorage.removeItem("loggedUserName");
-        localStorage.removeItem("loggedUserFamilyName");
-        localStorage.removeItem("loggedUserGivenName");
+        //localStorage.removeItem("loggedUserName");
+        //localStorage.removeItem("loggedUserFamilyName");
+        //localStorage.removeItem("loggedUserGivenName");
         //localStorage.clear();
         navigateToCustomPath("/");
     }
