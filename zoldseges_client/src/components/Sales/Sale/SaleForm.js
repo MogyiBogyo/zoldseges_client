@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-products';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -84,7 +83,7 @@ class SaleForm extends Component {
             })
         }
 
-        if (this.state.quantity === "" || this.state.quantity == 0) {
+        if (this.state.quantity === "" || this.state.quantity === 0) {
             this.setState({
                 quantityerror: true,
             });

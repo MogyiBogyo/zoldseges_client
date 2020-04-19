@@ -35,10 +35,10 @@ const category = (props) => {
                     <span className="d-inline-block d-md-none">
                         Müvelet
                     </span>
-                    <Link to={"/categories/edit/" + props.id} className="btn btn-info">
+                    <Link to={"/categories/edit/" + props.id} className="btn btn-info btn-sm">
                         <FontAwesomeIcon icon={faPen} />
                     </Link>
-                    <button className="btn btn-danger" onClick={() => props.showDeleteQuestion()}>
+                    <button className="btn btn-danger btn-sm" onClick={() => props.showDeleteQuestion()}>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>

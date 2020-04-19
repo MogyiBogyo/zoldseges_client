@@ -15,10 +15,59 @@ class CreatePlannedOrder extends Component {
         product: null,
         serverError: false,
         successSave: false,
+        plannedorders: []
     }
 
+    componentDidMount() {
+        this.getPlannerOrders();
+    }
+
+
+    getPlannerOrders = () => {
+        axios().get("plans/")
+            .then(response => {
+                const fetchedPlans = [];
+                for (let key in response.data) {
+                    fetchedPlans.push({
+                        ...response.data[key]
+                    });
+                }
+                this.setState({ plannedorders: fetchedPlans, loading: false })
+            }).catch(function (error) {
+                this.setState({
+                    serverError: true
+                })
+            });
+    }
+
+
+
     handleSave = (data) => {
-        if (true) {
+        var found = this.state.plannedorders.find(plannedorder => parseInt(data.productId) === parseInt(plannedorder.product.id));
+
+
+        if (!!found) {
+            axios().put("plans/product/" + data.productId, { ...data })
+                .then(() => {
+                    this.setState({
+                        successSave: true,
+                    })
+                }).catch((error) => {
+                    console.log("error", error)
+                    if (error.response.status === 400) {
+                        this.setState({
+                            serverError: true,
+                            serverErrorText: "Hibás adatok"
+                        })
+                    } else {
+                        this.setState({
+                            serverError: true,
+                            serverErrorText: "Ismeretlen szerver hiba"
+                        })
+                    }
+
+                });
+        } else {
             axios().post("plans/", { ...data })
                 .then(() => {
                     this.setState({

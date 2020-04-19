@@ -59,7 +59,7 @@ class CreateStock extends Component {
                     } else {
                         this.setState({
                             serverError: true,
-                            serverErrorText: "Ismeretlen szerver hiba (products)"
+                            serverErrorText: "Ismeretlen szerver hiba"
                         })
                     }
 

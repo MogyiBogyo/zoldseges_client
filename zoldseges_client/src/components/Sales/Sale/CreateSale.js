@@ -17,12 +17,33 @@ class CreateSale extends Component {
         price: "",
         serverError: false,
         successSave: false,
-        stocks: []
+        stocks: [],
+        pannedorders: []
     }
 
     componentDidMount() {
         this.getStocks();
+        this.getPlannerOrders();
     }
+
+
+    getPlannerOrders = () => {
+        axios().get("plans/")
+            .then(response => {
+                const fetchedPlans = [];
+                for (let key in response.data) {
+                    fetchedPlans.push({
+                        ...response.data[key]
+                    });
+                }
+                this.setState({ plannedorders: fetchedPlans, loading: false })
+            }).catch(function (error) {
+                this.setState({
+                    serverError: true
+                })
+            });
+    }
+
 
     getStocks = () => {
         axios().get("stocks/").then(response => {
@@ -48,8 +69,9 @@ class CreateSale extends Component {
         var found = this.state.stocks.find(stock => parseInt(data.productId) === parseInt(stock.product.id));
         let productId = data.productId;
         let quantity = data.quantity;
+        var foundPlan = this.state.plannedorders.find(plannedOrder => parseInt(data.productId) === parseInt(plannedOrder.product.id));
 
-        if(!!found){
+        if (!!found) {
             axios().post("sales/", { ...data })
                 .then(() => {
                     axios().put("stocks/product/decrease/" + data.productId,
@@ -58,9 +80,52 @@ class CreateSale extends Component {
                             quantity
                         })
                         .then(() => {
-                            this.setState({
-                                successSave: true,
-                            })
+                            if (!!foundPlan) {
+                                axios().put("plans/product/" + data.productId, {
+                                    productId,
+                                    quantity
+                                }).then(() => {
+                                    this.setState({
+                                        successSave: true,
+                                    })
+                                }).catch((error) => {
+                                    console.log("error", error)
+                                    if (error.response.status === 400) {
+                                        this.setState({
+                                            serverError: true,
+                                            serverErrorText: "Hibás adatok! "
+                                        })
+                                    } else {
+                                        this.setState({
+                                            serverError: true,
+                                            serverErrorText: "Ismeretlen szerver hiba "
+                                        })
+                                    }
+
+                                });
+                            } else {
+                                axios().post("plans/", {
+                                    productId,
+                                    quantity
+                                }).then(() => {
+                                    this.setState({
+                                        successSave: true,
+                                    })
+                                }).catch((error) => {
+                                    console.log("error", error)
+                                    if (error.response.status === 400) {
+                                        this.setState({
+                                            serverError: true,
+                                            serverErrorText: "Helytelen rendelési adatok"
+                                        })
+                                    } else {
+                                        this.setState({
+                                            serverError: true,
+                                            serverErrorText: "Ismeretlen szerver hiva"
+                                        })
+                                    }
+                                });
+                            }
                         }).catch((error) => {
                             console.log("error", error)
                             if (error.response.status === 409) {
@@ -76,7 +141,7 @@ class CreateSale extends Component {
                             }
 
                         });
-                    
+
 
                 }).catch((error) => {
                     console.log("error", error)
@@ -93,13 +158,17 @@ class CreateSale extends Component {
                     }
                 });
 
-        }else {
+
+
+
+
+        } else {
             this.setState({
                 serverError: true,
                 serverErrorText: "Ez a termék nincs készleten!"
             })
         }
-            
+
     }
 
     handleRedirectToSalesPage = () => {
