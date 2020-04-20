@@ -4,10 +4,10 @@ import Navbar from '../components/UI/Navbar/Navbar';
 
 const loggedInRoute = ({
     component: Component,
-    role: role,
+    role: Role,
     ...otherProps
 }) => (
-    !localStorage.getItem("loggedUser") ? <Redirect to="/" /> : ( !!role && role !== localStorage.getItem("loggedUserRole") ? <Redirect to="/stocks" /> :  <>
+    !localStorage.getItem("loggedUser") ? <Redirect to="/" /> : ( !!Role && Role !== localStorage.getItem("loggedUserRole") ? <Redirect to="/stocks" /> :  <>
         <Navbar />
         <Route render= { () => <Component {...otherProps} /> } />
     </>)

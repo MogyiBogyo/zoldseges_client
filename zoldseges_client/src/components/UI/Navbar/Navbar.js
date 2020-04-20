@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { navigateToCustomPath } from '../../../App';
 import 'react-dropdown/style.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCarrot } from '@fortawesome/free-solid-svg-icons';
 
 class Navbar extends Component {
 
     state = {
-        showUserInfo: false
+        showUserInfo: false,
+        showMobileMenu: false
     }
     handleLogOut = (event) => {
         event.preventDefault();
@@ -27,22 +30,30 @@ class Navbar extends Component {
             marginRight: "5"
 
         }
+
+
         let loggedUserRole = localStorage.getItem("loggedUserRole");
         let loggedUserFamilyname = localStorage.getItem("loggedUserFamilyName");
         let loggedUserGivenName = localStorage.getItem("loggedUserGivenName");
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="#">Zöldséges</a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse"
+            <nav className="navbar navbar-expand-lg navbar-toggleable-mb navbar-light bg-light" style={{ backgroundColor: "#e3f2fd" }}>
+                <a className="navbar-brand" href="/stocks">
+                    <FontAwesomeIcon icon={faCarrot} className={"mx-2"}/>
+                    Zöldséges</a>
+                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                    aria-expanded="false" aria-label="Toggle navigation"
+                    onClick={() => this.setState({
+                        showMobileMenu: !this.state.showMobileMenu
+                    })}
+                    >
                     <span className="navbar-toggler-icon">
 
                     </span>
                 </button>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
+                <div className={`collapse navbar-collapse ${this.state.showMobileMenu ? "show" : ""}`} id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto ">
                         <li className="nav-item ">
                             <NavLink to="/stocks" className={"nav-link"} activeClassName={"active"} >Készlet</NavLink>
                         </li>
@@ -71,8 +82,8 @@ class Navbar extends Component {
                     </ul>
                     <ul className="navbar-nav ml-auto">
 
-                        <li className={`nav-item dropdown  ${this.state.showUserInfo ? "show" : ""}`}>
-                            <a className="nav-link dropdown-toggle " href="#"
+                        <li className={`nav-item dropdown dropleft ${this.state.showUserInfo ? "show" : ""}`}>
+                            <a className="nav-link dropdown-toggle dropleft " href="#"
                                 id="navbarDropdown"
                                 onClick={() => this.setState({
                                     showUserInfo: !this.state.showUserInfo
@@ -80,7 +91,7 @@ class Navbar extends Component {
                             >
                                 {loggedUserFamilyname} {loggedUserGivenName}
                             </a>
-                            <div className={`dropdown-menu  ${this.state.showUserInfo ? "show" : ""}`} aria-labelledby="navbarDropdown">
+                            <div className={`dropdown-menu dropleft ${this.state.showUserInfo ? "show" : ""}`} aria-labelledby="navbarDropdown">
                                 <NavLink to="/" className={"dropdown-item "} style={dropdownStyle} activeClassName={"active"} onClick={(event) => this.handleLogOut(event)} >Kijelentkezés</NavLink>
                             </div>
 
