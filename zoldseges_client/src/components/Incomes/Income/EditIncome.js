@@ -44,15 +44,12 @@ class EditIncome extends Component {
 
 
     handleSave = (data) => {
-        //console.log(this.state.stock);
-        
         axios().put("incomes/" + this.state.income.id, { ...data })
             .then(() => {
                 this.setState({
                     successSave: true,
                 })
             }).catch((error) => {
-                //console.log("error", error)
                 if (error.response.status === 400) {
                     this.setState({
                         serverError: true,

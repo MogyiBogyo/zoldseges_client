@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../axios-products';
 import Income from './Income/Income';
-
 import { Link } from 'react-router-dom';
 import SweetAlert from 'react-bootstrap-sweetalert';
 

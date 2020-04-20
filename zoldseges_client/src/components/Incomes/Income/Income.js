@@ -6,10 +6,7 @@ import { Link } from 'react-router-dom';
 
 const income = (props) => {
 
-    let date = moment(props.date).format("YYYY-MM-DD").toString();
-
-
-
+    let date = moment(props.date).format("YYYY-MM-DD");
     return (
         <li className="list-group-item">
             <div className="row">

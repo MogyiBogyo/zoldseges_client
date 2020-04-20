@@ -44,15 +44,12 @@ class EditSale extends Component {
 
 
     handleSave = (data) => {
-        //console.log(this.state.stock);
-        
         axios().put("sales/" + this.state.sale.id, { ...data })
             .then(() => {
                 this.setState({
                     successSave: true,
                 })
             }).catch((error) => {
-                //console.log("error", error)
                 if (error.response.status === 400) {
                     this.setState({
                         serverError: true,

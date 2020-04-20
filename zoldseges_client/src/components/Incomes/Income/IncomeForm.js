@@ -31,7 +31,7 @@ class IncomeForm extends Component {
                 quantity: this.props.income.quantity,
                 product: this.props.income.product.id,
                 seller: this.props.income.seller,
-                date: moment(this.props.income.date).toString(),
+                date: moment(this.props.income.date).format("YYYY-MM-DD").toString(),
                 price: this.props.income.price
             })
         }
@@ -41,7 +41,6 @@ class IncomeForm extends Component {
     getProducts = () => {
         axios().get("products/")
             .then(response => {
-                //console.log(response);
                 const fetchedProducts = [];
                 for (let key in response.data) {
                     fetchedProducts.push({
@@ -112,7 +111,7 @@ class IncomeForm extends Component {
                 sellerError: false,
             })
         }
-        /*if (this.state.date === "") {
+        if (this.state.date === "") {
             this.setState({
                 dateError: true,
             });
@@ -121,19 +120,17 @@ class IncomeForm extends Component {
             this.setState({
                 dateError: false,
             })
-        }*/
+        }
 
-
-        //console.log(this.state.date);
         //save
         const sendParams = {
             quantity: this.state.quantity,
             productId: this.state.product,
-            date: this.state.date,
+            date: moment(this.state.date).format("YYYY-MM-DD"),
             seller: this.state.seller,
             price: this.state.price
         };
-        //console.log(sendParams);
+        console.log(sendParams);
         this.props.save(sendParams)
     }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-products';
 import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -13,7 +14,7 @@ class SaleForm extends Component {
         buyer: "",
         date: "",
         price: "",
-
+        startDate : moment(),
 
         //validation variables
         productError: false,
@@ -24,13 +25,12 @@ class SaleForm extends Component {
     };
 
     componentDidMount() {
-        //console.log(this.state.date);
         if (!!this.props.sale) {
             this.setState({
                 quantity: this.props.sale.quantity,
                 product: this.props.sale.product.id,
                 buyer: !!this.props.sale.buyer ? this.props.sale.buyer : "",
-                date: this.props.sale.date,
+                date: moment(this.props.sale.date).format("YYYY-MM-DD").toString(),
                 price: this.props.sale.price
             })
         }
@@ -63,7 +63,7 @@ class SaleForm extends Component {
 
     setStartDate = (date) => {
         this.setState({
-            date: date
+            startDate: date
         })
     }
 
@@ -222,7 +222,7 @@ class SaleForm extends Component {
                         selected=""
                         onChange={(date) => this.setStartDate(date)}
                         value={this.state.date}
-                        dateFormat={"yy-mm-dd"}
+                        dateFormat={"yyy-mm-dd"}
                     />
                 </div>
                 {

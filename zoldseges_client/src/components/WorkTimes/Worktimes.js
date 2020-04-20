@@ -9,16 +9,7 @@ class Worktimes extends Component {
     }
 
     componentDidMount() {
-        axios().get("worktimes/", {
-            withCredentials: true,
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
-            }
-
-        }).then(response => {
-            //console.log(response);
+        axios().get("worktimes/").then(response => {
             const fetchedWorktimes = [];
             for (let key in response.data) {
                 fetchedWorktimes.push({

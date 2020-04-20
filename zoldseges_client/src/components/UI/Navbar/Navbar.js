@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { navigateToCustomPath } from '../../../App';
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 class Navbar extends Component {
