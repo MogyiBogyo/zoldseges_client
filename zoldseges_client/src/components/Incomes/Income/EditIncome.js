@@ -25,13 +25,13 @@ class EditIncome extends Component {
         if (!!id) {
             axios().get("incomes/" + id)
                 .then((response) => {
-                    console.log(response.data);
+                    //console.log(response.data);
                     this.setState({
                         income: response.data
                     })
                 })
                 .catch((error) => {
-                    console.log("error ", error);
+                    //console.log("error ", error);
                     if (!!error.response && error.response.status === 404) {
                         this.setState({
                             income: false,

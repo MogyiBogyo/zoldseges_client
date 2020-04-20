@@ -56,7 +56,7 @@ class Incomes extends Component {
                             showDeleteQuestion: false,
                             selectedIncome: null,
                             serverError: true,
-                            deleteErrorText: "Nem lehet törölni az adatot mert hivatkoznak rá!"
+                            deleteErrorText: "Nem létezik ilyen azonosítóju árubevétel!"
                         })
                     } else {
                         this.setState({

@@ -36,6 +36,8 @@ import CreatePlannedOrder from './components/PlannedOrders/PlannedOrder/CreatePl
 import Worktimes from './components/WorkTimes/Worktimes';
 import CreateSale from './components/Sales/Sale/CreateSale';
 import EditSale from './components/Sales/Sale/EditSale';
+import CreateWorktime from './components/WorkTimes/WorkTime/CreateWorktime';
+import EditWorktime from './components/WorkTimes/WorkTime/EditWorktime';
 
 
 const createBrowserHistory = require("history").createBrowserHistory;
@@ -93,6 +95,8 @@ function App() {
 
 
         <LoggedInRoute exact path="/worktimes" component={Worktimes} />
+        <LoggedInRoute exact path="/worktimes/new" role="ROLE_ADMIN" component={CreateWorktime} />
+        <LoggedInRoute exact path="/worktimes/edit/:id"  role="ROLE_ADMIN" component={EditWorktime} />
 
 
         {/* TODO add worktime pages -> beosztás */}
