@@ -71,14 +71,15 @@ class CreateSale extends Component {
         let quantity = data.quantity;
         var foundPlan = this.state.plannedorders.find(plannedOrder => parseInt(data.productId) === parseInt(plannedOrder.product.id));
 
-        if (!!found) {
-            axios().post("sales/", { ...data })
-                .then(() => {
-                    axios().put("stocks/product/decrease/" + data.productId,
-                        {
-                            productId,
-                            quantity
-                        })
+
+        axios().put("stocks/product/decrease/" + data.productId,
+            {
+                productId,
+                quantity
+            })
+            .then(() => {
+                if (!!found) {
+                    axios().post("sales/", { ...data })
                         .then(() => {
                             if (!!foundPlan) {
                                 axios().put("plans/product/" + data.productId, {
@@ -98,7 +99,7 @@ class CreateSale extends Component {
                                     } else {
                                         this.setState({
                                             serverError: true,
-                                            serverErrorText: "Ismeretlen szerver hiba "
+                                            serverErrorText: "Ismeretlen szerver hiba 1 "
                                         })
                                     }
 
@@ -121,55 +122,47 @@ class CreateSale extends Component {
                                     } else {
                                         this.setState({
                                             serverError: true,
-                                            serverErrorText: "Ismeretlen szerver hiba"
+                                            serverErrorText: "Ismeretlen szerver hiba 2"
                                         })
                                     }
                                 });
                             }
-
                         }).catch((error) => {
                             console.log("error", error)
-                            if (error.response.status === 409) {
+                            if (error.response.status === 400) {
                                 this.setState({
                                     serverError: true,
-                                    serverErrorText: "Ebből a termékből nincs készleten a megadott mennyiség"
+                                    serverErrorText: "Helytelen adatok"
                                 })
                             } else {
                                 this.setState({
                                     serverError: true,
-                                    serverErrorText: "Ismeretlen szerver hiba "
+                                    serverErrorText: "Ismeretlen szerver hiba 3"
                                 })
                             }
-
                         });
+                }
+            }).catch((error) => {
+                //console.log("error", error)
+                if (error.response.status === 409) {
+                    this.setState({
+                        serverError: true,
+                        serverErrorText: "Ebből a termékből nincs készleten a megadott mennyiség"
+                    })
+                } else if (error.response.status === 404) {
+                    this.setState({
+                        serverError: true,
+                        serverErrorText: "Ez a termék nincs készleten!"
+                    })
+                }
+                else {
+                    this.setState({
+                        serverError: true,
+                        serverErrorText: "Ismeretlen szerver hiba 4"
+                    })
+                }
 
-
-                }).catch((error) => {
-                    console.log("error", error)
-                    if (error.response.status === 400) {
-                        this.setState({
-                            serverError: true,
-                            serverErrorText: "Helytelen adatok"
-                        })
-                    } else {
-                        this.setState({
-                            serverError: true,
-                            serverErrorText: "Ismeretlen szerver hiva"
-                        })
-                    }
-                });
-
-
-
-
-
-        } else {
-            this.setState({
-                serverError: true,
-                serverErrorText: "Ez a termék nincs készleten!"
-            })
-        }
-
+            });
     }
 
     handleRedirectToSalesPage = () => {
