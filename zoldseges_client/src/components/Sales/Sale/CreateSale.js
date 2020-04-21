@@ -121,11 +121,12 @@ class CreateSale extends Component {
                                     } else {
                                         this.setState({
                                             serverError: true,
-                                            serverErrorText: "Ismeretlen szerver hiva"
+                                            serverErrorText: "Ismeretlen szerver hiba"
                                         })
                                     }
                                 });
                             }
+
                         }).catch((error) => {
                             console.log("error", error)
                             if (error.response.status === 409) {

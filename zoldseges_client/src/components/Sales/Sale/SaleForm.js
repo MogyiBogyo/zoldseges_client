@@ -20,7 +20,7 @@ class SaleForm extends Component {
         productError: false,
         priceError: false,
         quantityerror: false,
-        buyerError: false
+        buyerError: false,
         //dateError: false,
     };
 
@@ -63,9 +63,10 @@ class SaleForm extends Component {
 
     setStartDate = (date) => {
         this.setState({
-            startDate: date
+            date: date
         })
     }
+
 
 
     handleSubmit = (event) => {
@@ -127,7 +128,7 @@ class SaleForm extends Component {
         const sendParams = {
             quantity: this.state.quantity,
             productId: this.state.product,
-            date: this.state.date,
+            date: moment(this.state.date).format("YYYY-MM-DD"),
             buyer: !!this.state.buyer ? this.state.buyer : "",
             price: this.state.price
         };
@@ -222,7 +223,7 @@ class SaleForm extends Component {
                         selected=""
                         onChange={(date) => this.setStartDate(date)}
                         value={this.state.date}
-                        dateFormat={"yyy-mm-dd"}
+                        dateFormat={"yyyy-MMM-dd"}
                     />
                 </div>
                 {

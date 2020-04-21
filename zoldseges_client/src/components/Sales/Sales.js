@@ -3,6 +3,8 @@ import axios from '../../axios-products';
 import Sale from './Sale/Sale';
 import { Link } from 'react-router-dom';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import _ from 'lodash';
+import { HorizontalBar } from 'react-chartjs-2';
 
 
 class Sales extends Component {
@@ -15,25 +17,39 @@ class Sales extends Component {
         deleteQuestion: false,
         showDeleteQuestion: false,
         successDelete: false,
-        deleteErrorText: ""
+        deleteErrorText: "",
+        //product, db
+        uniqueSalesForChart: []
     }
 
     componentDidMount() {
         this.getSales();
+
+
     }
 
 
     getSales = () => {
         axios().get("sales/").then(response => {
             const fetchedSales = [];
+            let uniqueSales = [];
             for (let key in response.data) {
                 fetchedSales.push({
                     ...response.data[key]
                 });
             }
-            this.setState({ sales: fetchedSales, loading: false })
+            uniqueSales = _.uniqBy(response.data, 'product.name');
+            uniqueSales.map((unique) => unique.quantity = 0);
+            this.setState({
+                sales: [...fetchedSales],
+                uniqueSalesForChart: [...uniqueSales],
+                loading: false
+            })
+            this.hendleQuantityCount();
         }).catch(function (error) {
-            console.log('Error on sales');
+            this.setState({
+                serverError: true
+            })
         });
     }
 
@@ -69,6 +85,24 @@ class Sales extends Component {
         }
     }
 
+
+    hendleQuantityCount = () => {
+        let salesCopy = [...this.state.sales];
+        let uniqueSalesCopy = [...this.state.uniqueSalesForChart];
+
+        for (let i in salesCopy) {
+            for (let k in uniqueSalesCopy) {
+                if (salesCopy[i].product.name === uniqueSalesCopy[k].product.name) {
+                    uniqueSalesCopy[k].quantity = uniqueSalesCopy[k].quantity + salesCopy[i].quantity;
+                }
+            }
+        }
+        console.log(uniqueSalesCopy);
+        this.setState({
+            uniqueSalesForChart: [...uniqueSalesCopy]
+        });
+        console.log(this.state.uniqueSalesForChart, "state");
+    }
 
 
     render() {
@@ -180,6 +214,53 @@ class Sales extends Component {
                                 </div> : null
                     }
                 </SweetAlert>
+
+                <div className={"col-12 col-md-5 d-flex align-items-center"}>
+
+                    <HorizontalBar data={{
+                        labels: [...this.state.uniqueSalesForChart.map((data) => data.product.name)],
+                        datasets: [
+                            {
+                                label: "Eladások",
+                                data: [...this.state.uniqueSalesForChart.map((data) => data.quantity)],
+                                backgroundColor: [
+                                    'rgba(255, 255, 102, 0.5)', //s
+                                    'rgba(236, 19, 19, 0.5)',   //p
+                                    'rgba(189, 102, 15, 0.5)',  //barna
+                                    'rgba(124, 179, 66, 0.5)', //zold
+                                    'rgba(30, 136, 229, 0.5)',  //kek
+                                    'rgba(94, 53, 177, 0.5)',  //lila
+                                    'rgba(255, 255, 102, 0.5)', //s
+                                    'rgba(236, 19, 19, 0.5)',   //p
+                                    'rgba(189, 102, 15, 0.5)',  //barna
+                                    'rgba(124, 179, 66, 0.5)', //zold
+                                    'rgba(30, 136, 229, 0.5)',  //kek
+                                    'rgba(94, 53, 177, 0.5)',
+                                    
+                                ],
+                                borderColor: [
+                                    'rgba(230, 230, 0)', //sarga
+                                    'rgba(198, 57, 57)', //piros
+                                    'rgba(189, 102, 15)', //barna
+                                    'rgba(124, 179, 66,1)', //zold
+                                    'rgba(30, 136, 229, 1)', //kek
+                                    'rgba(94, 53, 177, 1)', //lila
+                                    'rgba(230, 230, 0)', //sarga
+                                    'rgba(198, 57, 57)', //piros
+                                    'rgba(189, 102, 15)', //barna
+                                    'rgba(124, 179, 66,1)', //zold
+                                    'rgba(30, 136, 229, 1)', //kek
+                                    'rgba(94, 53, 177, 1)',
+                                   
+                                    
+                                ],
+                                borderWidth: 3
+                            }
+                        ]
+                    }}
+
+                    />
+                </div>
             </>
 
         );
