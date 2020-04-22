@@ -59,13 +59,13 @@ class Login extends Component {
             console.log(value)
             /* if get token save data for handle role */
             localStorage.setItem("loggedUser", token);
-            if (!!localStorage.getItem("loggedUserRole")) {
+            if (!!value.data.role) {
                 localStorage.setItem("loggedUserRole", value.data.role);
                 localStorage.setItem("loggedUserName", value.data.username);
                 localStorage.setItem("loggedUserFamilyName", value.data.familyname);
                 localStorage.setItem("loggedUserGivenName", value.data.givenname);
-            }
 
+            }
             /* Redirect to  first page */
             console.log(localStorage.getItem("loggedUserRole"));
             navigateToCustomPath("/stocks");

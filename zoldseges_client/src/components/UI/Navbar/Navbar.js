@@ -35,10 +35,11 @@ class Navbar extends Component {
         let loggedUserRole = localStorage.getItem("loggedUserRole");
         let loggedUserFamilyname = localStorage.getItem("loggedUserFamilyName");
         let loggedUserGivenName = localStorage.getItem("loggedUserGivenName");
+
         return (
             <nav className="navbar navbar-expand-lg navbar-toggleable-mb navbar-light bg-light" style={{ backgroundColor: "#e3f2fd" }}>
                 <a className="navbar-brand" href="/stocks">
-                    <FontAwesomeIcon icon={faCarrot} className={"mx-2"}/>
+                    <FontAwesomeIcon icon={faCarrot} className={"mx-2"} />
                     Zöldséges</a>
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -46,7 +47,7 @@ class Navbar extends Component {
                     onClick={() => this.setState({
                         showMobileMenu: !this.state.showMobileMenu
                     })}
-                    >
+                >
                     <span className="navbar-toggler-icon">
 
                     </span>

@@ -134,7 +134,7 @@ class Sales extends Component {
                                         Ár
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-3">
+                                <div className="col-12 col-md-2 ">
                                     <b>
                                         Vevő
                                     </b>
@@ -144,7 +144,7 @@ class Sales extends Component {
                                         Dátum
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-1  ">
+                                <div className="col-12 col-md-2  d-flex justify-content-center ">
                                     <b>
                                         Művelet
                                     </b>
