@@ -9,6 +9,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 class Users extends Component {
     state = {
         users: [],
+        filteredUsers: [],
         loading: true,
         serverError: false,
         deleteQuestion: false,
@@ -31,7 +32,10 @@ class Users extends Component {
                     ...response.data[key]
                 });
             }
-            this.setState({ users: fetchedUsers, loading: false })
+            this.setState({ 
+                users: fetchedUsers, 
+                filteredUsers: [...fetchedUsers],
+                loading: false })
         }).catch(function (error) {
             this.setState({
                 serverError: true

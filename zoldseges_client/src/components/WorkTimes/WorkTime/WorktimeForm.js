@@ -171,16 +171,16 @@ class WorktimeForm extends Component {
                             key={4}
                             selected={!!this.state.startHour && this.state.startHour === "09:30" ? "selected:" : ""}
                         >09:30</option>
-                        <option value={"09:00"}
-                            key={3}
+                        <option value={"10:00"}
+                            key={5}
                             selected={!!this.state.startHour && this.state.startHour === "10:00" ? "selected:" : ""}
                         >10:00</option>
-                        <option value={"09:00"}
-                            key={3}
+                        <option value={"10:30"}
+                            key={6}
                             selected={!!this.state.startHour && this.state.startHour === "10:30" ? "selected:" : ""}
                         >10:30</option>
-                        <option value={"09:00"}
-                            key={3}
+                        <option value={"11:00"}
+                            key={7}
                             selected={!!this.state.startHour && this.state.startHour === "11:00" ? "selected:" : ""}
                         >11:00</option>
 
@@ -220,11 +220,11 @@ class WorktimeForm extends Component {
                             selected={!!this.state.endHour && this.state.endHour === "15:00" ? "selected:" : ""}
                         >15:00</option>
                         <option value={"16:00"}
-                            key={4}
+                            key={5}
                             selected={!!this.state.endHour && this.state.endHour === "16:00" ? "selected:" : ""}
                         >16:00</option>
                         <option value={"17:00"}
-                            key={4}
+                            key={6}
                             selected={!!this.state.endHour && this.state.endHour === "17:00" ? "selected:" : ""}
                         >17:00</option>
 

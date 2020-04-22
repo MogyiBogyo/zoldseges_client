@@ -54,7 +54,10 @@ class Navbar extends Component {
                 </button>
 
                 <div className={`collapse navbar-collapse ${this.state.showMobileMenu ? "show" : ""}`} id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto ">
+                    <ul className="navbar-nav mr-auto "
+                        onClick={() => this.setState({
+                            showMobileMenu: !this.state.showMobileMenu
+                        })}>
                         <li className="nav-item ">
                             <NavLink to="/stocks" className={"nav-link"} activeClassName={"active"} >Készlet</NavLink>
                         </li>

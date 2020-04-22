@@ -7,7 +7,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 class Worktimes extends Component {
     state = {
         worktimes: [],
-        loading: true,
+        filteredWorktimes: [],
         selectedWorktime: null,
         serverError: false,
         deleteQuestion: false,
@@ -29,9 +29,14 @@ class Worktimes extends Component {
                     ...response.data[key]
                 });
             }
-            this.setState({ worktimes: fetchedWorktimes, loading: false })
+            this.setState({
+                worktimes: [...fetchedWorktimes],
+                filteredWorktimes : null
+            })
         }).catch(function (error) {
-            console.log('Error on worktimes');
+            this.setState({
+                serverError: true
+            })
         });
     }
 
@@ -67,6 +72,40 @@ class Worktimes extends Component {
         }
     }
 
+    filterHandler = (event) => {
+        event.preventDefault();
+        var foundedWorktimes = [];
+        var found = "";
+
+
+        found = this.state.worktimes.map((worktime) => {
+            if (worktime.user.familyname.includes(event.target.value)) {
+                foundedWorktimes.push(worktime);
+            }
+        });
+
+
+        this.setState({
+            filteredWorktimes: [...foundedWorktimes]
+        })
+
+        console.log(foundedWorktimes, "founded");
+        console.log(this.state.filteredWorktimes, "filtered");
+
+        /*
+         found = this.state.filteredWorktimes.search(event.target.value);
+         foundedWorktimes.push(found);*/
+
+        /*this.state.filteredWorktimes.map((worktime) => {
+            found = this.state.filteredWorktimes.searh((worktime) => worktime.user.familyname === event.target.value);
+            if (!!found) {
+                foundedWorktimes.push(found)
+            }
+    */
+
+
+    }
+
 
 
 
@@ -75,10 +114,17 @@ class Worktimes extends Component {
             <>
                 <div className={"mx-5"}>
                     <div className="row my-3">
-                        <div className="col-12">
+                        <div className="col-md-5">
                             <Link to={"/worktimes/new"} className={"btn btn-primary"} >
                                 + Új beosztás felvétele
                             </Link>
+                        </div>
+                        <div className="filter-list col-md-5" style={{ width: "200px" }}>
+                            <form>
+                                <fieldset className="form-group">
+                                    <input type="text" className="form-control " placeholder="Keresés" onChange={this.filterHandler} />
+                                </fieldset>
+                            </form>
                         </div>
                     </div>
                     <ul className="list-group">
@@ -111,7 +157,20 @@ class Worktimes extends Component {
                                 </div>
                             </div>
                         </li>
-                        {this.state.worktimes.map(worktime => (
+                        {!!this.state.filteredWorktimes ? this.state.filteredWorktimes.map(worktime => (
+                            <Worktime
+                                key={worktime.id}
+                                id={worktime.id}
+                                date={worktime.date}
+                                user={worktime.user}
+                                startHour={worktime.startHour}
+                                endHour={worktime.endHour}
+                                showDeleteQuestion={() => this.setState({
+                                    showDeleteQuestion: true,
+                                    selectedWorktime: worktime
+                                })}
+                            />
+                        )) : this.state.worktimes.map(worktime => (
                             <Worktime
                                 key={worktime.id}
                                 id={worktime.id}
@@ -125,6 +184,7 @@ class Worktimes extends Component {
                                 })}
                             />
                         ))}
+                        
                     </ul>
                 </div>
                 <SweetAlert
