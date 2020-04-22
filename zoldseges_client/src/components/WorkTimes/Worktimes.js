@@ -31,7 +31,7 @@ class Worktimes extends Component {
             }
             this.setState({
                 worktimes: [...fetchedWorktimes],
-                filteredWorktimes : null
+                filteredWorktimes: null
             })
         }).catch(function (error) {
             this.setState({
@@ -77,37 +77,20 @@ class Worktimes extends Component {
         var foundedWorktimes = [];
         var found = "";
 
-
         found = this.state.worktimes.map((worktime) => {
-            if (worktime.user.familyname.includes(event.target.value)) {
+            let name = worktime.user.familyname + " " + worktime.user.givenname;
+            if (name.includes(event.target.value)) {
                 foundedWorktimes.push(worktime);
             }
         });
-
 
         this.setState({
             filteredWorktimes: [...foundedWorktimes]
         })
 
-        console.log(foundedWorktimes, "founded");
-        console.log(this.state.filteredWorktimes, "filtered");
-
-        /*
-         found = this.state.filteredWorktimes.search(event.target.value);
-         foundedWorktimes.push(found);*/
-
-        /*this.state.filteredWorktimes.map((worktime) => {
-            found = this.state.filteredWorktimes.searh((worktime) => worktime.user.familyname === event.target.value);
-            if (!!found) {
-                foundedWorktimes.push(found)
-            }
-    */
-
-
+        /*console.log(foundedWorktimes, "founded");
+        console.log(this.state.filteredWorktimes, "filtered");*/
     }
-
-
-
 
     render() {
         return (
@@ -184,7 +167,7 @@ class Worktimes extends Component {
                                 })}
                             />
                         ))}
-                        
+
                     </ul>
                 </div>
                 <SweetAlert
