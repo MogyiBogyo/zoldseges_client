@@ -126,7 +126,7 @@ class WorktimeForm extends Component {
                         onChange={(e) => this.setState({
                             user: e.target.value
                         })} >
-                        <option value=""  >Válasszon dolgozót</option>
+                        <option value="" selected disabled hidden >Válasszon dolgozót</option>
                         {this.state.users.map(user => (
                             <option
                                 value={user.id}
@@ -153,8 +153,9 @@ class WorktimeForm extends Component {
                         })}>
                         <option value={""}
                             key={0}
-                            selected="selected"
-                        >Válasszon kezdést</option>
+                            
+                            selected disabled hidden
+                        >Válassza ki a műszak kezdésének időpontját</option>
                         <option value={"08:00"}
                             key={1}
                             selected={!!this.state.startHour && this.state.startHour === "08:00" ? "selected:" : ""}
@@ -201,7 +202,7 @@ class WorktimeForm extends Component {
                         })}>
                         <option value={""}
                             key={0}
-                            selected="selected"
+                            selected disabled hidden
                         >Válassza ki a műszak befejezésének időpontját</option>
                         <option value={"12:00"}
                             key={1}

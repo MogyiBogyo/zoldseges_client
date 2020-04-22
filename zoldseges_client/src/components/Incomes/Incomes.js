@@ -7,6 +7,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 class Incomes extends Component {
     state = {
         incomes: [],
+        filteredIncomes: [],
         loading: true,
         selectedIncome: null,
         serverError: false,
@@ -28,7 +29,10 @@ class Incomes extends Component {
                     ...response.data[key]
                 });
             }
-            this.setState({ incomes: fetchedIncomes, loading: false })
+            this.setState({
+                incomes: [...fetchedIncomes],
+                filteredIncomes: null
+            })
         }).catch(function (error) {
             this.setState({
                 serverError: true
@@ -70,15 +74,39 @@ class Incomes extends Component {
     }
 
 
+    filterHandler = (event) => {
+        event.preventDefault();
+        var foundedIncomes = [];
+        this.state.incomes.map((income) => {
+
+            if (income.product.name.includes(event.target.value)) {
+                foundedIncomes.push(income);
+            }
+        });
+
+        this.setState({
+            filteredIncomes: [...foundedIncomes]
+        })
+
+    }
+
+
     render() {
         return (
             <>
                 <div className={"mx-5"}>
                     <div className="row my-3">
-                        <div className="col-12">
+                        <div className="col-12 col-md-5">
                             <Link to={"/incomes/new"} className={"btn btn-primary"} >
                                 + Új árubevétel felvétele
                             </Link>
+                        </div>
+                        <div className="filter-list col-md-5" style={{ width: "200px" }}>
+                            <form>
+                                <fieldset className="form-group">
+                                    <input type="text" className="form-control " placeholder="Keresés" onChange={this.filterHandler} />
+                                </fieldset>
+                            </form>
                         </div>
                     </div>
                     <ul className="list-group">
@@ -116,7 +144,21 @@ class Incomes extends Component {
                                 </div>
                             </div>
                         </li>
-                        {this.state.incomes.map(income => (
+                        {!!this.state.filteredIncomes ? this.state.filteredIncomes.map(income => (
+                            <Income
+                                key={income.id}
+                                id={income.id}
+                                seller={income.seller}
+                                date={income.date}
+                                price={income.price}
+                                quantity={income.quantity}
+                                product={income.product}
+                                showDeleteQuestion={() => this.setState({
+                                    showDeleteQuestion: true,
+                                    selectedIncome: income
+                                })}
+                            />
+                        )) : this.state.incomes.map(income => (
                             <Income
                                 key={income.id}
                                 id={income.id}

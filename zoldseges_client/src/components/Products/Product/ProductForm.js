@@ -161,7 +161,7 @@ class ProductForm extends Component {
                         onChange={(e) => this.setState({
                             category: e.target.value
                         })}>
-                        <option value="" >Válasszon kategóriát</option>
+                        <option value="" selected disabled hidden >Válasszon kategóriát</option>
                         {this.state.categories.map(category => (
                             <option
                                 value={category.id}

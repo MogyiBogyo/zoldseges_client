@@ -144,7 +144,8 @@ class IncomeForm extends Component {
                         onChange={(e) => this.setState({
                             product: e.target.value
                         })} >
-                        <option value=""  >Válasszon terméket</option>
+
+                        <option value=""  selected disabled hidden >Válasszon terméket</option>
                         {this.state.products.map(product => (
                             <option
                                 value={product.id}

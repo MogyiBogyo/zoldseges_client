@@ -75,16 +75,16 @@ class Worktimes extends Component {
     filterHandler = (event) => {
         event.preventDefault();
         var foundedWorktimes = [];
-        var found = "";
-
-        found = this.state.worktimes.map((worktime) => {
+        this.state.worktimes.map((worktime) => {
             let name = worktime.user.familyname + " " + worktime.user.givenname;
             if (name.includes(event.target.value)) {
                 foundedWorktimes.push(worktime);
             }
+            return worktime;
         });
 
         this.setState({
+            filteredWorktimes: [...foundedWorktimes]
         })
 
         /*console.log(foundedWorktimes, "founded");

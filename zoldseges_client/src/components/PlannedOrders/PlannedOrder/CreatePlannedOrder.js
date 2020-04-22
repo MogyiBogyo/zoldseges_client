@@ -102,7 +102,7 @@ class CreatePlannedOrder extends Component {
                 <div className={"container"}>
                     <div className="row my-3">
                         <div className="col-12 col-md-8 offset-md-2">
-                            <Link to={"/palns"} className={"btn btn-warning"} >
+                            <Link to={"/plans"} className={"btn btn-warning"} >
                                 <FontAwesomeIcon icon={faChevronLeft} className="mr-2" /> Vissza
                             </Link>
                         </div>
