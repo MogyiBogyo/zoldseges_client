@@ -85,7 +85,6 @@ class Worktimes extends Component {
         });
 
         this.setState({
-            filteredWorktimes: [...foundedWorktimes]
         })
 
         /*console.log(foundedWorktimes, "founded");

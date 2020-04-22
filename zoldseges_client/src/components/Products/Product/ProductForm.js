@@ -20,7 +20,6 @@ class ProductForm extends Component {
 
     componentDidMount() {
         if (!!this.props.product) {
-            console.log(this.props.product);
             this.setState({
                 name: this.props.product.name,
                 sale_price: this.props.product.salePrice,
@@ -95,7 +94,6 @@ class ProductForm extends Component {
             categoryId: this.state.category,
             salePrice: this.state.sale_price === "" ? 0 : this.state.sale_price
         };
-        console.log(sendParams);
         this.props.save(sendParams)
     }
 

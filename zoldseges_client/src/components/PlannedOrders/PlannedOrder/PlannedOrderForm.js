@@ -76,7 +76,6 @@ class PlannedOrderForm extends Component {
             quantity: this.state.quantity,
             productId: this.state.product
         };
-        console.log(sendParams);
         this.props.save(sendParams)
     }
 

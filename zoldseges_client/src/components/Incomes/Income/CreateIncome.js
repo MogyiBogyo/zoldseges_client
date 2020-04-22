@@ -45,7 +45,6 @@ class CreateIncome extends Component {
         var found = this.state.stocks.find(stock => parseInt(data.productId) === parseInt(stock.product.id));
         let productId = data.productId;
         let quantity = data.quantity;
-        console.log(found);
         if (!!found) {
             axios().post("incomes/", { ...data })
                 .then(() => {

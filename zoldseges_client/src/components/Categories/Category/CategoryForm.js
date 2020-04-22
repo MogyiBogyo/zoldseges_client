@@ -13,7 +13,6 @@ class CategoryForm extends Component {
 
     componentDidMount() {
         if (!!this.props.category) {
-            console.log(this.props.category);
             this.setState({
                 name: this.props.category.name,
                 sale_price: this.props.category.salePrice,
@@ -26,7 +25,6 @@ class CategoryForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        // TODO: check required field is correct
        if (this.state.name === "" || this.state.name.length < 3 || this.state.name.length > 20) {
             this.setState({
                 nameError: true,
@@ -55,8 +53,6 @@ class CategoryForm extends Component {
             return
         }
 
-
-        console.log(this.state.nameError);
         if (!this.state.nameError && !this.state.salePriceError) {
             const sendParams = {
                 sale: this.state.sale,

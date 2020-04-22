@@ -22,7 +22,6 @@ class Incomes extends Component {
 
     getIncomes = () => {
         axios().get("incomes/").then(response => {
-            console.log(response);
             const fetchedIncomes = [];
             for (let key in response.data) {
                 fetchedIncomes.push({

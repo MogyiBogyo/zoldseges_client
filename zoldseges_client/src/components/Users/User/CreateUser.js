@@ -23,7 +23,6 @@ class CreateUser extends Component {
                         successSave: true,
                     })
                 }).catch((error) => {
-                    console.log("error", error)
                     if (error.response.status === 400) {
                         this.setState({
                             serverError: true,

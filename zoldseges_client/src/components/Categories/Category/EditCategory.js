@@ -28,7 +28,6 @@ class EditCategory extends Component {
                     })
                 })
                 .catch((error) => {
-                    console.log(error.response.status);
                     if(error.response.status === 404){ 
                         this.setState({
                             category: false,

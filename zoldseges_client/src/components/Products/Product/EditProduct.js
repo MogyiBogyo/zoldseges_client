@@ -28,7 +28,6 @@ class EditProduct extends Component {
                     })
                 })
                 .catch((error) => {
-                    console.log("error ",error);
                     if (!!error.response && error.response.status === 404) {
                         this.setState({
                             product: false,
@@ -43,15 +42,12 @@ class EditProduct extends Component {
 
 
     handleSave = (data) => {
-        console.log(data);
-        console.log(this.state.product);
         axios().put("products/" + this.state.product.id, { ...data })
             .then(() => {
                 this.setState({
                     successSave: true,
                 })
             }).catch((error) => {
-                console.log("error", error)
                 if (error.response.status === 400) {
                     this.setState({
                         serverError: true,

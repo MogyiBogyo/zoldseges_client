@@ -97,11 +97,11 @@ class Sales extends Component {
                 }
             }
         }
-        console.log(uniqueSalesCopy);
+        //console.log(uniqueSalesCopy);
         this.setState({
             uniqueSalesForChart: [...uniqueSalesCopy]
         });
-        console.log(this.state.uniqueSalesForChart, "state");
+        //console.log(this.state.uniqueSalesForChart, "state");
     }
 
 

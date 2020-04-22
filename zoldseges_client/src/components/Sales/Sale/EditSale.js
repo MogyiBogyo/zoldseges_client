@@ -25,13 +25,11 @@ class EditSale extends Component {
         if (!!id) {
             axios().get("sales/" + id)
                 .then((response) => {
-                    console.log(response.data);
                     this.setState({
                         sale: response.data
                     })
                 })
                 .catch((error) => {
-                    console.log("error ", error);
                     if (!!error.response && error.response.status === 404) {
                         this.setState({
                             sale: false,

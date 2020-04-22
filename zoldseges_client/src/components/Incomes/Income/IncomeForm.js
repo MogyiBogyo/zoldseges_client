@@ -130,7 +130,6 @@ class IncomeForm extends Component {
             seller: this.state.seller,
             price: this.state.price
         };
-        console.log(sendParams);
         this.props.save(sendParams)
     }
 

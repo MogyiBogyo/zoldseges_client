@@ -25,7 +25,6 @@ class Products extends Component {
     getProducts = () => {
         axios().get("products/")
             .then(response => {
-                //console.log(response);
                 const fetchedProducts = [];
                 for (let key in response.data) {
                     fetchedProducts.push({

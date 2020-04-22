@@ -23,7 +23,6 @@ class Stocks extends Component {
     }
 
     getStocks = () => {
-        //console.log("RUN ", localStorage.getItem("loggedUser"))
         axios().get("stocks/").then(response => {
 
             const fetchedStocks = [];

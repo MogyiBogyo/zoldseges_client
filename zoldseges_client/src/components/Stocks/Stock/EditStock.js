@@ -28,7 +28,6 @@ class EditStock extends Component {
                     })
                 })
                 .catch((error) => {
-                    console.log("error ", error);
                     if (!!error.response && error.response.status === 404) {
                         this.setState({
                             stock: false,
@@ -46,7 +45,6 @@ class EditStock extends Component {
                     successSave: true,
                 })
             }).catch((error) => {
-                console.log("error", error)
                 if (error.response.status === 400) {
                     this.setState({
                         serverError: true,

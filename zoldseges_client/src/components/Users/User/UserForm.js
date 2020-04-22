@@ -97,7 +97,7 @@ class UserForm extends Component {
             password: this.state.password,
         };
         //console.log(sendParams);
-        console.log(sendParams.role);
+        //console.log(sendParams.role);
         this.props.save(sendParams)
     }
 

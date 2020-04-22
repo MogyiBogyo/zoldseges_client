@@ -28,7 +28,6 @@ class EditUser extends Component {
                     })
                 })
                 .catch((error) => {
-                    console.log("error ", error);
                     if (!!error.response && error.response.status === 404) {
                         this.setState({
                             user: false,
@@ -47,7 +46,6 @@ class EditUser extends Component {
                     successSave: true,
                 })
             }).catch((error) => {
-                console.log("error", error)
                 if (error.response.status === 400) {
                     this.setState({
                         serverError: true,

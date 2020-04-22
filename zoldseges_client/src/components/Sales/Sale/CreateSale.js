@@ -90,7 +90,6 @@ class CreateSale extends Component {
                                         successSave: true,
                                     })
                                 }).catch((error) => {
-                                    console.log("error", error)
                                     if (error.response.status === 400) {
                                         this.setState({
                                             serverError: true,
@@ -113,7 +112,6 @@ class CreateSale extends Component {
                                         successSave: true,
                                     })
                                 }).catch((error) => {
-                                    console.log("error", error)
                                     if (error.response.status === 400) {
                                         this.setState({
                                             serverError: true,
@@ -128,7 +126,6 @@ class CreateSale extends Component {
                                 });
                             }
                         }).catch((error) => {
-                            console.log("error", error)
                             if (error.response.status === 400) {
                                 this.setState({
                                     serverError: true,
@@ -143,7 +140,6 @@ class CreateSale extends Component {
                         });
                 }
             }).catch((error) => {
-                //console.log("error", error)
                 if (error.response.status === 409) {
                     this.setState({
                         serverError: true,
