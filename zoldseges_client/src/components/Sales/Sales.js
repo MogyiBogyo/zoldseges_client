@@ -19,8 +19,9 @@ class Sales extends Component {
         showDeleteQuestion: false,
         successDelete: false,
         deleteErrorText: "",
-        //product, db
+        //unique products
         uniqueSalesForChart: [],
+        colors: [],
         showChart: true
     }
 
@@ -45,13 +46,13 @@ class Sales extends Component {
                 uniqueSalesForChart: [...uniqueSales]
             })
             this.hendleQuantityCount();
+            this.colorGenerateHandler();
         }).catch(function (error) {
             this.setState({
                 serverError: true
             })
         });
     }
-
 
     handleDelete = () => {
         if (this.state.selectedSale) {
@@ -104,6 +105,27 @@ class Sales extends Component {
     }
 
 
+    colorGenerateHandler = () => {
+        let generatedColors = [];
+        this.state.uniqueSalesForChart.map((stock) => {
+            let obj = {};
+            let R = Math.floor(Math.random() * 255) + 1;
+            let G = Math.floor(Math.random() * 255) + 1;
+            let B = Math.floor(Math.random() * 255) + 1;
+            //console.log(R , G, B);
+            obj["r"] = R;
+            obj["g"] = G;
+            obj["b"] = B;
+            obj["opacity"] = 0.5;
+            generatedColors.push(obj);
+        })
+        //console.log(generatedColors);
+        this.setState({
+            colors: [...generatedColors]
+        });
+        //console.log(this.state.colors);
+    }
+
     render() {
         return (
             <>
@@ -113,11 +135,11 @@ class Sales extends Component {
                             <Link to={"/sales/new"} className={"btn btn-primary "} >
                                 + Új Eladás felvétele
                             </Link>
-                            <button 
-                            className={`btn btn-primary my-3 my-md-0 ${this.state.showChart ? "btn-info" : "btn-warning"}`} 
-                            onClick={() => this.setState({
-                                showChart: !this.state.showChart
-                            })}
+                            <button
+                                className={`btn btn-primary my-3 my-md-0 ${this.state.showChart ? "btn-info" : "btn-warning"}`}
+                                onClick={() => this.setState({
+                                    showChart: !this.state.showChart
+                                })}
                             >
                                 {
                                     this.state.showChart ? <>
@@ -196,38 +218,9 @@ class Sales extends Component {
                                     {
                                         label: "Eladások",
                                         data: [...this.state.uniqueSalesForChart.map((data) => data.quantity)],
-                                        backgroundColor: [
-                                            'rgba(255, 255, 102, 0.5)', //s
-                                            'rgba(236, 19, 19, 0.5)',   //p
-                                            'rgba(189, 102, 15, 0.5)',  //barna
-                                            'rgba(124, 179, 66, 0.5)', //zold
-                                            'rgba(30, 136, 229, 0.5)',  //kek
-                                            'rgba(94, 53, 177, 0.5)',  //lila
-                                            'rgba(255, 255, 102, 0.5)', //s
-                                            'rgba(236, 19, 19, 0.5)',   //p
-                                            'rgba(189, 102, 15, 0.5)',  //barna
-                                            'rgba(124, 179, 66, 0.5)', //zold
-                                            'rgba(30, 136, 229, 0.5)',  //kek
-                                            'rgba(94, 53, 177, 0.5)',
-
-                                        ],
-                                        borderColor: [
-                                            'rgba(230, 230, 0)', //sarga
-                                            'rgba(198, 57, 57)', //piros
-                                            'rgba(189, 102, 15)', //barna
-                                            'rgba(124, 179, 66,1)', //zold
-                                            'rgba(30, 136, 229, 1)', //kek
-                                            'rgba(94, 53, 177, 1)', //lila
-                                            'rgba(230, 230, 0)', //sarga
-                                            'rgba(198, 57, 57)', //piros
-                                            'rgba(189, 102, 15)', //barna
-                                            'rgba(124, 179, 66,1)', //zold
-                                            'rgba(30, 136, 229, 1)', //kek
-                                            'rgba(94, 53, 177, 1)',
-
-
-                                        ],
-                                        borderWidth: 3
+                                        backgroundColor: [...this.state.colors.map((color) => `rgba(${color.r} , ${color.g}, ${color.b}, 0.5)`)],
+                                        borderColor: [...this.state.colors.map((color) => `rgba(${color.r} , ${color.g}, ${color.b})`)],
+                                        borderWidth: 2
                                     }
                                 ]
                             }}

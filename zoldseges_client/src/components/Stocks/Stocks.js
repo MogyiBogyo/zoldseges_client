@@ -7,12 +7,13 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import "./Stocks.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 
 class Stocks extends Component {
     state = {
         stocks: [],
         chartStocks: [],
+        colors: [],
         selectedStock: null,
         serverError: false,
         deleteQuestion: false,
@@ -40,6 +41,7 @@ class Stocks extends Component {
                 stocks: [...fetchedStocks],
                 chartStocks: [...fetchedStocks]
             })
+            this.colorGenerateHandler();
         }).catch((error) => {
             this.setState({
                 serverError: true
@@ -79,7 +81,29 @@ class Stocks extends Component {
         }
     }
 
+    colorGenerateHandler = () => {
+        let generatedColors = [];
+        this.state.chartStocks.map((stock) => {
+            let obj = {};
+            let R = Math.floor(Math.random() * 255) + 1;
+            let G = Math.floor(Math.random() * 255) + 1;
+            let B = Math.floor(Math.random() * 255) + 1;
+            //console.log(R , G, B);
+            obj["r"] = R;
+            obj["g"] = G;
+            obj["b"] = B;
+            obj["opacity"] = 0.5;
+            generatedColors.push(obj);
+        })
+        //console.log(generatedColors);
+        this.setState({
+            colors: [...generatedColors]
+        });
+        //console.log(this.state.colors);
+    }
+
     render() {
+
         return (
             <>
                 <div className="row mx-0">
@@ -105,7 +129,7 @@ class Stocks extends Component {
                             </button>
                         </div>
                     </div>
-                    <div className={`col-12 ${this.state.showChart ? "col-md-8" : ""} order-2 order-md-1`}>
+                    <div className={`col-12 ${this.state.showChart ? "col-md-8" : "col-md-10 "} order-2 order-md-1`}>
                         <div className={"pl-0 pl-md-4"}>
                             <ul className="list-group">
                                 <li className="list-group-item d-none d-md-block">
@@ -150,35 +174,8 @@ class Stocks extends Component {
                                     {
                                         label: "Eladások",
                                         data: [...this.state.chartStocks.map((data) => data.quantity)],
-                                        backgroundColor: [
-                                            'rgba(255, 255, 102, 0.5)', //sárga
-                                            'rgba(236, 19, 19, 0.5)',   //piros
-                                            'rgba(189, 102, 15, 0.5)',  //barna
-                                            'rgba(124, 179, 66, 0.5)', //zold
-                                            'rgba(30, 136, 229, 0.5)',  //kek
-                                            'rgba(94, 53, 177, 0.5)',  //lila
-                                            'rgba(255, 255, 102, 0.5)', //sárga
-                                            'rgba(236, 19, 19, 0.5)',   //piros
-                                            'rgba(189, 102, 15, 0.5)',  //barna
-                                            'rgba(124, 179, 66, 0.5)', //zold
-                                            'rgba(30, 136, 229, 0.5)',  //kek
-                                            'rgba(94, 53, 177, 0.5)',   //lila
-
-                                        ],
-                                        borderColor: [
-                                            'rgba(230, 230, 0)', //sarga
-                                            'rgba(198, 57, 57)', //piros
-                                            'rgba(189, 102, 15)', //barna
-                                            'rgba(124, 179, 66,1)', //zold
-                                            'rgba(30, 136, 229, 1)', //kek
-                                            'rgba(94, 53, 177, 1)', //lila
-                                            'rgba(230, 230, 0)', //sarga
-                                            'rgba(198, 57, 57)', //piros
-                                            'rgba(189, 102, 15)', //barna
-                                            'rgba(124, 179, 66,1)', //zold
-                                            'rgba(30, 136, 229, 1)', //kek
-                                            'rgba(94, 53, 177, 1)', //lila
-                                        ],
+                                        backgroundColor: [...this.state.colors.map((color) => `rgba(${color.r} , ${color.g}, ${color.b}, 0.5)`)],
+                                        borderColor: [...this.state.colors.map((color) => `rgba(${color.r} , ${color.g}, ${color.b})`)],
                                         borderWidth: 3
                                     }
                                 ]
