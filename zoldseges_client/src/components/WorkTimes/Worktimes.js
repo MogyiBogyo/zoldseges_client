@@ -81,8 +81,8 @@ class Worktimes extends Component {
         event.preventDefault();
         var foundedWorktimes = [];
         this.state.worktimes.map((worktime) => {
-            let name = worktime.user.familyname + " " + worktime.user.givenname;
-            if (name.includes(event.target.value)) {
+            let name = (worktime.user.familyname + " " + worktime.user.givenname).toLowerCase();
+            if (name.includes((event.target.value).toLowerCase())) {
                 foundedWorktimes.push(worktime);
             }
             return worktime;
@@ -96,13 +96,13 @@ class Worktimes extends Component {
         console.log(this.state.filteredWorktimes, "filtered");*/
     }
 
-    handleClearFilter = () => {
-        if(!!this.searchRef){
+    FilterClearHandler = () => {
+        if (!!this.searchRef) {
             this.searchRef.value = "";
             this.setState({
                 filteredWorktimes: null
             })
-    
+
         }
     };
 
@@ -118,15 +118,18 @@ class Worktimes extends Component {
                         </div>
                         <div className="col-12 filter-list col-md-4 offset-md-4">
                             <form className={"d-flex w-100"}>
-                            {
-                                        this.state.filteredWorktimes ? 
-                                    <div className={"btn btn-danger"} onClick={() => this.handleClearFilter()}>
-                                        <FontAwesomeIcon icon={faTimes} /> 
-                                    </div>: null
-                                    }
-                                <fieldset className="form-group mb-0 w-100">                                                                    
-                                    <input type="text" className="form-control" ref={(elementRef) => this.searchRef = elementRef} placeholder="Keresés" onChange={this.filterHandler} />
+                                <fieldset className="form-group mb-0 w-100">
+                                    <input type="text"
+                                        className="form-control"
+                                        ref={(elementRef) => this.searchRef = elementRef}
+                                        placeholder="Keresés" onChange={this.filterHandler} />
                                 </fieldset>
+                                {
+                                    this.state.filteredWorktimes ?
+                                        <div className={"btn btn-danger"} onClick={() => this.FilterClearHandler()}>
+                                            <FontAwesomeIcon icon={faTimes} />
+                                        </div> : null
+                                }
                             </form>
                         </div>
                     </div>

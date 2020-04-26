@@ -3,8 +3,13 @@ import axios from '../../axios-products';
 import Income from './Income/Income';
 import { Link } from 'react-router-dom';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class Incomes extends Component {
+
+    searchRef = null
+
     state = {
         incomes: [],
         filteredIncomes: [],
@@ -39,7 +44,7 @@ class Incomes extends Component {
             })
 
         });
-    }
+    };
 
 
     handleDelete = () => {
@@ -71,15 +76,15 @@ class Incomes extends Component {
                     }
                 });
         }
-    }
+    };
 
 
     filterHandler = (event) => {
         event.preventDefault();
         var foundedIncomes = [];
         this.state.incomes.map((income) => {
-
-            if (income.product.name.includes(event.target.value)) {
+            let productName = (income.product.name).toLowerCase();
+            if (productName.includes((event.target.value).toLowerCase())) {
                 foundedIncomes.push(income);
             }
         });
@@ -88,24 +93,47 @@ class Incomes extends Component {
             filteredIncomes: [...foundedIncomes]
         })
 
-    }
+    };
+
+    filterClearHandler= () => {
+        if(!!this.searchRef){
+            this.searchRef.value = "";
+            this.setState({
+                filteredIncomes: null
+            })
+    
+        }
+    };
+
 
 
     render() {
         return (
             <>
                 <div className={"mx-5"}>
-                    <div className="row my-3">
-                        <div className="col-12 col-md-5">
+                    <div className="row my-3 align-items-center">
+                        <div className="col-12 col-md-4">
                             <Link to={"/incomes/new"} className={"btn btn-primary"} >
                                 + Új árubevétel felvétele
                             </Link>
                         </div>
-                        <div className="filter-list col-md-5" style={{ width: "200px" }}>
-                            <form>
-                                <fieldset className="form-group">
-                                    <input type="text" className="form-control " placeholder="Keresés" onChange={this.filterHandler} />
+                        <div className="col-12 filter-list col-md-4 offset-md-4" >
+                            <form className={"d-flex w-100"}>
+                                
+                                <fieldset className="form-group mb-0 w-100">
+                                    <input type="text" 
+                                    className="form-control" 
+                                    placeholder="Keresés"
+                                    ref={(elementRef) => this.searchRef = elementRef}
+                                    onChange={this.filterHandler} />
                                 </fieldset>
+                                {
+                                    this.state.filteredIncomes ?
+                                        <div className={"btn btn-danger"} onClick={() => this.filterClearHandler()}>
+                                            <FontAwesomeIcon icon={faTimes} />
+                                        </div> : null
+
+                                }
                             </form>
                         </div>
                     </div>

@@ -13,7 +13,6 @@ class Sales extends Component {
 
     state = {
         sales: [],
-        loading: false,
         selectedSale: null,
         serverError: false,
         deleteQuestion: false,
@@ -27,8 +26,6 @@ class Sales extends Component {
 
     componentDidMount() {
         this.getSales();
-
-
     }
 
 
@@ -45,8 +42,7 @@ class Sales extends Component {
             uniqueSales.map((unique) => unique.quantity = 0);
             this.setState({
                 sales: [...fetchedSales],
-                uniqueSalesForChart: [...uniqueSales],
-                loading: false
+                uniqueSalesForChart: [...uniqueSales]
             })
             this.hendleQuantityCount();
         }).catch(function (error) {
@@ -111,7 +107,6 @@ class Sales extends Component {
     render() {
         return (
             <>
-
                 <div className={"row mx-0"}>
                     <div className="col-12 my-4">
                         <div className={"pl-0 pl-md-4  flex-wrap d-flex align-items-center justify-content-between"}>
@@ -150,12 +145,12 @@ class Sales extends Component {
                                         <div className="col-12 col-md-2">
                                             <b>
                                                 Mennyiség
-                                        </b>
+                                            </b>
                                         </div>
                                         <div className="col-12 col-md-2 ">
                                             <b>
                                                 Ár
-                                        </b>
+                                            </b>
                                         </div>
                                         <div className="col-12 col-md-2 ">
                                             <b>
