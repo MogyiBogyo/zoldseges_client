@@ -27,7 +27,8 @@ class UserForm extends Component {
                 familyname: this.props.user.familyname,
                 givenname: this.props.user.givenname,
                 email: this.props.user.email,
-                role: this.props.user.role
+                role: this.props.user.role,
+                password: this.props.user.password
             })
         }
     }
@@ -88,7 +89,7 @@ class UserForm extends Component {
         }
         //save
         const sendParams = {
-            
+
             familyname: this.state.familyname,
             givenname: this.state.givenname,
             username: this.state.username,
@@ -187,10 +188,11 @@ class UserForm extends Component {
                 <div className="form-group">
                     <label >Jogosultság</label>
                     <select
-                        className={`form-control ${this.state.roleError ? "invalid" : ""} `} 
+                        className={`form-control ${this.state.roleError ? "invalid" : ""} `}
                         onChange={(e) => this.setState({
                             role: e.target.value
                         })}>
+                        <option value="" selected disabled hidden >Válasszon jogosultságot</option>
                         <option value={"ROLE_ADMIN"}
                             key={1}
                             selected={!!this.state.role && this.state.role === "ROLE_ADMIN" ? "selected:" : ""}

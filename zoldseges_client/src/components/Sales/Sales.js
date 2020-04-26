@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import _ from 'lodash';
 import { HorizontalBar } from 'react-chartjs-2';
-
+import "./Sales.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
 
 class Sales extends Component {
 
@@ -19,7 +21,8 @@ class Sales extends Component {
         successDelete: false,
         deleteErrorText: "",
         //product, db
-        uniqueSalesForChart: []
+        uniqueSalesForChart: [],
+        showChart: true
     }
 
     componentDidMount() {
@@ -108,67 +111,138 @@ class Sales extends Component {
     render() {
         return (
             <>
-                <div className={"mx-5"}>
-                    <div className="row my-3">
-                        <div className="col-12">
-                            <Link to={"/sales/new"} className={"btn btn-primary"} >
+
+                <div className={"row mx-0"}>
+                    <div className="col-12 my-4">
+                        <div className={"pl-0 pl-md-4  flex-wrap d-flex align-items-center justify-content-between"}>
+                            <Link to={"/sales/new"} className={"btn btn-primary "} >
                                 + Új Eladás felvétele
                             </Link>
+                            <button 
+                            className={`btn btn-primary my-3 my-md-0 ${this.state.showChart ? "btn-info" : "btn-warning"}`} 
+                            onClick={() => this.setState({
+                                showChart: !this.state.showChart
+                            })}
+                            >
+                                {
+                                    this.state.showChart ? <>
+                                        <FontAwesomeIcon icon={faEyeSlash} className="mr-2" />
+                                    Diagram elrejtése
+                                   </> : <>
+                                            <FontAwesomeIcon icon={faEye} className="mr-2" />
+                                   Diagram megjelenítése
+                                   </>
+                                }
+                            </button>
                         </div>
                     </div>
-                    <ul className="list-group">
-                        <li className="list-group-item d-none d-md-block">
-                            <div className="row">
-                                <div className="col-12 col-md-2">
-                                    <b>
-                                        Termék
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-2">
-                                    <b>
-                                        Mennyiség
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-2 ">
-                                    <b>
-                                        Ár
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-2 ">
-                                    <b>
-                                        Vevő
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-2">
-                                    <b>
-                                        Dátum
-                                    </b>
-                                </div>
-                                <div className="col-12 col-md-2  d-flex justify-content-center ">
-                                    <b>
-                                        Művelet
-                                    </b>
-                                </div>
-                            </div>
-                        </li>
-                        {this.state.sales.map(sale => (
-                            <Sale
-                                key={sale.id}
-                                id={sale.id}
-                                date={sale.date}
-                                buyer={sale.buyer}
-                                price={sale.price}
-                                quantity={sale.quantity}
-                                product={sale.product}
-                                showDeleteQuestion={() => this.setState({
-                                    showDeleteQuestion: true,
-                                    selectedSale: sale
-                                })}
+                    <div className={`col-12 ${this.state.showChart ? "col-md-8" : ""} order-2 order-md-1`}>
+                        <div className={"pl-0 pl-md-4"}>
+
+                            <ul className="list-group">
+                                <li className="list-group-item d-none d-md-block">
+                                    <div className="row">
+                                        <div className="col-12 col-md-2">
+                                            <b>
+                                                Termék
+                                        </b>
+                                        </div>
+                                        <div className="col-12 col-md-2">
+                                            <b>
+                                                Mennyiség
+                                        </b>
+                                        </div>
+                                        <div className="col-12 col-md-2 ">
+                                            <b>
+                                                Ár
+                                        </b>
+                                        </div>
+                                        <div className="col-12 col-md-2 ">
+                                            <b>
+                                                Vevő
+                                        </b>
+                                        </div>
+                                        <div className="col-12 col-md-2">
+                                            <b>
+                                                Dátum
+                                        </b>
+                                        </div>
+                                        <div className="col-12 col-md-2  d-flex justify-content-center ">
+                                            <b>
+                                                Művelet
+                                        </b>
+                                        </div>
+                                    </div>
+                                </li>
+                                {this.state.sales.map(sale => (
+                                    <Sale
+                                        key={sale.id}
+                                        id={sale.id}
+                                        date={sale.date}
+                                        buyer={sale.buyer}
+                                        price={sale.price}
+                                        quantity={sale.quantity}
+                                        product={sale.product}
+                                        showDeleteQuestion={() => this.setState({
+                                            showDeleteQuestion: true,
+                                            selectedSale: sale
+                                        })}
+
+                                    />
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className={`col-12 col-md-4 order-1 order-md-2 ${!this.state.showChart ? "d-none" : ""}`}>
+                        <div className={"sticky-chart"}>
+                            <HorizontalBar data={{
+                                labels: [...this.state.uniqueSalesForChart.map((data) => data.product.name)],
+                                datasets: [
+                                    {
+                                        label: "Eladások",
+                                        data: [...this.state.uniqueSalesForChart.map((data) => data.quantity)],
+                                        backgroundColor: [
+                                            'rgba(255, 255, 102, 0.5)', //s
+                                            'rgba(236, 19, 19, 0.5)',   //p
+                                            'rgba(189, 102, 15, 0.5)',  //barna
+                                            'rgba(124, 179, 66, 0.5)', //zold
+                                            'rgba(30, 136, 229, 0.5)',  //kek
+                                            'rgba(94, 53, 177, 0.5)',  //lila
+                                            'rgba(255, 255, 102, 0.5)', //s
+                                            'rgba(236, 19, 19, 0.5)',   //p
+                                            'rgba(189, 102, 15, 0.5)',  //barna
+                                            'rgba(124, 179, 66, 0.5)', //zold
+                                            'rgba(30, 136, 229, 0.5)',  //kek
+                                            'rgba(94, 53, 177, 0.5)',
+
+                                        ],
+                                        borderColor: [
+                                            'rgba(230, 230, 0)', //sarga
+                                            'rgba(198, 57, 57)', //piros
+                                            'rgba(189, 102, 15)', //barna
+                                            'rgba(124, 179, 66,1)', //zold
+                                            'rgba(30, 136, 229, 1)', //kek
+                                            'rgba(94, 53, 177, 1)', //lila
+                                            'rgba(230, 230, 0)', //sarga
+                                            'rgba(198, 57, 57)', //piros
+                                            'rgba(189, 102, 15)', //barna
+                                            'rgba(124, 179, 66,1)', //zold
+                                            'rgba(30, 136, 229, 1)', //kek
+                                            'rgba(94, 53, 177, 1)',
+
+
+                                        ],
+                                        borderWidth: 3
+                                    }
+                                ]
+                            }}
 
                             />
-                        ))}
-                    </ul>
+                        </div>
+
+                    </div>
                 </div>
+
                 <SweetAlert
                     danger
                     show={this.state.serverError}
@@ -215,52 +289,7 @@ class Sales extends Component {
                     }
                 </SweetAlert>
 
-                <div className={"col-12 col-md-5 d-flex align-items-center"}>
 
-                    <HorizontalBar data={{
-                        labels: [...this.state.uniqueSalesForChart.map((data) => data.product.name)],
-                        datasets: [
-                            {
-                                label: "Eladások",
-                                data: [...this.state.uniqueSalesForChart.map((data) => data.quantity)],
-                                backgroundColor: [
-                                    'rgba(255, 255, 102, 0.5)', //s
-                                    'rgba(236, 19, 19, 0.5)',   //p
-                                    'rgba(189, 102, 15, 0.5)',  //barna
-                                    'rgba(124, 179, 66, 0.5)', //zold
-                                    'rgba(30, 136, 229, 0.5)',  //kek
-                                    'rgba(94, 53, 177, 0.5)',  //lila
-                                    'rgba(255, 255, 102, 0.5)', //s
-                                    'rgba(236, 19, 19, 0.5)',   //p
-                                    'rgba(189, 102, 15, 0.5)',  //barna
-                                    'rgba(124, 179, 66, 0.5)', //zold
-                                    'rgba(30, 136, 229, 0.5)',  //kek
-                                    'rgba(94, 53, 177, 0.5)',
-                                    
-                                ],
-                                borderColor: [
-                                    'rgba(230, 230, 0)', //sarga
-                                    'rgba(198, 57, 57)', //piros
-                                    'rgba(189, 102, 15)', //barna
-                                    'rgba(124, 179, 66,1)', //zold
-                                    'rgba(30, 136, 229, 1)', //kek
-                                    'rgba(94, 53, 177, 1)', //lila
-                                    'rgba(230, 230, 0)', //sarga
-                                    'rgba(198, 57, 57)', //piros
-                                    'rgba(189, 102, 15)', //barna
-                                    'rgba(124, 179, 66,1)', //zold
-                                    'rgba(30, 136, 229, 1)', //kek
-                                    'rgba(94, 53, 177, 1)',
-                                   
-                                    
-                                ],
-                                borderWidth: 3
-                            }
-                        ]
-                    }}
-
-                    />
-                </div>
             </>
 
         );

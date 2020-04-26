@@ -3,8 +3,13 @@ import axios from '../../axios-products';
 import Worktime from './WorkTime/Worktime';
 import { Link } from 'react-router-dom';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class Worktimes extends Component {
+
+    searchRef = null
+
     state = {
         worktimes: [],
         filteredWorktimes: [],
@@ -91,20 +96,36 @@ class Worktimes extends Component {
         console.log(this.state.filteredWorktimes, "filtered");*/
     }
 
+    handleClearFilter = () => {
+        if(!!this.searchRef){
+            this.searchRef.value = "";
+            this.setState({
+                filteredWorktimes: null
+            })
+    
+        }
+    };
+
     render() {
         return (
             <>
                 <div className={"mx-5"}>
-                    <div className="row my-3">
-                        <div className="col-md-5">
+                    <div className="row my-3 align-items-center">
+                        <div className="col-12 col-md-4">
                             <Link to={"/worktimes/new"} className={"btn btn-primary"} >
                                 + Új beosztás felvétele
                             </Link>
                         </div>
-                        <div className="filter-list col-md-5" style={{ width: "200px" }}>
-                            <form>
-                                <fieldset className="form-group">
-                                    <input type="text" className="form-control " placeholder="Keresés" onChange={this.filterHandler} />
+                        <div className="col-12 filter-list col-md-4 offset-md-4">
+                            <form className={"d-flex w-100"}>
+                            {
+                                        this.state.filteredWorktimes ? 
+                                    <div className={"btn btn-danger"} onClick={() => this.handleClearFilter()}>
+                                        <FontAwesomeIcon icon={faTimes} /> 
+                                    </div>: null
+                                    }
+                                <fieldset className="form-group mb-0 w-100">                                                                    
+                                    <input type="text" className="form-control" ref={(elementRef) => this.searchRef = elementRef} placeholder="Keresés" onChange={this.filterHandler} />
                                 </fieldset>
                             </form>
                         </div>
