@@ -45,7 +45,7 @@ class Sales extends Component {
                 sales: [...fetchedSales],
                 uniqueSalesForChart: [...uniqueSales]
             })
-            this.hendleQuantityCount();
+            this.handleQuantityCount();
             this.colorGenerateHandler();
         }).catch(function (error) {
             this.setState({
@@ -86,7 +86,7 @@ class Sales extends Component {
     }
 
 
-    hendleQuantityCount = () => {
+    handleQuantityCount = () => {
         let salesCopy = [...this.state.sales];
         let uniqueSalesCopy = [...this.state.uniqueSalesForChart];
 
@@ -97,11 +97,9 @@ class Sales extends Component {
                 }
             }
         }
-        //console.log(uniqueSalesCopy);
         this.setState({
             uniqueSalesForChart: [...uniqueSalesCopy]
         });
-        //console.log(this.state.uniqueSalesForChart, "state");
     }
 
 
@@ -112,18 +110,15 @@ class Sales extends Component {
             let R = Math.floor(Math.random() * 255) + 1;
             let G = Math.floor(Math.random() * 255) + 1;
             let B = Math.floor(Math.random() * 255) + 1;
-            //console.log(R , G, B);
             obj["r"] = R;
             obj["g"] = G;
             obj["b"] = B;
             obj["opacity"] = 0.5;
             generatedColors.push(obj);
         })
-        //console.log(generatedColors);
         this.setState({
             colors: [...generatedColors]
         });
-        //console.log(this.state.colors);
     }
 
     render() {
@@ -139,8 +134,7 @@ class Sales extends Component {
                                 className={`btn btn-primary my-3 my-md-0 ${this.state.showChart ? "btn-info" : "btn-warning"}`}
                                 onClick={() => this.setState({
                                     showChart: !this.state.showChart
-                                })}
-                            >
+                                })}>
                                 {
                                     this.state.showChart ? <>
                                         <FontAwesomeIcon icon={faEyeSlash} className="mr-2" />

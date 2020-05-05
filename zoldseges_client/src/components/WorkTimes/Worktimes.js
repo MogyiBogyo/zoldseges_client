@@ -107,6 +107,8 @@ class Worktimes extends Component {
     };
 
     render() {
+        const loggedUserRole = localStorage.getItem("loggedUserRole");
+        const isAdmin = loggedUserRole === "ROLE_ADMIN";
         return (
             <>
                 <div className={"mx-5"}>
@@ -133,34 +135,37 @@ class Worktimes extends Component {
                             </form>
                         </div>
                     </div>
-                    <ul className="list-group">
+                    <div className="row">
+                        <div className={`col-12 ${ isAdmin ? "col-md-12" : "col-md-8 offset-md-2"}`}>
+                        <ul className="list-group">
                         <li className="list-group-item d-none d-md-block">
                             <div className="row">
-                                <div className="col-12 col-md-2">
+                                <div className={`col-12 ${isAdmin? "col-md-3": "col-md-3"}`}>
                                     <b>
                                         Dolgozó
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-2">
+                                <div className={`col-12 ${isAdmin? "col-md-3": "col-md-3"}`}>
                                     <b>
                                         Dátum
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-2 ">
+                                <div className={`col-12 ${isAdmin? "col-md-2": "col-md-3"}`}>
                                     <b>
                                         Műszak kezdés
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-3">
+                                <div className={`col-12 ${isAdmin? "col-md-2": "col-md-3"}`}>
                                     <b>
                                         Műszak vége
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-1  ">
-                                    <b>
-                                        Művelet
-                                    </b>
-                                </div>
+                                {loggedUserRole === "ROLE_ADMIN" ?
+                                    <div className="col-12 col-md-1  ">
+                                        <b>
+                                            Művelet
+                                        </b>
+                                    </div> : null}
                             </div>
                         </li>
                         {!!this.state.filteredWorktimes ? this.state.filteredWorktimes.map(worktime => (
@@ -192,6 +197,8 @@ class Worktimes extends Component {
                         ))}
 
                     </ul>
+                        </div>
+                    </div>
                 </div>
                 <SweetAlert
                     danger

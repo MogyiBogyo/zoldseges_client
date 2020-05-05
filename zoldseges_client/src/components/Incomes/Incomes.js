@@ -119,7 +119,6 @@ class Incomes extends Component {
                         </div>
                         <div className="col-12 filter-list col-md-4 offset-md-4" >
                             <form className={"d-flex w-100"}>
-                                
                                 <fieldset className="form-group mb-0 w-100">
                                     <input type="text" 
                                     className="form-control" 
@@ -132,7 +131,6 @@ class Incomes extends Component {
                                         <div className={"btn btn-danger"} onClick={() => this.filterClearHandler()}>
                                             <FontAwesomeIcon icon={faTimes} />
                                         </div> : null
-
                                 }
                             </form>
                         </div>
