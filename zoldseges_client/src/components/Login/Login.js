@@ -70,7 +70,7 @@ class Login extends Component {
             console.log(localStorage.getItem("loggedUserRole"));
             navigateToCustomPath("/stocks");
         })
-            .catch(reason => console.log("axios error", reason));
+            .catch(error => console.log("axios error", error));
     };
 
 

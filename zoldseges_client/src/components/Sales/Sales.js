@@ -121,6 +121,37 @@ class Sales extends Component {
         });
     }
 
+    sortArray = (type) => {
+        let unsorteSales = [...this.state.sales];
+        switch (type) {
+            case "date":
+                this.setState({
+                    sales: [...unsorteSales.sort((a, b) => (a.date > b.date) ? 1 : (a.date === b.date) ? ((a.product.name > b.product.name) ? 1 : -1) : -1)]
+                });
+                break;
+            case "product":
+                this.setState({
+                    sales: [...unsorteSales.sort((a, b) => (a.product.name > b.product.name) ? 1 : (a.product.name === b.product.name) ? ((a.date > b.date) ? 1 : -1) : -1)]
+                });
+                break;
+            case "quantity":
+                this.setState({
+                    sales: [...unsorteSales.sort((a, b) => (a.quantity > b.quantity) ? 1 : (a.quantity === b.quantity) ? ((a.product.name > b.product.name) ? 1 : -1) : -1)]
+                });
+                break;
+            case "price":
+                this.setState({
+                    sales: [...unsorteSales.sort((a, b) => (a.price > b.price) ? 1 : (a.price === b.price) ? ((a.product.name > b.product.name) ? 1 : -1) : -1)]
+                });
+                break;
+            case "buyer":
+                this.setState({
+                    sales: [...unsorteSales.sort((a, b) => (a.buyer > b.buyer) ? 1 : (a.buyer === b.buyer) ? ((a.date > b.date) ? 1 : -1) : -1)]
+                });
+                break;
+        }
+    }
+
     render() {
         return (
             <>
@@ -153,32 +184,32 @@ class Sales extends Component {
                             <ul className="list-group">
                                 <li className="list-group-item d-none d-md-block">
                                     <div className="row">
-                                        <div className="col-12 col-md-2">
+                                        <div onClick={() => this.sortArray("product")} className="col-12 col-md-2">
                                             <b>
                                                 Termék
                                         </b>
                                         </div>
-                                        <div className="col-12 col-md-2">
+                                        <div onClick={() => this.sortArray("quantity")} className="col-12 col-md-2">
                                             <b>
                                                 Mennyiség
                                             </b>
                                         </div>
-                                        <div className="col-12 col-md-2 ">
+                                        <div onClick={() => this.sortArray("price")} className="col-12 col-md-2 d-flex justify-content-center ">
                                             <b>
                                                 Ár
                                             </b>
                                         </div>
-                                        <div className="col-12 col-md-2 ">
+                                        <div onClick={() => this.sortArray("buyer")} className="col-12 col-md-2 ">
                                             <b>
                                                 Vevő
                                         </b>
                                         </div>
-                                        <div className="col-12 col-md-2">
+                                        <div onClick={() => this.sortArray("date")} className="col-12 col-md-2">
                                             <b>
                                                 Dátum
                                         </b>
                                         </div>
-                                        <div className="col-12 col-md-2  d-flex justify-content-center ">
+                                        <div className="col-12 col-md-2 d-flex justify-content-center ">
                                             <b>
                                                 Művelet
                                         </b>

@@ -106,7 +106,37 @@ class Worktimes extends Component {
         }
     };
 
+
+    sortArray = (type) => {
+        let unsortedWorktimes = [...this.state.worktimes];
+        switch (type) {
+            case "date":
+                this.setState({
+                    worktimes: [...unsortedWorktimes.sort((a, b) => (a.date > b.date) ? 1 : (a.date === b.date) ? ((a.user.username > b.user.username)? 1: -1) : -1)]
+                });
+                break;
+            case "user":
+                this.setState({
+                    worktimes: [...unsortedWorktimes.sort((a, b) => (a.user.username > b.user.username) ? 1 : (a.user.username === b.user.username) ? ((a.date > b.date)? 1 : -1) : -1)]
+                });
+                break;
+            case "start":
+                this.setState({
+                    worktimes: [...unsortedWorktimes.sort((a, b) => (a.startHour > b.startHour) ? 1 : (a.startHour === b.startHour) ? ((a.date > b.date)? 1 : -1) :  -1)]
+                });
+                break;
+            case "end":
+                this.setState({
+                    worktimes: [...unsortedWorktimes.sort((a, b) => (a.endHour > b.endHour) ? 1 : (a.endHour === b.endHour) ? ((a.date > b.date)? 1 : -1) : -1)]
+                });
+                break;
+        }
+
+    }
+
     render() {
+
+
         const loggedUserRole = localStorage.getItem("loggedUserRole");
         const isAdmin = loggedUserRole === "ROLE_ADMIN";
         return (
@@ -136,67 +166,71 @@ class Worktimes extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className={`col-12 ${ isAdmin ? "col-md-12" : "col-md-8 offset-md-2"}`}>
-                        <ul className="list-group">
-                        <li className="list-group-item d-none d-md-block">
-                            <div className="row">
-                                <div className={`col-12 ${isAdmin? "col-md-3": "col-md-3"}`}>
-                                    <b>
-                                        Dolgozó
-                                    </b>
-                                </div>
-                                <div className={`col-12 ${isAdmin? "col-md-3": "col-md-3"}`}>
-                                    <b>
-                                        Dátum
-                                    </b>
-                                </div>
-                                <div className={`col-12 ${isAdmin? "col-md-2": "col-md-3"}`}>
-                                    <b>
-                                        Műszak kezdés
-                                    </b>
-                                </div>
-                                <div className={`col-12 ${isAdmin? "col-md-2": "col-md-3"}`}>
-                                    <b>
-                                        Műszak vége
-                                    </b>
-                                </div>
-                                {loggedUserRole === "ROLE_ADMIN" ?
-                                    <div className="col-12 col-md-1  ">
-                                        <b>
-                                            Művelet
+                        <div className={`col-12 ${isAdmin ? "col-md-12" : "col-md-8 offset-md-2"}`}>
+                            <ul className="list-group">
+                                <li className="list-group-item d-none d-md-block">
+                                    <div className="row">
+                                        <div onClick={() => this.sortArray("user")}
+                                            className={`col-12 ${isAdmin ? "col-md-3" : "col-md-3"}`}>
+                                            <b>
+                                                Dolgozó
+                                            </b>
+                                        </div>
+                                        <div onClick={() => this.sortArray("date")}
+                                            className={`col-12 ${isAdmin ? "col-md-3" : "col-md-3"}`}>
+                                            <b>
+                                                Dátum
+                                            </b>
+                                        </div>
+                                        <div onClick={() => this.sortArray("start")}
+                                            className={`col-12 ${isAdmin ? "col-md-2" : "col-md-3"}`}>
+                                            <b>
+                                                Műszak kezdés
+                                         </b>
+                                        </div>
+                                        <div onClick={() => this.sortArray("end")}
+                                            className={`col-12 ${isAdmin ? "col-md-2" : "col-md-3"}`}>
+                                            <b>
+                                                Műszak vége
+                                            </b>
+                                        </div>
+                                        {loggedUserRole === "ROLE_ADMIN" ?
+                                            <div className="col-12 col-md-1  ">
+                                                <b>
+                                                    Művelet
                                         </b>
-                                    </div> : null}
-                            </div>
-                        </li>
-                        {!!this.state.filteredWorktimes ? this.state.filteredWorktimes.map(worktime => (
-                            <Worktime
-                                key={worktime.id}
-                                id={worktime.id}
-                                date={worktime.date}
-                                user={worktime.user}
-                                startHour={worktime.startHour}
-                                endHour={worktime.endHour}
-                                showDeleteQuestion={() => this.setState({
-                                    showDeleteQuestion: true,
-                                    selectedWorktime: worktime
-                                })}
-                            />
-                        )) : this.state.worktimes.map(worktime => (
-                            <Worktime
-                                key={worktime.id}
-                                id={worktime.id}
-                                date={worktime.date}
-                                user={worktime.user}
-                                startHour={worktime.startHour}
-                                endHour={worktime.endHour}
-                                showDeleteQuestion={() => this.setState({
-                                    showDeleteQuestion: true,
-                                    selectedWorktime: worktime
-                                })}
-                            />
-                        ))}
+                                            </div> : null}
+                                    </div>
+                                </li>
+                                {!!this.state.filteredWorktimes ? this.state.filteredWorktimes.map(worktime => (
+                                    <Worktime
+                                        key={worktime.id}
+                                        id={worktime.id}
+                                        date={worktime.date}
+                                        user={worktime.user}
+                                        startHour={worktime.startHour}
+                                        endHour={worktime.endHour}
+                                        showDeleteQuestion={() => this.setState({
+                                            showDeleteQuestion: true,
+                                            selectedWorktime: worktime
+                                        })}
+                                    />
+                                )) : this.state.worktimes.map(worktime => (
+                                    <Worktime
+                                        key={worktime.id}
+                                        id={worktime.id}
+                                        date={worktime.date}
+                                        user={worktime.user}
+                                        startHour={worktime.startHour}
+                                        endHour={worktime.endHour}
+                                        showDeleteQuestion={() => this.setState({
+                                            showDeleteQuestion: true,
+                                            selectedWorktime: worktime
+                                        })}
+                                    />
+                                ))}
 
-                    </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>

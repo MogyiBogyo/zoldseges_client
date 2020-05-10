@@ -80,6 +80,27 @@ class Categories extends Component {
         }
     }
 
+    sortArray = (type) => {
+        let unsortedCategories = [...this.state.categories];
+        switch (type) {
+            case "name":
+                this.setState({
+                    categories: [...unsortedCategories.sort((a, b) => (a.name > b.name) ? 1 : -1)]
+                });
+                break;
+            case "isSale":
+                this.setState({
+                    categories: [...unsortedCategories.sort((a, b) => (a.isSale > b.isSale) ? 1 : (a.isSale === b.isSale) ? ((a.name > b.name) ? 1 : -1) : -1)]
+                });
+                break;
+            case "salePrice":
+                this.setState({
+                    categories: [...unsortedCategories.sort((a, b) => (a.salePrice > b.salePrice) ? 1 : (a.salePrice === b.salePrice) ? ((a.name > b.name) ? 1 : -1) : -1)]
+                });
+                break;
+        }
+    }
+
     render() {
 
         return (
@@ -97,28 +118,25 @@ class Categories extends Component {
                             <li className="list-group-item d-none d-md-block">
                                 <div className="row">
 
-                                    <div className="col-12 col-md-4">
+                                    <div onClick={() => this.sortArray("name")} className="col-12 col-md-4">
                                         <b>
                                             Név:
-                                </b>
-
+                                        </b>
                                     </div>
-                                    <div className="col-12 col-md-2 ">
+                                    <div onClick={() => this.sortArray("isSale")} className="col-12 col-md-2 ">
                                         <b>
                                             Akciós
-                                </b>
-
+                                    </b>
                                     </div>
-                                    <div className="col-12 col-md-3">
+                                    <div onClick={() => this.sortArray("salePrice")} className="col-12 col-md-3">
                                         <b>
                                             Akciós ár
-                                </b>
-
+                                    </b>
                                     </div>
                                     <div className="col-12 col-md-3">
                                         <b>
                                             Műveletek
-                                </b>
+                                    </b>
                                     </div>
                                 </div>
                             </li>

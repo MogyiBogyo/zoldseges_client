@@ -69,7 +69,22 @@ class Plannedorders extends Component {
         }
     }
 
+    sortArray = (type) => {
+        let unsortedPlans = [...this.state.plannedorders];
+        switch (type) {
+            case "product":
+                this.setState({
+                    plannedorders: [...unsortedPlans.sort((a, b) => (a.product.name > b.product.name) ? 1 : -1)]
+                });
+                break;
+            case "quantity":
+                this.setState({
+                    plannedorders: [...unsortedPlans.sort((a, b) => (a.quantity > b.quantity) ? 1 : -1)]
+                });
+                break;
+        }
 
+    }
 
     render() {
         return (
@@ -87,20 +102,20 @@ class Plannedorders extends Component {
                             <ul className="list-group">
                                 <li className="list-group-item d-none d-md-block">
                                     <div className="row">
-                                        <div className="col-12 col-md-5">
+                                        <div onClick={() => this.sortArray("product")} className="col-12 col-md-5">
                                             <b>
                                                 Termék
-                                    </b>
+                                            </b>
                                         </div>
-                                        <div className="col-12 col-md-4 ">
+                                        <div onClick={() => this.sortArray("quantity")} className="col-12 col-md-4 ">
                                             <b>
                                                 Mennyiség
-                                    </b>
+                                            </b>
                                         </div>
                                         <div className="col-12 col-md-3 d-flex justify-content-center ">
                                             <b>
                                                 Művelet
-                                    </b>
+                                            </b>
                                         </div>
                                     </div>
                                 </li>

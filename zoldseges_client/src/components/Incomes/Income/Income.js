@@ -29,7 +29,7 @@ const income = (props) => {
                     </span>
                     {props.price} Ft
                 </div>
-                <div className="col-12 col-md-3 d-flex align-items-center justify-content-between">
+                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         Eladó:
                     </span>
@@ -41,7 +41,7 @@ const income = (props) => {
                     </span>
                     {date}
                 </div>
-                <div className="col-12 col-md-1 d-flex align-items-center justify-content-between">
+                <div className="col-12 col-md-2 d-flex align-items-center justify-content-between">
                     <span className="d-inline-block d-md-none">
                         Müvelet
                     </span>

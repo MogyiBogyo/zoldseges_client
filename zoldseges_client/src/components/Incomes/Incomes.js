@@ -24,7 +24,10 @@ class Incomes extends Component {
 
     componentDidMount() {
         this.getIncomes();
+
     }
+
+
 
     getIncomes = () => {
         axios().get("incomes/").then(response => {
@@ -95,19 +98,49 @@ class Incomes extends Component {
 
     };
 
-    filterClearHandler= () => {
-        if(!!this.searchRef){
+    filterClearHandler = () => {
+        if (!!this.searchRef) {
             this.searchRef.value = "";
             this.setState({
                 filteredIncomes: null
             })
-    
+
         }
     };
 
-
+    sortArray = (type) => {
+        let unsorteIncomes = [...this.state.incomes];
+        switch (type) {
+            case "date":
+                this.setState({
+                    incomes: [...unsorteIncomes.sort((a, b) => (a.date > b.date) ? 1 : (a.date === b.date) ? ((a.product.name > b.product.name) ? 1 : -1) : -1)]
+                });
+                break;
+            case "product":
+                this.setState({
+                    incomes: [...unsorteIncomes.sort((a, b) => (a.product.name > b.product.name) ? 1 : (a.product.name === b.product.name) ? ((a.date > b.date) ? 1 : -1) : -1)]
+                });
+                break;
+            case "quantity":
+                this.setState({
+                    incomes: [...unsorteIncomes.sort((a, b) => (a.quantity > b.quantity) ? 1 : (a.quantity === b.quantity) ? ((a.product.name > b.product.name) ? 1 : -1) : -1)]
+                });
+                break;
+            case "price":
+                this.setState({
+                    incomes: [...unsorteIncomes.sort((a, b) => (a.price > b.price) ? 1 : (a.price === b.price) ? ((a.product.name > b.product.name) ? 1 : -1) : -1)]
+                });
+                break;
+            case "seller":
+                this.setState({
+                    incomes: [...unsorteIncomes.sort((a, b) => (a.seller > b.seller) ? 1 : (a.seller === b.seller) ? ((a.product.name > b.product.name) ? 1 : -1) : -1)]
+                });
+                break;
+        }
+    }
 
     render() {
+
         return (
             <>
                 <div className={"mx-5"}>
@@ -120,11 +153,11 @@ class Incomes extends Component {
                         <div className="col-12 filter-list col-md-4 offset-md-4" >
                             <form className={"d-flex w-100"}>
                                 <fieldset className="form-group mb-0 w-100">
-                                    <input type="text" 
-                                    className="form-control" 
-                                    placeholder="Keresés"
-                                    ref={(elementRef) => this.searchRef = elementRef}
-                                    onChange={this.filterHandler} />
+                                    <input type="text"
+                                        className="form-control"
+                                        placeholder="Keresés"
+                                        ref={(elementRef) => this.searchRef = elementRef}
+                                        onChange={this.filterHandler} />
                                 </fieldset>
                                 {
                                     this.state.filteredIncomes ?
@@ -138,32 +171,32 @@ class Incomes extends Component {
                     <ul className="list-group">
                         <li className="list-group-item d-none d-md-block">
                             <div className="row">
-                                <div className="col-12 col-md-2">
-                                    <b>
+                                <div onClick={() => this.sortArray("product")} className="col-12 col-md-2">
+                                    <b >
                                         Termék
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-2">
+                                <div onClick={() => this.sortArray("quantity")} className="col-12 col-md-2">
                                     <b>
                                         Mennyiség
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-2 ">
+                                <div onClick={() => this.sortArray("price")} className="col-12 col-md-2">
                                     <b>
                                         Ár
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-3">
+                                <div onClick={() => this.sortArray("seller")} className="col-12 col-md-2">
                                     <b>
                                         Eladó
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-2">
+                                <div onClick={() => this.sortArray("date")} className="col-12 col-md-2">
                                     <b>
                                         Dátum
                                     </b>
                                 </div>
-                                <div className="col-12 col-md-1  ">
+                                <div className="col-12 col-md-2 d-flex justify-content-center">
                                     <b>
                                         Művelet
                                     </b>

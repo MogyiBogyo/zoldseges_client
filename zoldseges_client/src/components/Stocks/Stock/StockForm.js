@@ -48,6 +48,16 @@ class StockForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         // validate
+        if (this.state.product === null) {
+            this.setState({
+                productError: true,
+            });
+            return
+        } else {
+            this.setState({
+                productError: false,
+            })
+        }
         if (this.state.quantity === "") {
             this.setState({
                 quantityerror: true,
@@ -59,16 +69,7 @@ class StockForm extends Component {
             })
         }
 
-        if (this.state.product === null) {
-            this.setState({
-                productError: true,
-            });
-            return
-        } else {
-            this.setState({
-                productError: false,
-            })
-        }
+        
 
         //save
         const sendParams = {
