@@ -56,7 +56,7 @@ class EditSale extends Component {
                 } else {
                     this.setState({
                         serverError: true,
-                        serverErrorText: "Ismeretlen szerver hiva"
+                        serverErrorText: "Ismeretlen szerver hiba"
                     })
                 }
 

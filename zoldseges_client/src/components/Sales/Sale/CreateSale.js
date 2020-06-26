@@ -180,7 +180,7 @@ class CreateSale extends Component {
                         <div className="col-12 col-md-8 offset-md-2">
                             <div className="card">
                                 <div className="card-header">
-                                    Új árubevétel felvétele
+                                    Új eladás felvétele
                                 </div>
                                 <div className="card-body">
                                     <SaleForm save={(data) => this.handleSave(data)} />

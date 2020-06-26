@@ -40,7 +40,7 @@ class Login extends Component {
         const token = Buffer.from(`${this.state.username}:${this.state.password}`, 'utf8').toString('base64')
 
         /* Send to backend the credentials */
-        console.log(this.state.username + '    ' + this.state.password);
+        //console.log(this.state.username + '    ' + this.state.password);
         axios.post(process.env.REACT_APP_BACKEND_URL + "/users/login", {
             auth: {
                 username: this.state.username,
@@ -56,7 +56,7 @@ class Login extends Component {
             }
         }
         ).then(value => {
-            console.log(value)
+            //console.log(value)
             /* if get token save data for handle role */
             localStorage.setItem("loggedUser", token);
             if (!!value.data.role) {
@@ -67,7 +67,7 @@ class Login extends Component {
 
             }
             /* Redirect to  first page */
-            console.log(localStorage.getItem("loggedUserRole"));
+            //console.log(localStorage.getItem("loggedUserRole"));
             navigateToCustomPath("/stocks");
         })
             .catch(error => console.log("axios error", error));
