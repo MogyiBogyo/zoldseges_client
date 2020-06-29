@@ -30,7 +30,7 @@ class SaleForm extends Component {
                 quantity: this.props.sale.quantity,
                 product: this.props.sale.product.id,
                 buyer: !!this.props.sale.buyer ? this.props.sale.buyer : "",
-                date: moment(this.props.sale.date).format("YYYY-MM-DD").toString(),
+                date: moment(this.props.sale.date).toDate(),
                 price: this.props.sale.price
             })
         }
@@ -219,9 +219,8 @@ class SaleForm extends Component {
                     <div><label htmlFor="date">Dátum</label></div>
                     <DatePicker
                         showPopperArrow={false}
-                        selected=""
+                        selected={this.state.date}
                         onChange={(date) => this.setStartDate(date)}
-                        value={this.state.date}
                         dateFormat={"yyyy-MMM-dd"}
                     />
                 </div>

@@ -96,11 +96,11 @@ class EditIncome extends Component {
                                     : null
                             }
                             {
-                                !!this.state.income ?
+                                !!this.state.income  ?
                                     <div className="card">
                                         <div className="card-header">
                                             Árubevétel szerkesztése
-                                    </div>
+                                        </div>
                                         <div className="card-body">
                                             <IncomeForm
                                                 save={(sendParams) => this.handleSave(sendParams)}

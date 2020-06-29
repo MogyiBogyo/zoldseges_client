@@ -29,7 +29,7 @@ class WorktimeForm extends Component {
                 user: this.props.worktime.user.id,
                 startHour: this.props.worktime.startHour,
                 endHour: this.props.worktime.endHour,
-                date: moment(this.props.worktime.date).format("YYYY-MM-DD").toString(),
+                date: moment(this.props.worktime.date).toDate(),
             })
         }
         this.getUsers();
@@ -241,9 +241,8 @@ class WorktimeForm extends Component {
                     <div><label htmlFor="date">Dátum</label></div>
                     <DatePicker
                         showPopperArrow={false}
-                        selected=""
+                        selected={this.state.date}
                         onChange={(date) => this.setStartDate(date)}
-                        value={this.state.date}
                         dateFormat={"yyyy-MMM-dd"}
                     />
                 </div>

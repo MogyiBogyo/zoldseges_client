@@ -31,7 +31,7 @@ class IncomeForm extends Component {
                 quantity: this.props.income.quantity,
                 product: this.props.income.product.id,
                 seller: this.props.income.seller,
-                date: moment(this.props.income.date).format("YYYY-MM-DD").toString(),
+                date: moment(this.props.income.date).toDate(),
                 price: this.props.income.price
             })
         }
@@ -220,9 +220,8 @@ class IncomeForm extends Component {
                     <div><label htmlFor="date">Dátum</label></div>
                     <DatePicker
                         showPopperArrow={false}
-                        selected=""
-                        onChange={(date) => this.setStartDate(date)}
-                        value={this.state.date}
+                        selected={this.state.date}
+                        onChange={(date) => this.setStartDate(date)}                    
                         dateFormat={"yyyy-MMM-dd"}
                     />
                 </div>
