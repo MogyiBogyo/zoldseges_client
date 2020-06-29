@@ -94,7 +94,7 @@ function App() {
 
 
         <LoggedInRoute exact path="/worktimes" component={Worktimes} />
-        <LoggedInRoute exact path="/worktimes/new" role="ROLE_ADMIN" component={CreateWorktime} />
+        <LoggedInRoute exact path="/worktimes/new"  component={CreateWorktime} />
         <LoggedInRoute exact path="/worktimes/edit/:id"  role="ROLE_ADMIN" component={EditWorktime} />
 
 
